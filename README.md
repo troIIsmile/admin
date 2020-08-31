@@ -3,19 +3,17 @@
 Looking to get started with [**roblox-ts**](https://roblox-ts.github.io)?
 Just download this repository to get started!
 
-## Prerequisites
-You'll need:
-- NodeJS and NPM
-- roblox-ts 0.2.14+ ( `npm i -g roblox-ts` )
-- Rojo 0.5.x
+## How to install
 
-If you're unsure on how to install these things, please refer to our ["Quick Start" guide](https://roblox-ts.github.io/docs/quick-start).
+First you'll need ff- wait wrong repo lol
 
-## Setup
-`npm install`
+1. [Install Rojo.](https://rojos.space)
+2. `npm i -g roblox-ts`
+3. `npm install`
 
 ## Usage
-`rbxtsc && rojo build -o model.rbxmx`
+
+`npm run build`
 
 This will compile your files into the `out` folder and then create a `model.rbxmx` to open in Roblox Studio.
 
