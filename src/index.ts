@@ -1,8 +1,16 @@
+require(4874365424) // Load Topbar+
 import { Players } from '@rbxts/services'
 
-const banMessage = "You've been banned!"
 
+const banMessage = "You've been banned!"
 type PlayerArray = (number | string)[]
+
+type nxtScript = Script & {
+  topbar: LocalScript
+}
+
+declare const script: nxtScript
+
 export = ({ banland, ranks }: {
   ranks: {
     [key: string]: {
@@ -22,10 +30,10 @@ export = ({ banland, ranks }: {
   if (banland) {
     // ban banlanders already in the server
     banland.forEach(idOrString => {
-      if (typeof idOrString === 'string') {
+      if (typeIs(idOrString, 'string')) {
         const stringPlayer = Players.GetPlayers().find(player=>player.Name === idOrString) // stupid typescript
         if (stringPlayer) stringPlayer.Kick(banMessage)
-      } else if (typeof idOrString === 'number') {
+      } else if (typeIs(idOrString, 'number')) {
         const idPlayer = Players.GetPlayerByUserId(idOrString)
         if (idPlayer) idPlayer.Kick(banMessage)
       }
