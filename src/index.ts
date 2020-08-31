@@ -8,10 +8,12 @@ type PlayerArray = (number | string)[]
 type nxtScript = Script & {
   topbar: LocalScript
   Parent: Instance
+  include: Folder
 }
 
 declare const script: nxtScript
 const giveTopbar = coroutine.wrap((plr: Player) => {
+  script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
   script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
 })
 
