@@ -56,11 +56,3 @@ function load ({ banland, ranks }: {
 }
 
 export = load
-
-if (script.Parent.IsA('ServerScriptService')) {
-  load({
-    banland: [
-      1528148746 // ban glock lol
-    ]
-  })
-}
