@@ -1,22 +1,31 @@
 require(4874365424) // Load Topbar+
 import { Players } from '@rbxts/services'
+import handler from 'handler'
+import { Bot, CommandObj } from 'types'
 
 
 const banMessage = "You've been banned!"
 type PlayerArray = (number | string)[]
 
-type nxtScript = Script & {
+declare const script: Script & {
   topbar: LocalScript
   Parent: Instance
   include: Folder
+  commands: Folder & {
+    [key: string]: ModuleScript
+  }
 }
 
-declare const script: nxtScript
 const giveTopbar = coroutine.wrap((plr: Player) => {
   script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
   script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
 })
 
+function addHandler (plr: Player, bot: Bot) {
+  plr.Chatted.Connect((message, to) => {
+    handler(bot, plr, message, to)
+ })
+}
 
 function load ({ banland, ranks }: {
   // owner is automatically created and given to the owner. it has math.huge permission
@@ -31,6 +40,10 @@ function load ({ banland, ranks }: {
   // People who are perm-banned.
   banland?: PlayerArray
 }) {
+  const bot: Bot = {
+    commands: new Map,
+    aliases: new Map
+  }
   if (banland) {
     // ban banlanders already in the server
     banland.forEach(idOrString => {
@@ -50,6 +63,21 @@ function load ({ banland, ranks }: {
   Players.PlayerAdded.Connect(giveTopbar)
   Players.GetPlayers().forEach(giveTopbar)
 
+  // load handler
+  Players.PlayerAdded.Connect(plr=>addHandler(plr, bot))
+  Players.GetPlayers().forEach(plr=>addHandler(plr, bot))
+
+  // load commands
+  const scripts = script.commands.GetDescendants() as ModuleScript[]
+  scripts.forEach(scr => {
+    const command = require(script.commands[scr.Name]) as CommandObj
+    bot.commands.set(scr.Name, command)
+    if (command.aliases) {
+      command.aliases.forEach(alias => {
+        bot.aliases.set(alias, scr.Name)
+      })
+    }
+  })
   // nxt api
   return {
     version: PKG_VERSION
