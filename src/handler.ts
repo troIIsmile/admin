@@ -11,7 +11,7 @@ declare const script: ModuleScript & {
 export = async (bot: Bot, plr: Player, content: string, to?: Player) => {
   const message = {
     author: plr,
-    channel: to || game,
+    channel: to,
     content
   }
   const name = [...bot.commands.keys(), ...bot.aliases.keys()].find(
