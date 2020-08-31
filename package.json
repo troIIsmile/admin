@@ -1,7 +1,7 @@
 {
-	"name": "roblox-ts-demo-model",
+	"name": "nxt-roblox",
 	"version": "1.0.0",
-	"description": "",
+	"description": "nxt for roblox",
 	"scripts": {
 		"build": "rbxtsc && rojo build -o model.rbxmx",
 		"release-major": "npm version major && git push && git push --tags",
@@ -10,16 +10,20 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/roblox-ts/demo-model.git"
+		"url": "git+https://github.com/NXTB0T/jackbot-next-next-next-next-next.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/roblox-ts/demo-model/issues"
+		"url": "https://github.com/NXTB0T/jackbot-next-next-next-next-next/issues"
 	},
-	"homepage": "https://github.com/roblox-ts/demo-model#readme",
+	"homepage": "https://github.com/NXTB0T/jackbot-next-next-next-next-next#readme",
 	"dependencies": {
-		"@rbxts/types": "^1.0.391"
+		"@rbxts/services": "^1.1.0",
+		"@rbxts/types": "^1.0.386"
+	},
+	"devDependencies": {
+		"roblox-ts": "0.3.2"
 	}
 }
