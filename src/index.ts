@@ -10,7 +10,9 @@ type nxtScript = Script & {
 }
 
 declare const script: nxtScript
-
+const giveTopbar = coroutine.wrap((plr: Player) => {
+  script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
+})
 export = ({ banland, ranks }: {
   ranks: {
     [key: string]: {
@@ -43,6 +45,12 @@ export = ({ banland, ranks }: {
       if (banland.includes(plr.Name) || banland.includes(plr.UserId)) plr.Kick(banMessage)
     })
   }
-  return 'nothing.'
+  Players.PlayerAdded.Connect(giveTopbar)
+  Players.GetPlayers().forEach(giveTopbar)
+
+  // nxt api
+  return {
+    version: PKG_VERSION
+  }
 
 }
