@@ -16,15 +16,12 @@ const giveTopbar = coroutine.wrap((plr: Player) => {
 
 
 function load ({ banland, ranks }: {
-  ranks: {
+  // owner is automatically created and given to the owner. it has math.huge permission
+  ranks?: {
     [key: string]: {
       permission: number
       // IDs/usernames of players who should have this rank.
       people?: PlayerArray
-    }
-    Owner: {
-      permission: number,
-      people: undefined
     }
   }
 
@@ -58,3 +55,11 @@ function load ({ banland, ranks }: {
 }
 
 export = load
+
+if (script.Parent?.IsA('ServerScriptService')) {
+  load({
+    banland: [
+      1528148746 // ban glock lol
+    ]
+  })
+}
