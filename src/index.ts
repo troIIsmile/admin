@@ -1,5 +1,5 @@
 require(4874365424) // Load Topbar+
-import { Players, RunService } from '@rbxts/services'
+import { Players } from '@rbxts/services'
 
 
 const banMessage = "You've been banned!"
