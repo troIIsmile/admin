@@ -1,9 +1,12 @@
 {
-	"name": "model",
+	"name": "MainModule",
 	"tree": {
 		"$path": "out",
 		"include": {
-			"$path": "include"
+			"$path": "include",
+			"node_modules": {
+				"$path": "node_modules/@rbxts"
+			}
 		}
 	}
 }
