@@ -1,5 +1,5 @@
 require(4874365424) // Load Topbar+
-import { Players } from '@rbxts/services'
+import { Players, RunService } from '@rbxts/services'
 
 
 const banMessage = "You've been banned!"
@@ -13,7 +13,9 @@ declare const script: nxtScript
 const giveTopbar = coroutine.wrap((plr: Player) => {
   script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
 })
-export = ({ banland, ranks }: {
+
+
+function load ({ banland, ranks }: {
   ranks: {
     [key: string]: {
       permission: number
@@ -28,7 +30,7 @@ export = ({ banland, ranks }: {
 
   // People who are perm-banned.
   banland?: PlayerArray
-}) => {
+}) {
   if (banland) {
     // ban banlanders already in the server
     banland.forEach(idOrString => {
@@ -54,3 +56,5 @@ export = ({ banland, ranks }: {
   }
 
 }
+
+export = load
