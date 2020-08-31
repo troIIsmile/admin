@@ -16,7 +16,7 @@ const giveTopbar = coroutine.wrap((plr: Player) => {
 })
 
 
-function load ({ banland, ranks }: {
+function load ({ banland = undefined, ranks }: {
   // owner is automatically created and given to the owner. it has math.huge permission
   ranks?: {
     [key: string]: {
