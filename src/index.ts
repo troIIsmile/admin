@@ -20,6 +20,7 @@ export = ({ banland, ranks }: {
   banland?: PlayerArray
 }) => {
   if (banland) {
+    // ban banlanders already in the server
     banland.forEach(idOrString => {
       if (typeof idOrString === 'string') {
         const stringPlayer = Players.GetPlayers().find(player=>player.Name === idOrString) // stupid typescript
@@ -28,6 +29,10 @@ export = ({ banland, ranks }: {
         const idPlayer = Players.GetPlayerByUserId(idOrString)
         if (idPlayer) idPlayer.Kick(banMessage)
       }
+    })
+    // ban incoming banlanders
+    Players.PlayerAdded.Connect(plr => {
+      if (banland.includes(plr.Name) || banland.includes(plr.UserId)) plr.Kick(banMessage)
     })
   }
   return 'nothing.'
