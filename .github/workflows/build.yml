@@ -12,11 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - uses: osyrisrblx/setup-rojo@v1
-        with:
-          version: 0.6.0-alpha.1
-
       - run: |
+          cargo install rojo
           sudo npm install -g roblox-ts
           npm install -D @rbxts/types
           npm run build
