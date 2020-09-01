@@ -44,14 +44,14 @@ const iconController: IconController = require(
 
 const icon = iconController.createIcon(
   'nxt',
-  5487056376, // replace this with nxt icon once i upload that
+  5637756932, // replace this with nxt icon once i upload that
   -100,
 )
 
 //icon.setToggleMenu(gui)
 icon.setRight()
 icon.deselectWhenOtherIconSelected = false
-icon.setTip('nxt for roblox')
+icon.setTip('nxt admin')
 let dropdown: Dropdown[] = [
   {
     name: "test",
