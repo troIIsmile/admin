@@ -27,8 +27,13 @@ function addHandler (plr: Player, bot: Bot, prefix: string) {
  })
 }
 
-function load ({ banland, ranks, prefix }: {
-  prefix: string
+function load ({ banland, ranks, prefix = ';'}: {
+  prefix?: string
+  /**
+   * Give owner to this person instead of the game owner.
+   * Use this when running nxt on a serverside. (Why would you do that?)
+   */
+  ss?: string
   /**
    * The default rank to give to players.
    * @default User
