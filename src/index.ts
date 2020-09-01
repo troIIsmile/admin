@@ -21,13 +21,15 @@ const giveTopbar = coroutine.wrap((plr: Player) => {
   script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
 })
 
-function addHandler (plr: Player, bot: Bot) {
+function addHandler (plr: Player, bot: Bot, prefix: string) {
   plr.Chatted.Connect((message, to) => {
-    handler(bot, plr, message, to)
+    handler(bot, prefix, plr, message, to)
  })
 }
 
-function load ({ banland, ranks }: {
+function load ({ banland, ranks, prefix }: {
+  prefix: string
+
   // owner is automatically created and given to the owner. it has math.huge permission
   ranks?: {
     [key: string]: {
@@ -64,8 +66,8 @@ function load ({ banland, ranks }: {
   Players.GetPlayers().forEach(giveTopbar)
 
   // load handler
-  Players.PlayerAdded.Connect(plr=>addHandler(plr, bot))
-  Players.GetPlayers().forEach(plr=>addHandler(plr, bot))
+  Players.PlayerAdded.Connect(plr=>addHandler(plr, bot, prefix))
+  Players.GetPlayers().forEach(plr=>addHandler(plr, bot, prefix))
 
   // load commands
   const scripts = script.commands.GetDescendants() as ModuleScript[]
