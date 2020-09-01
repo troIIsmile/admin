@@ -27,7 +27,7 @@ function addHandler (plr: Player, bot: Bot, prefix: string) {
   })
 }
 
-export function init ({ banland, overrideOwner, ranks, prefix = ';' }: {
+export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' }: {
   prefix?: string
   /**
    * Give owner to this person instead of the game owner.
@@ -35,10 +35,10 @@ export function init ({ banland, overrideOwner, ranks, prefix = ';' }: {
    */
   overrideOwner?: string | number
   /**
-   * The default rank to give to players.
-   * @default User
+   * The permission of Player (default rank).
+   * @default 0
    */
-  freeAdmin?: string
+  permission?: number
   // owner is automatically created and given to the owner. it has math.huge permission
   // user is automatically created and given to everyone. it has 0 permission
   ranks?: {
@@ -111,23 +111,31 @@ export function init ({ banland, overrideOwner, ranks, prefix = ';' }: {
       }
     })
   }
+
   // setup owner
   bot.ranks.set('Owner', {
     permission: math.huge
   })
 
-  function addOwner (plr: Player) {
+  // setup player
+  bot.ranks.set('Player', {
+    permission: permission || 0
+  })
+
+  function addRanks (plr: Player) {
     const isRealOwner = game.CreatorType === Enum.CreatorType.User
       ? game.CreatorId === plr.UserId // owned by player
       : plr.GetRankInGroup(game.CreatorId) === 255 // owned by group
     
     if ((isRealOwner && !overrideOwner) || plr.UserId === overrideOwner || plr.Name === overrideOwner) {
       bot.rankOf.set(plr, 'Owner')
+    } else {
+      bot.rankOf.set(plr, 'Player')
     }
   }
 
-  Players.GetPlayers().forEach(addOwner)
-  Players.PlayerAdded.Connect(addOwner)
+  Players.GetPlayers().forEach(addRanks)
+  Players.PlayerAdded.Connect(addRanks)
   // nxt api
   return bot
 }
