@@ -94,31 +94,6 @@ export function init ({ banland, overrideOwner, ranks, prefix = ';' }: {
     }
   })
 
-  // live adding/deleting
-  script.commands.DescendantAdded.Connect(scr => {
-    if (scr.IsA('ModuleScript')) {
-      const command = require(scr) as CommandObj
-      bot.commands.set(scr.Name, command)
-      if (command.aliases) {
-        command.aliases.forEach(alias => {
-          bot.aliases.set(alias, scr.Name)
-        })
-      }
-    }
-  })
-
-  script.commands.DescendantRemoving.Connect(scr => {
-    if (scr.IsA('ModuleScript')) {
-      const command = require(scr) as CommandObj
-      bot.commands.delete(scr.Name)
-      if (command.aliases) {
-        command.aliases.forEach(alias => {
-          bot.aliases.delete(alias)
-        })
-      }
-    }
-  })
-
   // load ranks
   if (ranks) {
     bot.ranks = new Map(Object.entries(ranks) as [string, { permission: number, people?: PlayerArray }][])
