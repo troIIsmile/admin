@@ -53,6 +53,7 @@ export function init ({ banland, overrideOwner, ranks, prefix = ';' }: {
   banland?: PlayerArray
 }) {
   const bot: Bot = {
+    version: PKG_VERSION,
     commands: new Map,
     aliases: new Map,
     ranks: new Map,
@@ -128,10 +129,7 @@ export function init ({ banland, overrideOwner, ranks, prefix = ';' }: {
   Players.GetPlayers().forEach(addOwner)
   Players.PlayerAdded.Connect(addOwner)
   // nxt api
-  return {
-    version: PKG_VERSION
-  }
-
+  return bot
 }
 
 

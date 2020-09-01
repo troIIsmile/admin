@@ -7,7 +7,18 @@ export interface Bot {
     permission: number
     people?: PlayerArray
   }>
+  /**
+   * The rank of a player.
+   * @example
+   * if (bot.rankOf.get(plr).permission === math.huge) {
+   *  print(`Player ${plr.Name} is the owner!`)
+   * }
+   */
   rankOf: Map<Player, string>
+  /**
+   * The version of nxt.
+   */
+  version: string
 }
 
 export interface Message {
