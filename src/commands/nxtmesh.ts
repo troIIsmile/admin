@@ -12,6 +12,12 @@ export function run (message: Message) {
   const mesh = new Instance('SpecialMesh', part)
   mesh.MeshId = 'rbxassetid://5634485291'
   mesh.Scale = new Vector3(0.9, 0.11, 1)
+
+    // Because of how we spawn in the nxt logo, the logo is stuck in the player. Let's fix that.
+  const hum = (message.author.Character as Model).FindFirstChildWhichIsA('Humanoid')
+  if (hum) {
+    hum.Jump = true
+  }
 }
 
 export const desc = 'spawns in a nxt logo'
