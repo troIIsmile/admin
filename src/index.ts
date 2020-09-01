@@ -29,8 +29,13 @@ function addHandler (plr: Player, bot: Bot, prefix: string) {
 
 function load ({ banland, ranks, prefix }: {
   prefix: string
-
+  /**
+   * The default rank to give to players.
+   * @default User
+   */
+  freeAdmin?: string
   // owner is automatically created and given to the owner. it has math.huge permission
+  // user is automatically created and given to everyone. it has 0 permission
   ranks?: {
     [key: string]: {
       permission: number
