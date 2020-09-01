@@ -24,16 +24,16 @@ const giveTopbar = coroutine.wrap((plr: Player) => {
 function addHandler (plr: Player, bot: Bot, prefix: string) {
   plr.Chatted.Connect((message, to) => {
     handler(bot, prefix, plr, message, to)
- })
+  })
 }
 
-function load ({ banland, ranks, prefix = ';'}: {
+export function init ({ banland, overrideOwner, ranks, prefix = ';' }: {
   prefix?: string
   /**
    * Give owner to this person instead of the game owner.
    * Use this when running nxt on a serverside. (Why would you do that?)
    */
-  ss?: string
+  overrideOwner?: string | number
   /**
    * The default rank to give to players.
    * @default User
@@ -54,13 +54,15 @@ function load ({ banland, ranks, prefix = ';'}: {
 }) {
   const bot: Bot = {
     commands: new Map,
-    aliases: new Map
+    aliases: new Map,
+    ranks: new Map,
+    rankOf: new Map
   }
   if (banland) {
     // ban banlanders already in the server
     banland.forEach(idOrString => {
       if (typeIs(idOrString, 'string')) {
-        const stringPlayer = Players.GetPlayers().find(player=>player.Name === idOrString) // stupid typescript
+        const stringPlayer = Players.GetPlayers().find(player => player.Name === idOrString) // stupid typescript
         if (stringPlayer) stringPlayer.Kick(banMessage)
       } else if (typeIs(idOrString, 'number')) {
         const idPlayer = Players.GetPlayerByUserId(idOrString)
@@ -76,8 +78,8 @@ function load ({ banland, ranks, prefix = ';'}: {
   Players.GetPlayers().forEach(giveTopbar)
 
   // load handler
-  Players.PlayerAdded.Connect(plr=>addHandler(plr, bot, prefix))
-  Players.GetPlayers().forEach(plr=>addHandler(plr, bot, prefix))
+  Players.PlayerAdded.Connect(plr => addHandler(plr, bot, prefix))
+  Players.GetPlayers().forEach(plr => addHandler(plr, bot, prefix))
 
   // load commands
   const scripts = script.commands.GetDescendants() as ModuleScript[]
@@ -90,6 +92,41 @@ function load ({ banland, ranks, prefix = ';'}: {
       })
     }
   })
+
+  // load ranks
+  if (ranks) {
+    bot.ranks = new Map(Object.entries(ranks) as [string, { permission: number, people?: PlayerArray }][])
+    Object.entries(ranks).forEach(([rankName, rank]) => {
+      if (rank.people) {
+        rank.people.forEach((idOrString) => {
+          if (typeIs(idOrString, 'string')) {
+            const stringPlayer = Players.GetPlayers().find(player => player.Name === idOrString) // stupid typescript
+            if (stringPlayer) bot.rankOf.set(stringPlayer, rankName as string)
+          } else if (typeIs(idOrString, 'number')) {
+            const idPlayer = Players.GetPlayerByUserId(idOrString)
+            if (idPlayer) bot.rankOf.set(idPlayer, rankName as string)
+          }
+        })
+      }
+    })
+  }
+  // setup owner
+  bot.ranks.set('Owner', {
+    permission: math.huge
+  })
+
+  function addOwner (plr: Player) {
+    const isRealOwner = game.CreatorType === Enum.CreatorType.User
+      ? game.CreatorId === plr.UserId // owned by player
+      : plr.GetRankInGroup(game.CreatorId) === 255 // owned by group
+    
+    if ((isRealOwner && !overrideOwner) || plr.UserId === overrideOwner || plr.Name === overrideOwner) {
+      bot.rankOf.set(plr, 'Owner')
+    }
+  }
+
+  Players.GetPlayers().forEach(addOwner)
+  Players.PlayerAdded.Connect(addOwner)
   // nxt api
   return {
     version: PKG_VERSION
@@ -97,4 +134,10 @@ function load ({ banland, ranks, prefix = ';'}: {
 
 }
 
-export = load
+
+export function ss (name: string) {
+  init({
+    prefix: ';',
+    overrideOwner: name
+  })
+}

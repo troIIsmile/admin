@@ -1,6 +1,13 @@
+export type PlayerArray = (number | string)[]
+
 export interface Bot {
   commands: Map<string, CommandObj>
   aliases: Map<string, string>
+  ranks: Map<string, {
+    permission: number
+    people?: PlayerArray
+  }>
+  rankOf: Map<Player, string>
 }
 
 export interface Message {
