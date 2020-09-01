@@ -30,7 +30,7 @@ export interface CommandObj {
   /**
    * code ran when the command is used.
    */
-  run: (message: Message, args: string[], bot: Bot) => string | void | Promise<string | void>
+  run: (message: Message, args: string[], bot: Bot, permission: number) => string | void | Promise<string | void>
   /**
    * you can use these instead of the filename
    */

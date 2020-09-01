@@ -36,7 +36,8 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, to?: Pla
         content
           .sub(prefix.size() + 1 + name.size()) // only the part after the command
           .split(' '), // split with spaces
-        bot // give em the bot
+        bot, // give em the bot
+        permission // give em the permission
       )
 
       if (output) {
