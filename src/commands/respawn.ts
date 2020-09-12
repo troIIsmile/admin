@@ -11,4 +11,4 @@ export function run (message: Message, args: string[]) {
 
 export const desc = 'respawn people i guess'
 export const permission = 2
-export const aliases = []
+export const aliases = ['re', 'refresh']
