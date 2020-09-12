@@ -1,7 +1,7 @@
 import { Message } from 'types'
 
 export function run (message: Message, args: string[]) {
-  if (args.size()) {
+  if (args.join('').size()) {
     // todo
   } else {
     const hum = message.author.WaitForChild('Character').FindFirstAncestorWhichIsA('Humanoid')
