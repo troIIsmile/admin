@@ -81,19 +81,6 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
   // load ranks
   if (ranks) {
     bot.ranks = new Map(Object.entries(ranks) as [string, { permission: number, people?: PlayerArray }][])
-    Object.entries(ranks).forEach(([rankName, rank]) => {
-      if (rank.people) {
-        rank.people.forEach((idOrString) => {
-          if (typeIs(idOrString, 'string')) {
-            const stringPlayer = Players.GetPlayers().find(player => player.Name === idOrString) // stupid typescript
-            if (stringPlayer) bot.rankOf.set(stringPlayer, rankName as string)
-          } else if (typeIs(idOrString, 'number')) {
-            const idPlayer = Players.GetPlayerByUserId(idOrString)
-            if (idPlayer) bot.rankOf.set(idPlayer, rankName as string)
-          }
-        })
-      }
-    })
   }
 
   // setup owner
@@ -134,7 +121,12 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
     if ((isRealOwner && !overrideOwner) || plr.UserId === overrideOwner || plr.Name === overrideOwner) {
       bot.rankOf.set(plr, 'Owner')
     } else {
-      bot.rankOf.set(plr, 'Player')
+      const rank = bot.ranks.entries().find(([, { people = [] }]) => people.includes(plr.UserId) || people?.includes(plr.Name))
+      if (rank) {
+        bot.rankOf.set(plr, rank[0])
+      } else {
+        bot.rankOf.set(plr, 'Player')
+      }
     }
   }
 
