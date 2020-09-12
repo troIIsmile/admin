@@ -143,6 +143,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
     if (welcome) {
       notifEv.FireClient(plr, {
         Title: 'Welcome!',
+        Icon: 'rbxassetid://3250824458'
         Text: `Your rank is ${bot.rankOf.get(plr)}!`
       }, sound)
     }
