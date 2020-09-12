@@ -21,7 +21,7 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, to?: Pla
   )
   // Run the command!
   if (name) {
-    const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(plr) || 'Player') || { permission: 0 }).permission || 0
+    const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(plr) as string) as {permission: number}).permission
     const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
       || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
       || (() => { }) // nothing
@@ -37,7 +37,7 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, to?: Pla
           .sub(prefix.size() + 1 + name.size()) // only the part after the command
           .split(' '), // split with spaces
         bot, // give em the bot
-        permission // give em the permission
+        permissionOfPlayer // give em the permission
       )
 
       if (output) {
