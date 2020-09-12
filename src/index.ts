@@ -30,7 +30,7 @@ function addHandler (plr: Player, bot: Bot, prefix: string) {
   })
 }
 
-export function init ({ banland, permission, overrideOwner, ranks, prefix = ';', welcome = true }: {
+export function init ({ banland, permission, overrideOwner, ranks, prefix = ';', welcome = true, sound = 1925504325 }: {
   prefix?: string
   /**
    * Give owner to this person instead of the game owner.
@@ -57,6 +57,9 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
 
   // Should the player be welcomed? Defaults to true.
   welcome?: boolean
+
+  // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
+  sound?: number
 }) {
   const bot: Bot = {
     version: PKG_VERSION,
@@ -66,7 +69,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
     rankOf: new Map
   }
   // add nxt folder
-  const notifEv: RemoteEvent<(notif: SendNotificationConfig) => void> = new Instance('RemoteEvent', ReplicatedStorage)
+  const notifEv: RemoteEvent<(notif: SendNotificationConfig, sound?: number) => void> = new Instance('RemoteEvent', ReplicatedStorage)
   notifEv.Name = 'nxt'
   Players.PlayerAdded.Connect(giveTopbar)
   Players.GetPlayers().forEach(giveTopbar)
@@ -141,7 +144,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
       notifEv.FireClient(plr, {
         Title: 'Welcome!',
         Text: `Your rank is ${bot.rankOf.get(plr)}!`
-      })
+      }, 1925504325)
     }
   }
 
