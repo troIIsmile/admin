@@ -21,5 +21,5 @@ export function run (message: Message) {
 }
 
 export const desc = 'spawns in a nxt logo'
-export const permission = 0
+export const permission = 1
 export const aliases = ['logo']
