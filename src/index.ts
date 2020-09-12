@@ -30,7 +30,7 @@ function addHandler (plr: Player, bot: Bot, prefix: string) {
   })
 }
 
-export function init ({ banland, permission, overrideOwner, ranks, prefix = ';', welcome = true, sound = 1925504325 }: {
+export function init ({ banland, permission, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992 }: {
   prefix?: string
   /**
    * Give owner to this person instead of the game owner.
