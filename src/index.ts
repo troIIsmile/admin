@@ -144,7 +144,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
       notifEv.FireClient(plr, {
         Title: 'Welcome!',
         Text: `Your rank is ${bot.rankOf.get(plr)}!`
-      }, 1925504325)
+      }, sound)
     }
   }
 
