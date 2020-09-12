@@ -121,7 +121,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
     if ((isRealOwner && !overrideOwner) || plr.UserId === overrideOwner || plr.Name === overrideOwner) {
       bot.rankOf.set(plr, 'Owner')
     } else {
-      const rank = bot.ranks.entries().find(([, { people = [] }]) => people.includes(plr.UserId) || people?.includes(plr.Name))
+      const rank = bot.ranks.entries().find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
       if (rank) {
         bot.rankOf.set(plr, rank[0])
       } else {

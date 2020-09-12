@@ -3,7 +3,7 @@
  * This code creates the button at the top right of the screen.
  */
 
-import { ReplicatedStorage as storage } from "@rbxts/services"
+import { ReplicatedStorage as storage, StarterGui } from "@rbxts/services"
 
 interface Dropdown {
   name: string
@@ -22,6 +22,7 @@ interface Icon {
   setMid (): void
   setRight (): void
   createDropdown (dropdown: Dropdown[]): void
+  selected: RBXScriptSignal
 }
 
 interface IconController {
@@ -61,5 +62,16 @@ let dropdown: Dropdown[] = [
     // icon: "rbxassetid://3250824458",
   },
 ]
-
+const btnev = new Instance('BindableFunction')
+btnev.OnInvoke = print
+icon.selected.Connect(() => {
+  icon.deselect()
+  StarterGui.SetCore('SendNotification', {
+    Text: 'nxt admin gui is not a thing yet',
+    Title: '😢',
+    Callback: btnev,
+    Button1: 'OK',
+    Button2: 'pls add'
+  })
+})
 icon.createDropdown(dropdown)
