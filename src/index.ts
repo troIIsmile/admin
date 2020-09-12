@@ -39,7 +39,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
    * @default 0
    */
   permission?: number
-  // owner is automatically created and given to the owner. it has 1e10 permission
+  // owner is automatically created and given to the owner. it has infinite permission
   // user is automatically created and given to everyone. it has 0 permission
   ranks?: {
     [key: string]: {
@@ -114,7 +114,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
 
   // setup owner
   bot.ranks.set('Owner', {
-    permission: 1e10
+    permission: math.huge
   })
 
   // setup player
