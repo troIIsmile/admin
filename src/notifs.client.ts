@@ -8,7 +8,7 @@ if (storage.nxt) {
     if (sound) {
       const sd = new Instance('Sound', SoundService)
       sd.Volume = 1
-      sd.SoundId = `rbxassetid//${sound}`
+      sd.SoundId = `rbxassetid://${sound}`
       sd.Play()
     }
   })
