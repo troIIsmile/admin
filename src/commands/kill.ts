@@ -4,7 +4,7 @@ export function run (message: Message, args: string[]) {
   if (args.join('').size()) {
     // todo
   } else {
-    const hum = message.author.WaitForChild('Character').FindFirstAncestorWhichIsA('Humanoid')
+    const hum = (message.author.Character || message.author.CharacterAdded.Wait()[0]).FindFirstAncestorWhichIsA('Humanoid')
     if (hum) {
       hum.ChangeState(Enum.HumanoidStateType.Dead)
     }
