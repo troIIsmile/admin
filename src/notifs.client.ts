@@ -6,9 +6,10 @@ if (storage.nxt) {
   storage.nxt.OnClientEvent.Connect((config, sound) => {
     StarterGui.SetCore('SendNotification', config)
     if (sound) {
-      const sd = new Instance('Sound')
+      const sd = new Instance('Sound', SoundService)
+      sd.Volume = 1
       sd.SoundId = `rbxassetid//${sound}`
-      SoundService.PlayLocalSound(sd)
+      sd.Play()
     }
   })
 }
