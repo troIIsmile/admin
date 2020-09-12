@@ -1,5 +1,5 @@
 require(4874365424) // Load Topbar+
-import { Players } from '@rbxts/services'
+import { Players, ReplicatedStorage } from '@rbxts/services'
 import handler from 'handler'
 import { Bot, CommandObj } from 'types'
 
@@ -11,14 +11,17 @@ declare const script: Script & {
   topbar: LocalScript
   Parent: Instance
   include: Folder
+  notifs: LocalScript
   commands: Folder & {
     [key: string]: ModuleScript
   }
 }
 
+
 const giveTopbar = coroutine.wrap((plr: Player) => {
   script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
   script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
+  script.notifs.Clone().Parent = plr.WaitForChild('PlayerGui')
 })
 
 function addHandler (plr: Player, bot: Bot, prefix: string) {
@@ -27,7 +30,7 @@ function addHandler (plr: Player, bot: Bot, prefix: string) {
   })
 }
 
-export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' }: {
+export function init ({ banland, permission, overrideOwner, ranks, prefix = ';', welcome = true }: {
   prefix?: string
   /**
    * Give owner to this person instead of the game owner.
@@ -51,6 +54,9 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
 
   // People who are perm-banned.
   banland?: PlayerArray
+
+  // Should the player be welcomed? Defaults to true.
+  welcome?: boolean
 }) {
   const bot: Bot = {
     version: PKG_VERSION,
@@ -59,6 +65,9 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
     ranks: new Map,
     rankOf: new Map
   }
+  // add nxt folder
+  const notifEv: RemoteEvent<(notif: SendNotificationConfig) => void> = new Instance('RemoteEvent', ReplicatedStorage)
+  notifEv.Name = 'nxt'
   Players.PlayerAdded.Connect(giveTopbar)
   Players.GetPlayers().forEach(giveTopbar)
 
@@ -117,7 +126,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
     const isRealOwner = game.CreatorType === Enum.CreatorType.User
       ? game.CreatorId === plr.UserId // owned by player
       : plr.GetRankInGroup(game.CreatorId) === 255 // owned by group
-    
+
     if ((isRealOwner && !overrideOwner) || plr.UserId === overrideOwner || plr.Name === overrideOwner) {
       bot.rankOf.set(plr, 'Owner')
     } else {
@@ -127,6 +136,12 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';' 
       } else {
         bot.rankOf.set(plr, 'Player')
       }
+    }
+    if (welcome) {
+      notifEv.FireClient(plr, {
+        Title: 'Welcome!',
+        Text: `Your rank is ${bot.rankOf.get(plr)}!`
+      })
     }
   }
 
