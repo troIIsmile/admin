@@ -4,6 +4,7 @@
 		"$path": "out",
 		"include": {
 			"$path": "include",
+			"$className": "Backpack",
 			"node_modules": {
 				"$path": "node_modules/@rbxts"
 			}
