@@ -133,9 +133,10 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
 
     // Give scripts
     coroutine.create(() => {
-      script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
-      script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
-      script.notifs.Clone().Parent = plr.WaitForChild('PlayerGui')
+      const gui = plr.WaitForChild('PlayerGui')
+      script.include.Clone().Parent = gui
+      script.topbar.Clone().Parent = gui
+      script.notifs.Clone().Parent = gui
     })
   }
 
