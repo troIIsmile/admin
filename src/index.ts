@@ -172,6 +172,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
 export function ss (name: string) {
   return init({
     prefix: ';',
-    overrideOwner: name
+    overrideOwner: name,
+    welcome: false // Be slient!
   })
 }
