@@ -1,7 +1,7 @@
-import { MessagingService, Players, TextService } from '@rbxts/services'
+import { MessagingService, Players } from '@rbxts/services'
 import { Message } from 'types'
 
-MessagingService.SubscribeAsync('GlobalMessageNxt', ({ Data: [text, author] }: { Data: [string, string]}) => {
+MessagingService.SubscribeAsync('GlobalMessageNxt', ({ Data: [text, author] }: { Data: [string, string] }) => {
   Players.GetPlayers().forEach(plr => {
     const gui = plr.FindFirstChild('PlayerGui') as PlayerGui | undefined
 
@@ -21,7 +21,7 @@ MessagingService.SubscribeAsync('GlobalMessageNxt', ({ Data: [text, author] }: {
 })
 
 export function run (message: Message, args: string[]) {
-  MessagingService.PublishAsync('GlobalMessageNxt', [TextService.FilterStringAsync(args.join(' '), message.author.UserId, Enum.TextFilterContext.PublicChat),message.author.Name])
+  MessagingService.PublishAsync('GlobalMessageNxt', [args.join(' '), message.author.Name])
 }
 
 export const desc = 'Display a message on every server.'
