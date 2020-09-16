@@ -18,7 +18,7 @@ declare const script: Script & {
 }
 
 
-const giveTopbar = coroutine.wrap((plr: Player) => {
+const giveScripts = coroutine.wrap((plr: Player) => {
   script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
   script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
   script.notifs.Clone().Parent = plr.WaitForChild('PlayerGui')
@@ -30,7 +30,15 @@ function addHandler (plr: Player, bot: Bot, prefix: string) {
   })
 }
 
+/**
+ * Initalize nxt.
+ * 
+ * @param settings The settings for nxt.
+ */
 export function init ({ banland, permission, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992 }: {
+  /**
+   * The prefix before each command.
+   */
   prefix?: string
   /**
    * Give owner to this person instead of the game owner.
@@ -71,8 +79,8 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
   // add nxt folder
   const notifEv: RemoteEvent<(notif: SendNotificationConfig, sound?: number) => void> = new Instance('RemoteEvent', ReplicatedStorage)
   notifEv.Name = 'nxt'
-  Players.PlayerAdded.Connect(giveTopbar)
-  Players.GetPlayers().forEach(giveTopbar)
+  Players.PlayerAdded.Connect(giveScripts)
+  Players.GetPlayers().forEach(giveScripts)
 
   // load handler
   Players.PlayerAdded.Connect(plr => addHandler(plr, bot, prefix))
@@ -157,9 +165,12 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
   return bot
 }
 
-
+/**
+ * Shorthand for overrideOwner, for your UTG.
+ * @param name The person to give owner. ID or username.
+ */
 export function ss (name: string) {
-  init({
+  return init({
     prefix: ';',
     overrideOwner: name
   })
