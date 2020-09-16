@@ -25,13 +25,7 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: n
     const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(plr) as string) as { permission: number }).permission
     const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
       || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
-      || (() => {
-        notifEv.FireClient(plr, {
-          Title: 'nxt',
-          Button1: 'Close',
-          Text: "Command not found!"
-        }, sound)
-      }) // nothing
+      || (() => {}) // nothing
 
     const permission = (bot.commands.get(name) || { permission: undefined }).permission // The command if it found it
       || (bot.commands.get(bot.aliases.get(name) || '') || { permission: undefined }).permission // Aliases
