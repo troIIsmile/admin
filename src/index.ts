@@ -129,8 +129,9 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
     const isRealOwner = game.CreatorType === Enum.CreatorType.User
       ? game.CreatorId === plr.UserId // owned by player
       : plr.GetRankInGroup(game.CreatorId) === 255 // owned by group
-
-    if ((isRealOwner && !overrideOwner) || plr.UserId === overrideOwner || plr.Name === overrideOwner) {
+    
+      
+    if (overrideOwner ? plr.UserId === overrideOwner || plr.Name === overrideOwner : isRealOwner) {
       bot.rankOf.set(plr, 'Owner')
     } else {
       const rank = bot.ranks.entries().find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
