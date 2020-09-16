@@ -1,5 +1,5 @@
 require(4874365424) // Load Topbar+
-import { Players, ReplicatedStorage } from '@rbxts/services'
+import { GroupService, Players, ReplicatedStorage } from '@rbxts/services'
 import handler from 'handler'
 import { Bot, CommandObj } from 'types'
 
@@ -18,24 +18,13 @@ declare const script: Script & {
 }
 
 
-const giveScripts = coroutine.wrap((plr: Player) => {
-  script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
-  script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
-  script.notifs.Clone().Parent = plr.WaitForChild('PlayerGui')
-})
-
-function addHandler (plr: Player, bot: Bot, prefix: string) {
-  plr.Chatted.Connect((message, to) => {
-    handler(bot, prefix, plr, message, to)
-  })
-}
 
 /**
  * Initalize nxt.
  * 
  * @param settings The settings for nxt.
  */
-export function init ({ banland, permission, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992 }: {
+export function init ({ banland = [], permission, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992 }: {
   /**
    * The prefix before each command.
    */
@@ -79,12 +68,7 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
   // add nxt folder
   const notifEv: RemoteEvent<(notif: SendNotificationConfig, sound?: number) => void> = new Instance('RemoteEvent', ReplicatedStorage)
   notifEv.Name = 'nxt'
-  Players.PlayerAdded.Connect(giveScripts)
-  Players.GetPlayers().forEach(giveScripts)
 
-  // load handler
-  Players.PlayerAdded.Connect(plr => addHandler(plr, bot, prefix))
-  Players.GetPlayers().forEach(plr => addHandler(plr, bot, prefix))
 
   // load commands
   const scripts = script.commands.GetDescendants() as ModuleScript[]
@@ -103,9 +87,13 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
     bot.ranks = new Map(Object.entries(ranks) as [string, { permission: number, people?: PlayerArray }][])
   }
 
+  const realOwner = game.CreatorType === Enum.CreatorType.User
+    ? game.CreatorId // owned by player
+    : GroupService.GetGroupInfoAsync(game.CreatorId).Owner.Id
   // setup owner
   bot.ranks.set('Owner', {
-    permission: math.huge
+    permission: math.huge,
+    people: [overrideOwner ? overrideOwner : realOwner]
   })
 
   // setup player
@@ -113,42 +101,32 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
     permission: permission || 0
   })
 
-  function setupBanland (banland: (number | string)[] = []) {
-    banland.forEach(idOrString => {
-      if (typeIs(idOrString, 'string')) {
-        const stringPlayer = Players.GetPlayers().find(player => player.Name === idOrString) // stupid typescript
-        if (stringPlayer)
-          stringPlayer.Kick(banMessage)
-      } else if (typeIs(idOrString, 'number')) {
-        const idPlayer = Players.GetPlayerByUserId(idOrString)
-        if (idPlayer)
-          idPlayer.Kick(banMessage)
-      }
-    })
-    // ban incoming banlanders
-    Players.PlayerAdded.Connect(plr => {
-      if (banland.includes(plr.Name) || banland.includes(plr.UserId))
-        plr.Kick(banMessage)
-    })
-  }
-  setupBanland(banland)
-
-  function addRanks (plr: Player) {
-    const isRealOwner = game.CreatorType === Enum.CreatorType.User
-      ? game.CreatorId === plr.UserId // owned by player
-      : plr.GetRankInGroup(game.CreatorId) === 255 // owned by group
-    
-      
-    if (overrideOwner ? plr.UserId === overrideOwner || plr.Name === overrideOwner : isRealOwner) {
-      bot.rankOf.set(plr, 'Owner')
+  function onPlr (plr: Player) {
+    // Give ranks
+    const rank = bot.ranks.entries().find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
+    if (rank) {
+      bot.rankOf.set(plr, rank[0])
     } else {
-      const rank = bot.ranks.entries().find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
-      if (rank) {
-        bot.rankOf.set(plr, rank[0])
-      } else {
-        bot.rankOf.set(plr, 'Player')
-      }
+      bot.rankOf.set(plr, 'Player')
     }
+
+    // Handler
+    plr.Chatted.Connect((message, to) => {
+      handler(bot, prefix, plr, message, to)
+    })
+
+    // Give scripts
+    coroutine.create(() => {
+      script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
+      script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
+      script.notifs.Clone().Parent = plr.WaitForChild('PlayerGui')
+    })
+
+    // Banland
+    if (banland.includes(plr.Name) || banland.includes(plr.UserId))
+      plr.Kick(banMessage)
+    
+    // Welcome player
     if (welcome) {
       notifEv.FireClient(plr, {
         Title: 'Welcome!',
@@ -159,8 +137,8 @@ export function init ({ banland, permission, overrideOwner, ranks, prefix = ';',
     }
   }
 
-  Players.GetPlayers().forEach(addRanks)
-  Players.PlayerAdded.Connect(addRanks)
+  Players.GetPlayers().forEach(onPlr)
+  Players.PlayerAdded.Connect(onPlr)
   // nxt api
   return bot
 }
