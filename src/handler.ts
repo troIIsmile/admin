@@ -1,3 +1,4 @@
+import notifEv from 'notify'
 import { Bot } from 'types'
 
 declare const script: ModuleScript & {
@@ -8,7 +9,7 @@ declare const script: ModuleScript & {
   }
 }
 
-export = async (bot: Bot, prefix: string, plr: Player, content: string, to?: Player) => {
+export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: number, to?: Player) => {
   const message = {
     author: plr,
     channel: to,
@@ -21,10 +22,16 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, to?: Pla
   )
   // Run the command!
   if (name) {
-    const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(plr) as string) as {permission: number}).permission
+    const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(plr) as string) as { permission: number }).permission
     const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
       || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
-      || (() => { }) // nothing
+      || (() => {
+        notifEv.FireClient(plr, {
+          Title: 'nxt',
+          Button1: 'Close',
+          Text: "Command not found!"
+        }, sound)
+      }) // nothing
 
     const permission = (bot.commands.get(name) || { permission: undefined }).permission // The command if it found it
       || (bot.commands.get(bot.aliases.get(name) || '') || { permission: undefined }).permission // Aliases
@@ -44,7 +51,11 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, to?: Pla
         print(output)
       }
     } else {
-      // Handle no permission error
+      notifEv.FireClient(plr, {
+        Title: 'nxt',
+        Button1: 'Close',
+        Text: "You do not have the permission to run this command."
+      }, sound)
     }
   }
 }

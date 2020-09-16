@@ -1,6 +1,7 @@
 require(4874365424) // Load Topbar+
-import { GroupService, Players, ReplicatedStorage } from '@rbxts/services'
+import { GroupService, Players } from '@rbxts/services'
 import handler from 'handler'
+import notifEv from 'notify'
 import { Bot, CommandObj } from 'types'
 
 
@@ -65,10 +66,6 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
     ranks: new Map,
     rankOf: new Map
   }
-  // add nxt folder
-  const notifEv: RemoteEvent<(notif: SendNotificationConfig, sound?: number) => void> = new Instance('RemoteEvent', ReplicatedStorage)
-  notifEv.Name = 'nxt'
-
 
   // load commands
   const scripts = script.commands.GetDescendants() as ModuleScript[]
@@ -112,7 +109,7 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
 
     // Handler
     plr.Chatted.Connect((message, to) => {
-      handler(bot, prefix, plr, message, to)
+      handler(bot, prefix, plr, message, sound, to)
     })
 
 
