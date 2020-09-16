@@ -103,7 +103,7 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
 
   function onPlr (plr: Player) {
     // Give ranks
-    const rank = bot.ranks.entries().find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
+    const rank = bot.ranks.entries().sort(([,first], [,second])=>first.permission > second.permission).find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
     if (rank) {
       bot.rankOf.set(plr, rank[0])
     } else {
