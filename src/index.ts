@@ -119,6 +119,13 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
     // Banland
     if (banland.includes(plr.Name) || banland.includes(plr.UserId))
       plr.Kick(banMessage)
+
+
+    // Give scripts
+    const gui = plr.WaitForChild('PlayerGui')
+    script.include.Clone().Parent = gui
+    script.topbar.Clone().Parent = gui
+    script.notifs.Clone().Parent = gui
     
     // Welcome player
     if (welcome) {
@@ -129,15 +136,6 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
         Button1: 'Close'
       }, sound)
     }
-
-
-    // Give scripts
-    coroutine.create(() => {
-      const gui = plr.WaitForChild('PlayerGui')
-      script.include.Clone().Parent = gui
-      script.topbar.Clone().Parent = gui
-      script.notifs.Clone().Parent = gui
-    })
   }
 
   Players.GetPlayers().forEach(onPlr)
