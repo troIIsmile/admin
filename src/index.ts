@@ -119,7 +119,7 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
     // Banland
     if (banland.includes(plr.Name) || banland.includes(plr.UserId))
       plr.Kick(banMessage)
-
+    
     // Welcome player
     if (welcome) {
       notifEv.FireClient(plr, {
@@ -132,9 +132,11 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
 
 
     // Give scripts
-    script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
-    script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
-    script.notifs.Clone().Parent = plr.WaitForChild('PlayerGui')
+    coroutine.create(() => {
+      script.include.Clone().Parent = plr.WaitForChild('PlayerGui')
+      script.topbar.Clone().Parent = plr.WaitForChild('PlayerGui')
+      script.notifs.Clone().Parent = plr.WaitForChild('PlayerGui')
+    })
   }
 
   Players.GetPlayers().forEach(onPlr)
