@@ -24,7 +24,7 @@ declare const script: Script & {
  * 
  * @param settings The settings for nxt.
  */
-export function init ({ banland = [], permission, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992 }: {
+export function init ({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992 }: {
   /**
    * The prefix before each command.
    */
@@ -98,7 +98,7 @@ export function init ({ banland = [], permission, overrideOwner, ranks, prefix =
 
   // setup player
   bot.ranks.set('Player', {
-    permission: permission || 0
+    permission
   })
 
   function onPlr (plr: Player) {
