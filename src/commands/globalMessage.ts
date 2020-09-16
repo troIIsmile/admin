@@ -14,7 +14,7 @@ MessagingService.SubscribeAsync('GlobalMessageNxt', ({ Data: [text, author] }: {
       label.TextColor3 = new Color3(1, 1, 1)
       label.BackgroundTransparency = 0.5
       label.Text = text + '\nfrom ' + author
-      wait(5)
+      wait(3 + text.size() / 30) // https://github.com/1ForeverHD/HDAdminV2/blob/61d8a9a960319bc27b53b25494048ae22892b014/MainModule/Client/SharedModules/SharedCoreFunctions.lua#L334
       alertGUI.Destroy()
     }
   })
