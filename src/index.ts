@@ -58,7 +58,7 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
 
   // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
   sound?: number
-}) {
+} = {}) {
   const bot: Bot = {
     version: PKG_VERSION,
     commands: new Map,
