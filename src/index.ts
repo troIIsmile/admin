@@ -87,10 +87,11 @@ export function init ({ banland = [], permission = 0, overrideOwner, ranks, pref
   const realOwner = game.CreatorType === Enum.CreatorType.User
     ? game.CreatorId // owned by player
     : GroupService.GetGroupInfoAsync(game.CreatorId).Owner.Id
+  
   // setup owner
   bot.ranks.set('Owner', {
     permission: math.huge,
-    people: [overrideOwner ? overrideOwner : realOwner]
+    people: [overrideOwner || realOwner]
   })
 
   // setup player
