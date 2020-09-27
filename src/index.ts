@@ -37,7 +37,7 @@ class NXT implements Bot {
     })
   }
 
-  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992 }: {
+  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loaddefault = true }: {
     /**
      * The prefix before each command.
      */
@@ -70,18 +70,22 @@ class NXT implements Bot {
 
     // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
     sound?: number
+    // Should nxt load the default commands? Defaults to true.
+    loaddefault?: boolean
   } = {}) {
     // load commands
-    const scripts = script.commands.GetDescendants() as ModuleScript[]
-    scripts.forEach(scr => {
-      const command = require(script.commands[scr.Name]) as CommandObj
-      this.commands.set(scr.Name, command)
-      if (command.aliases) {
-        command.aliases.forEach(alias => {
-          this.aliases.set(alias, scr.Name)
-        })
-      }
-    })
+    if (loaddefault) {
+      const scripts = script.commands.GetDescendants() as ModuleScript[]
+      scripts.forEach(scr => {
+        const command = require(script.commands[scr.Name]) as CommandObj
+        this.commands.set(scr.Name, command)
+        if (command.aliases) {
+          command.aliases.forEach(alias => {
+            this.aliases.set(alias, scr.Name)
+          })
+        }
+      })
+    }
     // load ranks
     if (ranks) {
       this.ranks = new Map(Object.entries(ranks) as [string, { permission: number, people?: PlayerArray }][])
