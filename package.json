@@ -1,6 +1,6 @@
 {
 	"name": "nxt-roblox",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "nxt for roblox",
 	"scripts": {
 		"build": "rbxtsc && rojo build -o model.rbxmx",
