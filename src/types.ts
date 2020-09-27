@@ -1,12 +1,14 @@
 export type PlayerArray = (number | string)[]
 
+export type Rank = {
+  permission: number
+  people?: PlayerArray
+}
+
 export interface Bot {
   commands: Map<string, CommandObj>
   aliases: Map<string, string>
-  ranks: Map<string, {
-    permission: number
-    people?: PlayerArray
-  }>
+  ranks: Map<string, Rank>
   /**
    * The rank of a player.
    * @example
@@ -15,10 +17,6 @@ export interface Bot {
    * }
    */
   rankOf: Map<Player, string>
-  /**
-   * The version of nxt.
-   */
-  version: string
 }
 
 export interface Message {
