@@ -37,7 +37,7 @@ class NXT implements Bot {
     })
   }
 
-  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loaddefault = true }: {
+  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loadDefault = true }: {
     /**
      * The prefix before each command.
      */
@@ -71,10 +71,10 @@ class NXT implements Bot {
     // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
     sound?: number
     // Should nxt load the default commands? Defaults to true.
-    loaddefault?: boolean
+    loadDefault?: boolean
   } = {}) {
     // load commands
-    if (loaddefault) {
+    if (loadDefault) {
       const scripts = script.commands.GetDescendants() as ModuleScript[]
       scripts.forEach(scr => {
         const command = require(script.commands[scr.Name]) as CommandObj
