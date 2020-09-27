@@ -18,7 +18,7 @@ declare const script: Script & {
   }
 }
 
-export = class NXT implements Bot {
+class NXT implements Bot {
   commands = new Map<string, CommandObj>()
   aliases = new Map<string, string>()
   version = PKG_VERSION
@@ -143,3 +143,5 @@ export = class NXT implements Bot {
     Players.PlayerAdded.Connect(onPlr)
   }
 }
+
+export = NXT
