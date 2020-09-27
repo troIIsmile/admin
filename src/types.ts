@@ -17,10 +17,6 @@ export interface Bot {
    * }
    */
   rankOf: Map<Player, string>
-  /**
-   * The version of nxt.
-   */
-  version: string
 }
 
 export interface Message {

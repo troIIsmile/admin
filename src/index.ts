@@ -21,7 +21,7 @@ declare const script: Script & {
 class NXT implements Bot {
   commands = new Map<string, CommandObj>()
   aliases = new Map<string, string>()
-  readonly version = PKG_VERSION
+  static readonly version = PKG_VERSION
   ranks = new Map<string, Rank>()
   rankOf = new Map<Player, string>()
 
@@ -143,5 +143,4 @@ class NXT implements Bot {
     Players.PlayerAdded.Connect(onPlr)
   }
 }
-
 export = NXT
