@@ -1,7 +1,6 @@
-# roblox-ts Demo Template
+# nxt admin
 
-Looking to get started with [**roblox-ts**](https://roblox-ts.github.io)?
-Just download this repository to get started!
+shittiest admin system
 
 ## How to install
 
