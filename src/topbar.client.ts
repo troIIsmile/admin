@@ -44,15 +44,15 @@ const iconController: IconController = require(
 ) as any
 
 const icon = iconController.createIcon(
-  'nxt',
-  5637756932, // replace this with nxt icon once i upload that
+  'trollsmile',
+  5637756932, // replace this with trollsmile icon once i upload that
   -100,
 )
 
 //icon.setToggleMenu(gui)
 icon.setRight()
 icon.deselectWhenOtherIconSelected = false
-icon.setTip('nxt admin')
+icon.setTip('trollsmile admin')
 let dropdown: Dropdown[] = [
   {
     name: "test",
@@ -67,7 +67,7 @@ btnev.OnInvoke = print
 icon.selected.Connect(() => {
   icon.deselect()
   StarterGui.SetCore('SendNotification', {
-    Text: 'nxt admin gui is not a thing yet',
+    Text: 'trollsmile admin gui is not a thing yet',
     Title: '😢',
     Callback: btnev,
     Button1: 'OK',

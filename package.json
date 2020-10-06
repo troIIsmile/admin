@@ -1,7 +1,7 @@
 {
-	"name": "nxt-roblox",
-	"version": "2.0.0",
-	"description": "nxt for roblox",
+	"name": "trollsmile-admin",
+	"version": "3.0.0",
+	"description": "trollsmile for roblox",
 	"scripts": {
 		"build": "rbxtsc && rojo build -o model.rbxmx",
 		"release-major": "npm version major && git push && git push --tags",
@@ -10,15 +10,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/NXTB0T/jackbot-next-next-next-next-next.git"
+		"url": "git+https://github.com/troIIsmile/admin.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/NXTB0T/jackbot-next-next-next-next-next/issues"
+		"url": "https://github.com/troIIsmile/admin/issues"
 	},
-	"homepage": "https://github.com/NXTB0T/jackbot-next-next-next-next-next#readme",
+	"homepage": "https://github.com/troIIsmile/admin#readme",
 	"dependencies": {
 		"@rbxts/services": "^1.1.0",
 		"@rbxts/types": "^1.0.400"

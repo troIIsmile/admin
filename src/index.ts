@@ -18,7 +18,7 @@ declare const script: Script & {
   }
 }
 
-class NXT implements Bot {
+class Trollsmile implements Bot {
   commands = new Map<string, CommandObj>()
   aliases = new Map<string, string>()
   static readonly version = PKG_VERSION
@@ -44,7 +44,7 @@ class NXT implements Bot {
     prefix?: string
     /**
      * Give owner to this person instead of the game owner.
-     * Use this when running nxt on a serverside. (Why would you do that?)
+     * Use this when running trollsmile on a serverside. (Why would you do that?)
      */
     overrideOwner?: string | number
     /**
@@ -70,7 +70,7 @@ class NXT implements Bot {
 
     // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
     sound?: number
-    // Should nxt load the default commands? Defaults to true.
+    // Should trollsmile load the default commands? Defaults to true.
     loadDefault?: boolean
   } = {}) {
     // load commands
@@ -147,4 +147,4 @@ class NXT implements Bot {
     Players.PlayerAdded.Connect(onPlr)
   }
 }
-export = NXT
+export = Trollsmile
