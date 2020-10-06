@@ -45,7 +45,7 @@ const iconController: IconController = require(
 
 const icon = iconController.createIcon(
   'trollsmile',
-  5637756932, // replace this with trollsmile icon once i upload that
+  5797397777, // replace this with trollsmile icon once i upload that
   -100,
 )
 
