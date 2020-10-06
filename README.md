@@ -1,4 +1,4 @@
-# nxt admin
+# trollsmile admin
 
 shittiest admin system
 
