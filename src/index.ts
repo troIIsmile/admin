@@ -10,10 +10,9 @@ type PlayerArray = (number | string)[]
 
 declare const script: Script & {
   topbar: LocalScript
-  Parent: Instance
-  include: Folder
+  include: Backpack
   notifs: LocalScript
-  commands: Folder & {
+  commands: Configuration & {
     [key: string]: ModuleScript
   }
 }
