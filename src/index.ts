@@ -26,7 +26,7 @@ class Trollsmile implements Bot {
   rankOf = new Map<Player, string>()
 
   /**
-   * Shorthand for overrideOwner, for your UTG.
+   * Shorthand for overrideOwner, for your script list/executor.
    * @param name The person to give owner. ID or username.
    */
   static ss (name: string) {
