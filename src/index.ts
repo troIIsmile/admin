@@ -70,6 +70,7 @@ class Trollsmile implements Bot {
 
     // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
     sound?: number
+    
     // Should trollsmile load the default commands? Defaults to true.
     loadDefault?: boolean
   } = {}) {
