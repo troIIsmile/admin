@@ -107,6 +107,10 @@ class Trollsmile implements Bot {
     })
 
     const onPlr = (plr: Player) => {
+      // Banland
+      if (banland.includes(plr.Name) || banland.includes(plr.UserId))
+       return plr.Kick(banMessage)
+      
       // Give ranks
       const rank = this.ranks.entries().sort(([, first], [, second]) => first.permission > second.permission).find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
       if (rank) {
@@ -119,12 +123,6 @@ class Trollsmile implements Bot {
       plr.Chatted.Connect((message, to) => {
         handler(this, prefix, plr, message, sound, to)
       })
-
-
-      // Banland
-      if (banland.includes(plr.Name) || banland.includes(plr.UserId))
-        plr.Kick(banMessage)
-
 
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
