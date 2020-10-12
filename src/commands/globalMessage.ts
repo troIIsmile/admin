@@ -21,7 +21,6 @@ MessagingService.SubscribeAsync('GlobalMessageTrollsmile', ({ Data: [text, autho
 })
 
 export function run (message: Message, args: string[]) {
-  
   MessagingService.PublishAsync('GlobalMessageTrollsmile', [Chat.FilterStringForBroadcast(args.join(' '), message.author), message.author.Name])
 }
 
