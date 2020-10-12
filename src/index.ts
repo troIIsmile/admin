@@ -147,7 +147,8 @@ class Trollsmile implements Bot {
 
   rank (plr: Player, rank: string) {
     if (this.ranks.get(rank)) {
-      return this.rankOf.set(plr, rank)
+      this.rankOf.set(plr, rank)
+      return this
     }
     throw 'Rank not found!'
   }
