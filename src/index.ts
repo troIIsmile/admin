@@ -146,5 +146,12 @@ class Trollsmile implements Bot {
     Players.GetPlayers().forEach(onPlr)
     Players.PlayerAdded.Connect(onPlr)
   }
+
+  rank (plr: Player, rank: string) {
+    if (this.ranks.get(rank)) {
+      return this.rankOf.set(plr, rank)
+    }
+    throw 'Rank not found!'
+  }
 }
 export = Trollsmile
