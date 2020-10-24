@@ -1,5 +1,6 @@
 import notifEv from 'notify'
 import { Bot } from 'types'
+import printEv from 'print'
 
 declare const script: ModuleScript & {
   Parent: Script & {
@@ -42,7 +43,10 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: n
       )
 
       if (output) {
-        print(output)
+        printEv.FireClient(plr, {
+          Text: output,
+          Font: Enum.Font.RobotoMono
+        })
       }
     } else {
       notifEv.FireClient(plr, {

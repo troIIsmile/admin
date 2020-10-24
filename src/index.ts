@@ -11,7 +11,7 @@ type PlayerArray = (number | string)[]
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
-  notifs: LocalScript
+  event: LocalScript
   commands: Configuration & {
     [key: string]: ModuleScript
   }
@@ -128,7 +128,7 @@ class Trollsmile implements Bot {
       const gui = plr.WaitForChild('PlayerGui')
       script.include.Clone().Parent = gui
       script.topbar.Clone().Parent = gui
-      script.notifs.Clone().Parent = gui
+      script.event.Clone().Parent = gui
 
       // Welcome player
       if (welcome) {
