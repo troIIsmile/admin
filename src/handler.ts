@@ -19,7 +19,9 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: n
   const name = [...bot.commands.keys(), ...bot.aliases.keys()].find(
     cmdname =>
       content.startsWith(`${prefix}${cmdname} `) || // matches any command with a space after
-      content === prefix + cmdname // matches any command without arguments
+      content === prefix + cmdname || // matches any command without arguments
+      content.startsWith(`/e ${prefix}${cmdname} `) || // quiet commands
+      content === '/e ' + prefix + cmdname // quiet commands no arguments
   )
   if (!name) return
   // Run the command!
