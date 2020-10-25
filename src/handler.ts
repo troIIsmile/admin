@@ -43,6 +43,7 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: n
       )
 
       if (output) {
+        wait()
         printEv.FireClient(plr, {
           Text: output,
           Font: Enum.Font.RobotoMono
