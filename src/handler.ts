@@ -38,7 +38,7 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: n
       message, // the message
       // The arguments
       content
-        .sub(prefix.size() + 1 + name.size()) // only the part after the command
+        .sub(content.startsWith('/e ') ? prefix.size() + 4 + name.size() : prefix.size() + 1 + name.size()) // only the part after the command
         .split(' '), // split with spaces
       bot, // give em the bot
       permissionOfPlayer // give em the permission
