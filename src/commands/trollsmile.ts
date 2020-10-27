@@ -1,6 +1,8 @@
 import { Message } from 'types'
 import { Workspace } from '@rbxts/services'
-
+/**
+ * @deprecated
+ */
 export function run (message: Message) {
   const pos = (<Model & {
     HumanoidRootPart: Part
@@ -20,6 +22,6 @@ export function run (message: Message) {
   }
 }
 
-export const desc = 'spawns in a nxt logo'
+export const desc = 'spawns in a trollsmile logo'
 export const permission = 1
 export const aliases = ['logo']
