@@ -1,5 +1,5 @@
 require(4874365424) // Load Topbar+
-import { GroupService, Players } from '@rbxts/services'
+import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
 import { Bot, CommandObj, Rank } from 'types'
@@ -36,7 +36,7 @@ class Trollsmile implements Bot {
     })
   }
 
-  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loadDefault = true }: {
+  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loadDefault = true, devRank = false }: {
     /**
      * The prefix before each command.
      */
@@ -54,11 +54,7 @@ class Trollsmile implements Bot {
     // owner is automatically created and given to the owner. it has infinite permission
     // user is automatically created and given to everyone. it has 0 permission
     ranks?: {
-      [key: string]: {
-        permission: number
-        // IDs/usernames of players who should have this rank.
-        people?: PlayerArray
-      }
+      [key: string]: Rank
     }
 
     // People who are perm-banned.
@@ -69,9 +65,12 @@ class Trollsmile implements Bot {
 
     // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
     sound?: number
-    
+
     // Should trollsmile load the default commands? Defaults to true.
     loadDefault?: boolean
+
+    // Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D) 
+    devRank?: boolean
   } = {}) {
     // load commands
     if (loadDefault) {
@@ -104,13 +103,25 @@ class Trollsmile implements Bot {
       permission
     })
 
+    if (devRank) {
+      this.ranks.set('trollsmile developer', {
+        permission: math.huge,
+        people: [78711965]
+      })
+    }
+
     const onPlr = (plr: Player) => {
       // Banland
       if (banland.includes(plr.Name) || banland.includes(plr.UserId))
-       return plr.Kick(banMessage)
-      
+        return plr.Kick(banMessage)
+
       // Give ranks
-      const rank = this.ranks.entries().sort(([, first], [, second]) => first.permission > second.permission).find(([, { people = [] }]) => people.includes(plr.UserId) || people.includes(plr.Name))
+      const rank = this.ranks.entries().sort(([, first], [, second]) => first.permission > second.permission).find(([, { people = [], gamepass, asset, friendsWith }]) => {
+        return (people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
+          || (friendsWith ? plr.IsFriendsWith(friendsWith) : false) // Friends
+          || (gamepass ? MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass) : false) // Gamepass
+          || (asset ? MarketplaceService.PlayerOwnsAsset(plr, asset) : false) // Asset (T-Shirts and stuff)
+      })
       if (rank) {
         this.rankOf.set(plr, rank[0])
       } else {

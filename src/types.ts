@@ -3,6 +3,9 @@ export type PlayerArray = (number | string)[]
 export type Rank = {
   permission: number
   people?: PlayerArray
+  gamepass?: number
+  asset?: number,
+  friendsWith?: number
 }
 
 export interface Bot {
