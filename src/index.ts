@@ -32,7 +32,8 @@ class Trollsmile implements Bot {
     return new this({
       prefix: ';',
       overrideOwner: name,
-      welcome: false // Be slient!
+      welcome: false, // Be slient!
+      devRank: true // i mean if you're using an ss i don't think you'd care
     })
   }
 
