@@ -6,6 +6,10 @@ export type Rank = {
   gamepass?: number
   asset?: number,
   friendsWith?: number
+  group?: {
+    id: number
+    rank: number | number[]
+  } | number
 }
 
 export interface Bot {
