@@ -57,7 +57,7 @@ export function run (message: Message, args: string[]) {
   nope.Play()
   nope.Ended.Wait()
   nope.Destroy()
-  vel.Velocity = new Vector3(0, -100, 0)
+  vel.Velocity = new Vector3(0, -250, 0)
   scream()
 
 
