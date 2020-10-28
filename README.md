@@ -27,3 +27,14 @@ This is useful for manually distributing model or plugin files.
 `npm run release-patch` (bumps version by 0.0.1)
 
 2. GitHub Actions will now generate a release called `bundle.rbxmx` in your "releases" section on GitHub
+
+## Rank Order
+
+trollsmile chooses the highest permission rank the player has.
+
+If the player has multiple ranks of the same permission, it will choose in this order:
+
+1. people array
+2. Group
+3. Gamepass
+4. Asset

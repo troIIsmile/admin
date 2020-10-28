@@ -119,15 +119,15 @@ class Trollsmile implements Bot {
       // Give ranks
       const rank = this.ranks.entries().sort(([, first], [, second]) => first.permission > second.permission).find(([, { people = [], gamepass, asset, friendsWith, group }]) => {
         return (people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
-          || (friendsWith ? plr.IsFriendsWith(friendsWith) : false) // Friends
-          || (gamepass ? MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass) : false) // Gamepass
-          || (asset ? MarketplaceService.PlayerOwnsAsset(plr, asset) : false) // Asset (T-Shirts and stuff)
           || (group ? (typeIs(group, 'number')
             ? plr.IsInGroup(group) // If they just give us a number then just check if they are in the group
             : (typeIs(group.rank, 'number')
               ? plr.GetRankInGroup(group.id) === group.rank // Number rank
               : group.rank.includes(plr.GetRankInGroup(group.id))) // Array rank
           ) : false) // Group
+          || (friendsWith ? plr.IsFriendsWith(friendsWith) : false) // Friends
+          || (gamepass ? MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass) : false) // Gamepass
+          || (asset ? MarketplaceService.PlayerOwnsAsset(plr, asset) : false) // Asset (T-Shirts and stuff)
       })
       if (rank) {
         this.rankOf.set(plr, rank[0])
