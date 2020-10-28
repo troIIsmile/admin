@@ -37,6 +37,7 @@ export function run (message: Message, args: string[]) {
 
   // start go down
   wait(7)
+  circle.BrickColor = new BrickColor("Really red")
   async function scream () {
     const sound = new Instance('Sound', pt)
     sound.SoundId = 'rbxassetid://906084456'
