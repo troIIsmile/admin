@@ -70,7 +70,19 @@ class Trollsmile implements Bot {
     })
   }
 
-  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loadDefault = true, devRank = false }: Settings = {}) {
+  constructor({
+    banland = [],
+    permission = 0,
+    overrideOwner: owner = game.CreatorType === Enum.CreatorType.User
+      ? game.CreatorId // owned by player
+      : GroupService.GetGroupInfoAsync(game.CreatorId).Owner.Id,
+    ranks,
+    prefix = ';',
+    welcome = true,
+    sound = 5515669992,
+    loadDefault = true,
+    devRank = false
+  }: Settings = {}) {
     this.prefix = prefix
     // load commands
     if (loadDefault) {
@@ -88,14 +100,10 @@ class Trollsmile implements Bot {
     // load ranks
     if (ranks) this.ranks = new Map(Object.entries(ranks) as [string, { permission: number, people?: PlayerArray }][])
 
-    const realOwner = game.CreatorType === Enum.CreatorType.User
-      ? game.CreatorId // owned by player
-      : GroupService.GetGroupInfoAsync(game.CreatorId).Owner.Id
-
     // setup owner
     this.ranks.set('Owner', {
       permission: math.huge,
-      people: [overrideOwner || realOwner]
+      people: [owner]
     })
 
     // setup player
