@@ -9,8 +9,7 @@ async function waitUntilTouch (char: Model): Promise<BasePart> {
     })
   })
 }
-
-async function holy (plr: Player) {
+export const run = plrCommand(async plr => {
   const char = plr.Character as Model
   const pt = (char.FindFirstChild('Torso') || char.FindFirstChild('HumanoidRootPart')) as Part
   const circle = new Instance('Part', pt)
@@ -81,10 +80,7 @@ async function holy (plr: Player) {
     circle.Destroy();
     (char.FindFirstChildWhichIsA('Humanoid') as Humanoid).Health = 0
   })
-}
-
-
-export const run = plrCommand(holy)
+})
 
 export const desc = 'like holy wrench but worse'
 export const permission = 2
