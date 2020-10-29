@@ -1,14 +1,5 @@
-import { Message } from 'types'
-
-export function run (message: Message, args: string[]) {
-  if (args.join('').size()) {
-    // todo
-  } else {
-    message.author.LoadCharacter()
-    // teleport the player to where they were before
-  }
-}
-
+import { plrCommand } from 'utils'
+export const run = plrCommand(plr => plr.LoadCharacter())
 export const desc = 'respawn people i guess'
 export const permission = 2
 export const aliases = ['re', 'refresh']
