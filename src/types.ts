@@ -25,6 +25,7 @@ export interface Bot {
    * }
    */
   rankOf: Map<Player, string>
+  prefix: string
 }
 
 export interface Message {

@@ -23,6 +23,7 @@ class Trollsmile implements Bot {
   static readonly version = PKG_VERSION
   ranks = new Map<string, Rank>()
   rankOf = new Map<Player, string>()
+  prefix: string
 
   /**
    * Shorthand for overrideOwner, for your script list/executor.
@@ -73,6 +74,7 @@ class Trollsmile implements Bot {
     // Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D) 
     devRank?: boolean
   } = {}) {
+    this.prefix = prefix
     // load commands
     if (loadDefault) {
       const scripts = script.commands.GetDescendants() as ModuleScript[]
@@ -138,7 +140,7 @@ class Trollsmile implements Bot {
 
       // Handler
       plr.Chatted.Connect((message, to) => {
-        handler(this, prefix, plr, message, sound, to)
+        handler(this, this.prefix, plr, message, sound, to)
       })
 
       // Give scripts
@@ -152,7 +154,7 @@ class Trollsmile implements Bot {
         notifEv.FireClient(plr, {
           Title: 'Welcome!',
           Icon: 'rbxassetid://3250824458',
-          Text: `Your rank is ${this.rankOf.get(plr)}!`,
+          Text: `Your rank is ${this.rankOf.get(plr)} and the prefix is ${this.prefix}.`,
           Button1: 'Close'
         }, sound)
       }
