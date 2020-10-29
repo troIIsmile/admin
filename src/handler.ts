@@ -11,6 +11,7 @@ declare const script: ModuleScript & {
 }
 
 export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: number, to?: Player) => {
+  if (!content.startsWith(prefix) && !content.startsWith(`/e ${prefix}`)) return // don't waste time lol
   const message: Message = {
     author: plr,
     channel: to,
