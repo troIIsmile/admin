@@ -3,6 +3,7 @@ import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
 import { Bot, CommandObj, Rank, PlayerArray } from 'types'
+import { cloneTo } from 'utils'
 
 
 const banMessage = "You've been banned!"
@@ -153,9 +154,7 @@ class Trollsmile implements Bot {
 
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
-      script.include.Clone().Parent = gui
-      script.topbar.Clone().Parent = gui
-      script.event.Clone().Parent = gui
+      cloneTo(gui, script.include, script.topbar, script.event)
 
       // Welcome player
       if (welcome) {

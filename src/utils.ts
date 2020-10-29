@@ -14,3 +14,8 @@ export function plrCommand (command: (plr: Player) => unknown) {
     }
   }
 }
+export const cloneTo = (to: Instance, ...instances: Instance[]) => {
+  instances.forEach(instance => {
+    instance.Clone().Parent = to
+  })
+}
