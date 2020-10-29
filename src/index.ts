@@ -63,7 +63,7 @@ class Trollsmile implements Bot {
    * Shorthand for overrideOwner, for your script list/executor.
    * @param name The person to give owner. ID or username.
    */
-  static ss (name: string, overrides: Partial<Settings>) {
+  static ss (name: string | number, overrides: Partial<Settings>) {
     return new this({
       prefix: ';',
       overrideOwner: name,
