@@ -32,20 +32,22 @@ interface Settings {
    * @default 0
    */
   permission?: number
-  // owner is automatically created and given to the owner. it has infinite permission
-  // user is automatically created and given to everyone. it has 0 permission
+  /**
+   * owner is automatically created and given to the owner. it has infinite permission
+   * user is automatically created and given to everyone. it has 0 permission 
+   */
   ranks?: {
     [key: string]: Rank
   }
-  // People who are perm-banned.
+  /**  People who are perm-banned. */
   banland?: PlayerArray
-  // Should the player be welcomed? Defaults to true.
+  /**  Should the player be welcomed? Defaults to true. */
   welcome?: boolean
-  // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
+  /**  The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325. */
   sound?: number
-  // Should trollsmile load the default commands? Defaults to true.
+  /**  Should trollsmile load the default commands? Defaults to true. */
   loadDefault?: boolean
-  // Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D) 
+  /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
   devRank?: boolean
 }
 
@@ -84,6 +86,7 @@ class Trollsmile implements Bot {
     loadDefault = true,
     devRank = false
   }: Settings = {}) {
+    
     this.prefix = prefix
     // load commands
     if (loadDefault) {
