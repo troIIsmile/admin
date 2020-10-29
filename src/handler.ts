@@ -10,8 +10,8 @@ declare const script: ModuleScript & {
   }
 }
 
-export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: number, to?: Player) => {
-  if (!content.startsWith(prefix) && !content.startsWith(`/e ${prefix}`)) return // don't waste time lol
+export = async (bot: Bot, plr: Player, content: string, sound: number, to?: Player) => {
+  if (!content.startsWith(bot.prefix) && !content.startsWith(`/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
     author: plr,
     channel: to,
@@ -19,10 +19,10 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: n
   }
   const name = [...bot.commands.keys(), ...bot.aliases.keys()].find(
     cmdname =>
-      content.startsWith(`${prefix}${cmdname} `) || // matches any command with a space after
-      content === prefix + cmdname || // matches any command without arguments
-      content.startsWith(`/e ${prefix}${cmdname} `) || // quiet commands
-      content === '/e ' + prefix + cmdname // quiet commands no arguments
+      content.startsWith(`${bot.prefix}${cmdname} `) || // matches any command with a space after
+      content === bot.prefix + cmdname || // matches any command without arguments
+      content.startsWith(`/e ${bot.prefix}${cmdname} `) || // quiet commands
+      content === '/e ' + bot.prefix + cmdname // quiet commands no arguments
   )
   if (!name) return
   // Run the command!
@@ -39,7 +39,7 @@ export = async (bot: Bot, prefix: string, plr: Player, content: string, sound: n
       message, // the message
       // The arguments
       content
-        .sub(content.startsWith('/e ') ? prefix.size() + 4 + name.size() : prefix.size() + 1 + name.size()) // only the part after the command
+        .sub(content.startsWith('/e ') ? bot.prefix.size() + 4 + name.size() : bot.prefix.size() + 1 + name.size()) // only the part after the command
         .split(' '), // split with spaces
       bot, // give em the bot
       permissionOfPlayer // give em the permission

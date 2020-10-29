@@ -149,7 +149,7 @@ class Trollsmile implements Bot {
 
       // Handler
       plr.Chatted.Connect((message, to) => {
-        handler(this, this.prefix, plr, message, sound, to)
+        handler(this, plr, message, sound, to)
       })
 
       // Give scripts
