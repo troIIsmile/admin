@@ -10,11 +10,11 @@ declare const script: ModuleScript & {
   }
 }
 
-export = async (bot: Bot, plr: Player, content: string, sound: number, to?: Player) => {
+export = async (bot: Bot, author: Player, content: string, sound: number, channel?: Player) => {
   if (!content.startsWith(bot.prefix) && !content.startsWith(`/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
-    author: plr,
-    channel: to,
+    author,
+    channel,
     content
   }
   const name = [...bot.commands.keys(), ...bot.aliases.keys()].find(
@@ -26,7 +26,7 @@ export = async (bot: Bot, plr: Player, content: string, sound: number, to?: Play
   )
   if (!name) return
   // Run the command!
-  const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(plr) as string) as { permission: number }).permission
+  const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(author) as string) as { permission: number }).permission
   const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
     || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
     || (() => { }) // nothing
@@ -47,13 +47,13 @@ export = async (bot: Bot, plr: Player, content: string, sound: number, to?: Play
 
     if (output) {
       wait()
-      printEv.FireClient(plr, {
+      printEv.FireClient(author, {
         Text: output,
         Font: Enum.Font.RobotoMono
       })
     }
   } else {
-    notifEv.FireClient(plr, {
+    notifEv.FireClient(author, {
       Title: 'trollsmile',
       Button1: 'Close',
       Text: "You do not have the permission to run this command."
