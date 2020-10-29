@@ -104,7 +104,7 @@ class Trollsmile implements Bot {
       })
     }
     // load ranks
-    if (ranks) this.ranks = new Map(Object.entries(ranks) as [string, { permission: number, people?: PlayerArray }][])
+    if (ranks) this.ranks = new Map(Object.entries(ranks) as [string, Rank][])
 
     // setup owner
     this.ranks.set('Owner', {
