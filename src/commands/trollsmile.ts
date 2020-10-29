@@ -1,12 +1,12 @@
-import { Message } from 'types'
 import { Workspace } from '@rbxts/services'
+import { plrCommand } from 'utils'
 /**
  * @deprecated
  */
-export function run (message: Message) {
+export const run = plrCommand(plr => {
   const pos = (<Model & {
     HumanoidRootPart: Part
-  }> message.author.Character).HumanoidRootPart.Position
+  }> plr.Character).HumanoidRootPart.Position
   const part = new Instance('Part', Workspace)
   part.Position = pos
   part.BrickColor = new BrickColor('Ghost grey')
@@ -15,12 +15,12 @@ export function run (message: Message) {
   mesh.MeshId = 'rbxassetid://5634485291'
   mesh.Scale = new Vector3(0.9, 0.11, 1)
 
-    // Because of how we spawn in the nxt logo, the logo is stuck in the player. Let's fix that.
-  const hum = (message.author.Character as Model).FindFirstChildWhichIsA('Humanoid')
+  // Because of how we spawn in the nxt logo, the logo is stuck in the player. Let's fix that.
+  const hum = (plr.Character as Model).FindFirstChildWhichIsA('Humanoid')
   if (hum) {
     hum.Jump = true
   }
-}
+})
 
 export const desc = 'spawns in a trollsmile logo'
 export const permission = 1
