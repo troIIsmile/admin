@@ -17,6 +17,38 @@ declare const script: Script & {
   }
 }
 
+interface Settings {
+  /**
+   * The prefix before each command.
+   */
+  prefix?: string
+  /**
+   * Give owner to this person instead of the game owner.
+   * Use this when running trollsmile on a serverside. (Why would you do that?)
+   */
+  overrideOwner?: string | number
+  /**
+   * The permission of Player (default rank).
+   * @default 0
+   */
+  permission?: number
+  // owner is automatically created and given to the owner. it has infinite permission
+  // user is automatically created and given to everyone. it has 0 permission
+  ranks?: {
+    [key: string]: Rank
+  }
+  // People who are perm-banned.
+  banland?: PlayerArray
+  // Should the player be welcomed? Defaults to true.
+  welcome?: boolean
+  // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
+  sound?: number
+  // Should trollsmile load the default commands? Defaults to true.
+  loadDefault?: boolean
+  // Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D) 
+  devRank?: boolean
+}
+
 class Trollsmile implements Bot {
   commands = new Map<string, CommandObj>()
   aliases = new Map<string, string>()
@@ -38,42 +70,7 @@ class Trollsmile implements Bot {
     })
   }
 
-  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loadDefault = true, devRank = false }: {
-    /**
-     * The prefix before each command.
-     */
-    prefix?: string
-    /**
-     * Give owner to this person instead of the game owner.
-     * Use this when running trollsmile on a serverside. (Why would you do that?)
-     */
-    overrideOwner?: string | number
-    /**
-     * The permission of Player (default rank).
-     * @default 0
-     */
-    permission?: number
-    // owner is automatically created and given to the owner. it has infinite permission
-    // user is automatically created and given to everyone. it has 0 permission
-    ranks?: {
-      [key: string]: Rank
-    }
-
-    // People who are perm-banned.
-    banland?: PlayerArray
-
-    // Should the player be welcomed? Defaults to true.
-    welcome?: boolean
-
-    // The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325.
-    sound?: number
-
-    // Should trollsmile load the default commands? Defaults to true.
-    loadDefault?: boolean
-
-    // Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D) 
-    devRank?: boolean
-  } = {}) {
+  constructor({ banland = [], permission = 0, overrideOwner, ranks, prefix = ';', welcome = true, sound = 5515669992, loadDefault = true, devRank = false }: Settings = {}) {
     this.prefix = prefix
     // load commands
     if (loadDefault) {
