@@ -10,6 +10,7 @@ export type Rank = {
     id: number
     rank: number | number[]
   } | number
+  func?: (plr: Player) => boolean
 }
 
 export interface Bot {

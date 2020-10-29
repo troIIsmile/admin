@@ -117,8 +117,9 @@ class Trollsmile implements Bot {
         return plr.Kick(banMessage)
 
       // Give ranks
-      const rank = this.ranks.entries().sort(([, first], [, second]) => first.permission > second.permission).find(([, { people = [], gamepass, asset, friendsWith, group }]) => {
-        return (people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
+      const rank = this.ranks.entries().sort(([, first], [, second]) => first.permission > second.permission).find(([, { people = [], gamepass, asset, friendsWith, group, func }]) => {
+        return (func ? func(plr) : false) // Functions
+          || (people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
           || (group ? (typeIs(group, 'number')
             ? plr.IsInGroup(group) // If they just give us a number then just check if they are in the group
             : (typeIs(group.rank, 'number')
