@@ -1,3 +1,3 @@
 import { Players } from '@rbxts/services'
 
-export const getPlayer = (String = 'N/A') => String === 'all' ? Players.GetPlayers() : Players.GetPlayers().find(plr => !!plr.Name.lower().match('^' + String.lower())[0])
+export const getPlayers = (String = 'N/A') => String === 'all' ? Players.GetPlayers() : Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + String.lower())[0])

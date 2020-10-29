@@ -1,5 +1,5 @@
 import { Message } from 'types'
-import { getPlayer } from 'utils'
+import { getPlayers } from 'utils'
 
 async function waitUntilTouch (char: Model): Promise<BasePart> {
   return new Promise(resolve => {
@@ -11,9 +11,7 @@ async function waitUntilTouch (char: Model): Promise<BasePart> {
   })
 }
 
-// Choir: 139100774
-export function run (message: Message, args: string[]) {
-  const plr = (args.join('').trim().size() ? getPlayer(args.join(' ')) : message.author) as Player
+async function holy (plr: Player) {
   const char = plr.Character as Model
   const pt = (char.FindFirstChild('Torso') || char.FindFirstChild('HumanoidRootPart')) as Part
   const circle = new Instance('Part', pt)
@@ -84,6 +82,14 @@ export function run (message: Message, args: string[]) {
     circle.Destroy();
     (char.FindFirstChildWhichIsA('Humanoid') as Humanoid).Health = 0
   })
+}
+
+export function run (message: Message, args: string[]) {
+  if (args.join('').trim().size()) {
+    getPlayers(args.join(' ')).forEach(holy)
+  } else {
+    holy(message.author)
+  }
 }
 
 export const desc = 'like holy wrench but worse'
