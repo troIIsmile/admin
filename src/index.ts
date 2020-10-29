@@ -86,18 +86,20 @@ class Trollsmile implements Bot {
     loadDefault = true,
     devRank = false
   }: Settings = {}) {
-    
+
     this.prefix = prefix
     // load commands
     if (loadDefault) {
-      const scripts = script.commands.GetDescendants() as ModuleScript[]
+      const scripts = script.commands.GetDescendants()
       scripts.forEach(scr => {
-        const command = require(script.commands[scr.Name]) as CommandObj
-        this.commands.set(scr.Name, command)
-        if (command.aliases) {
-          command.aliases.forEach(alias => {
-            this.aliases.set(alias, scr.Name)
-          })
+        if (scr.IsA('ModuleScript')) {
+          const command = require(script.commands[scr.Name]) as CommandObj
+          this.commands.set(scr.Name, command)
+          if (command.aliases) {
+            command.aliases.forEach(alias => {
+              this.aliases.set(alias, scr.Name)
+            })
+          }
         }
       })
     }
