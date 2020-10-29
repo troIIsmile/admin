@@ -1,5 +1,4 @@
-import { Message } from 'types'
-import { getPlayers } from 'utils'
+import { plrCommand } from 'utils'
 
 async function waitUntilTouch (char: Model): Promise<BasePart> {
   return new Promise(resolve => {
@@ -84,13 +83,8 @@ async function holy (plr: Player) {
   })
 }
 
-export function run (message: Message, args: string[]) {
-  if (args.join('').trim().size()) {
-    getPlayers(args.join(' ')).forEach(holy)
-  } else {
-    holy(message.author)
-  }
-}
+
+export const run = plrCommand(holy)
 
 export const desc = 'like holy wrench but worse'
 export const permission = 2
