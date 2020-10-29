@@ -2,11 +2,10 @@ require(4874365424) // Load Topbar+
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
-import { Bot, CommandObj, Rank } from 'types'
+import { Bot, CommandObj, Rank, PlayerArray } from 'types'
 
 
 const banMessage = "You've been banned!"
-type PlayerArray = (number | string)[]
 
 declare const script: Script & {
   topbar: LocalScript
