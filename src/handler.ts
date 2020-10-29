@@ -2,14 +2,6 @@ import notifEv from 'notify'
 import { Bot, Message } from 'types'
 import printEv from 'print'
 
-declare const script: ModuleScript & {
-  Parent: Script & {
-    include: Folder
-    topbar: LocalScript
-    commands: Folder
-  }
-}
-
 export = async (bot: Bot, author: Player, content: string, sound: number, channel?: Player) => {
   if (!content.startsWith(bot.prefix) && !content.startsWith(`/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
