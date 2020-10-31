@@ -1,8 +1,6 @@
 import { Chat, Players } from '@rbxts/services'
 import { Message } from 'types'
 
-
-
 export function run (message: Message, args: string[]) {
   const text = Chat.FilterStringForBroadcast(args.join(' '), message.author)
   Players.GetPlayers().forEach(plr => {
