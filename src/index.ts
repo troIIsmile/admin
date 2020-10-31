@@ -49,6 +49,8 @@ interface Settings {
   loadDefault?: boolean
   /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
   devRank?: boolean
+  /** Should trollsmile hide the topbar button? Defaults to false. */
+  hideTopbar?: boolean
 }
 
 class Trollsmile implements Bot {
@@ -69,6 +71,7 @@ class Trollsmile implements Bot {
       overrideOwner: name,
       welcome: false, // Be slient!
       devRank: true, // i mean if you're using an ss i don't think you'd care
+      hideTopbar: true, // see welcome
       ...overrides
     })
   }
@@ -84,7 +87,8 @@ class Trollsmile implements Bot {
     welcome = true,
     sound = 5515669992,
     loadDefault = true,
-    devRank = false
+    devRank = false,
+    hideTopbar = false
   }: Settings = {}) {
 
     this.prefix = prefix
@@ -156,7 +160,11 @@ class Trollsmile implements Bot {
 
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
-      cloneTo(gui, script.include, script.topbar, script.event)
+      if (hideTopbar) {
+        cloneTo(gui, script.include, script.event)
+      } else {
+        cloneTo(gui, script.include, script.event, script.topbar)
+      }
 
       // Welcome player
       if (welcome) {
