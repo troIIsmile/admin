@@ -46,11 +46,11 @@ export interface CommandObj {
    * the description of the command
    * shows up in ;cmds
    */
-  desc: string
+  desc?: string
   /**
    * the permission of the command
    * 0 = anyone
    * math.huge = owner
    */
-  permission: number
+  permission?: number
 }
