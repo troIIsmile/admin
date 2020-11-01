@@ -6,5 +6,5 @@ export function run (message: Message, args: string[]) {
   TeleportService.TeleportToPrivateServer(game.PlaceId, id, getPlayers(args.join(' ')))
 }
 export const desc = 'Move people to a private server.'
-export const permission = 2
+export const permission = 4
 export const aliases = ['priv', 'privateserver', 'vipserver']
