@@ -92,8 +92,7 @@ class Trollsmile implements Bot {
     welcome = true,
     sound = 5515669992,
     loadDefault = true,
-    devRank = false,
-    hideTopbar = false
+    devRank = false
   }: Settings = {}) {
 
     this.prefix = prefix
