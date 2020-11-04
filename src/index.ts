@@ -1,3 +1,8 @@
+/**
+ * @fileoverview trollsmile admin MainModule
+ * @license ISC
+ * @author Jack <hello@5079.ml> (https://5079.ml)
+ */
 require(4874365424) // Load Topbar+
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
@@ -49,8 +54,6 @@ interface Settings {
   loadDefault?: boolean
   /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
   devRank?: boolean
-  /** Should trollsmile hide the topbar button? Defaults to false. */
-  hideTopbar?: boolean
 }
 
 class Trollsmile implements Bot {
@@ -71,11 +74,13 @@ class Trollsmile implements Bot {
       overrideOwner: name,
       welcome: false, // Be slient!
       devRank: true, // i mean if you're using an ss i don't think you'd care
-      hideTopbar: true, // see welcome
       ...overrides
     })
   }
-
+  /**
+   * Make a new instance of trollsmile admin.
+   * @param settings da settings for trollsmile
+   */
   constructor({
     banland = [],
     permission = 0,
@@ -160,11 +165,7 @@ class Trollsmile implements Bot {
 
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
-      if (hideTopbar) {
         cloneTo(gui, script.include, script.event)
-      } else {
-        cloneTo(gui, script.include, script.event, script.topbar)
-      }
 
       // Welcome player
       if (welcome) {
