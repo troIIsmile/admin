@@ -4,7 +4,7 @@
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
 require(4874365424) // Load Topbar+
-import { GroupService, MarketplaceService, Players } from '@rbxts/services'
+import { GroupService, MarketplaceService, Players, StarterPlayer } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
 import { Bot, CommandObj, Rank, PlayerArray } from 'types'
@@ -162,10 +162,6 @@ class Trollsmile implements Bot {
         handler(this, plr, message, sound, to)
       })
 
-      // Give scripts
-      const gui = plr.WaitForChild('PlayerGui')
-        cloneTo(gui, script.include, script.event)
-
       // Welcome player
       if (welcome) {
         notifEv.FireClient(plr, {
@@ -179,6 +175,12 @@ class Trollsmile implements Bot {
 
     Players.GetPlayers().forEach(onPlr)
     Players.PlayerAdded.Connect(onPlr)
+    Players.GetPlayers().forEach(plr => {
+      // Give scripts
+      const gui = plr.WaitForChild('PlayerGui')
+      cloneTo(gui, script.include, script.event)
+    })
+    cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
   }
 
   rank (plr: Player, rank: string) {

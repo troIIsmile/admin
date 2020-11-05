@@ -14,7 +14,7 @@ export function plrCommand (command: (plr: Player, bot: Bot) => unknown) {
     }
   }
 }
-export const cloneTo = (to: Instance, ...instances: Instance[]) => {
+export const cloneTo = (to: Instance | undefined, ...instances: Instance[]) => {
   instances.forEach(instance => {
     instance.Clone().Parent = to
   })
