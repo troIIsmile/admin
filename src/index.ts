@@ -58,6 +58,10 @@ interface Settings {
   cmdOverrides?: {
     [key: string]: number
   }
+  /**
+   * Trollsmile's brand. Change this to something other than trollsmile to rebrand the admin system.
+   */
+  brand?: string
 }
 
 class Trollsmile implements Bot {
@@ -102,8 +106,10 @@ class Trollsmile implements Bot {
     welcome = true,
     sound = 5515669992,
     loadDefault = true,
-    devRank = false
+    devRank = false,
+    brand = 'trollsmile'
   }: Settings = {}) {
+    this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
     cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
