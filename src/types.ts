@@ -26,6 +26,9 @@ export interface Bot {
    */
   rankOf: Map<Player, string>
   prefix: string
+  overrides: {
+    [key: string]: number
+  }
 }
 
 export interface Message {

@@ -54,6 +54,10 @@ interface Settings {
   loadDefault?: boolean
   /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
   devRank?: boolean
+  /** Override permissions for commands. */
+  cmdOverrides?: {
+    [key: string]: number
+  }
 }
 
 class Trollsmile implements Bot {
@@ -63,6 +67,9 @@ class Trollsmile implements Bot {
   ranks = new Map<string, Rank>()
   rankOf = new Map<Player, string>()
   prefix: string
+  overrides: {
+    [key: string]: number
+  } = {}
 
   /**
    * Shorthand for overrideOwner, for your script list/executor.
@@ -82,6 +89,7 @@ class Trollsmile implements Bot {
    * @param settings da settings for trollsmile
    */
   constructor({
+    cmdOverrides = {},
     banland = [],
     permission = 0,
     overrideOwner: owner = game.CreatorType === Enum.CreatorType.User
@@ -94,7 +102,7 @@ class Trollsmile implements Bot {
     loadDefault = true,
     devRank = false
   }: Settings = {}) {
-
+    this.overrides = cmdOverrides
     this.prefix = prefix
     cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
     // load commands

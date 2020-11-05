@@ -23,7 +23,8 @@ export = async (bot: Bot, author: Player, content: string, sound: number, channe
     || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
     || (() => { }) // nothing
 
-  const permission = (bot.commands.get(name) || { permission: undefined }).permission // The command if it found it
+  const permission = bot.overrides[name] // overrrides first
+    || (bot.commands.get(name) || { permission: undefined }).permission // The command if it found it
     || (bot.commands.get(bot.aliases.get(name) || '') || { permission: undefined }).permission // Aliases
     || 0 // nothing
   if (permissionOfPlayer >= permission) {
