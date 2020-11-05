@@ -62,6 +62,12 @@ interface Settings {
    * Trollsmile's brand. Change this to something other than trollsmile to rebrand the admin system.
    */
   brand?: string
+  /**
+   * Custom aliases for trollsmile.
+   */
+  aliases?: {
+    [key: string]: string
+  }
 }
 
 class Trollsmile implements Bot {
@@ -107,12 +113,16 @@ class Trollsmile implements Bot {
     sound = 5515669992,
     loadDefault = true,
     devRank = false,
-    brand = 'trollsmile'
+    brand = 'trollsmile',
+    aliases = {}
   }: Settings = {}) {
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
     cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
+    Object.entries(aliases).forEach(([alias, command]) => {
+      this.aliases.set(alias, command)
+    })
     // load commands
     if (loadDefault) {
       const scripts = script.commands.GetDescendants()
