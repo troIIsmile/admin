@@ -96,12 +96,13 @@ class Trollsmile implements Bot {
   }: Settings = {}) {
 
     this.prefix = prefix
+    cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
     // load commands
     if (loadDefault) {
       const scripts = script.commands.GetDescendants()
       scripts.forEach(scr => {
         if (scr.IsA('ModuleScript')) {
-          const command = require(script.commands[scr.Name]) as CommandObj
+          const command = require(scr) as CommandObj
           this.commands.set(scr.Name, command)
           if (command.aliases) {
             command.aliases.forEach(alias => {
@@ -180,7 +181,6 @@ class Trollsmile implements Bot {
       const gui = plr.WaitForChild('PlayerGui')
       cloneTo(gui, script.include, script.event)
     })
-    cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
   }
 
   rank (plr: Player, rank: string) {
