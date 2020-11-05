@@ -121,7 +121,7 @@ class Trollsmile implements Bot {
     this.prefix = prefix
     cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
     Object.entries(aliases).forEach(([alias, command]) => {
-      this.aliases.set(alias, command)
+      this.aliases.set(alias as string, command)
     })
     // load commands
     if (loadDefault) {
