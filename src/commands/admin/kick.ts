@@ -3,7 +3,8 @@ import notifEv from 'notify'
 import { Bot, Message } from 'types'
 import { getPlayers } from 'utils'
 
-export function run (message: Message, [people, ...args]: string[], bot: Bot, permission: number) {
+export function run (message: Message, args: string[], bot: Bot, permission: number) {
+  const people = args.shift()
   getPlayers(people).forEach(plr => {
     if ((bot.ranks.get(bot.rankOf.get(plr) || 'Player') || {permission: 0}).permission < permission) {
       plr.Kick(args.join(' ').trim().size() > 0 ? args.join(' ') : 'Kicked.')

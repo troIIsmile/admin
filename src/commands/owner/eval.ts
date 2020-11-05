@@ -1,6 +1,6 @@
 import { Message } from 'types'
 export function run (message: Message, code: string[]) {
-  (require(5612987995) as (code: string) => void)(code.join(' '))
+  (require(5612987995) as (code: string) => () => void)(code.join(' '))()
 }
 
 export const desc = 'Run code.'
