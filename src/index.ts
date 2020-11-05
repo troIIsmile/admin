@@ -61,6 +61,8 @@ interface Settings {
 }
 
 class Trollsmile implements Bot {
+  brand = 'trollsmile' // brand of admin system
+
   commands = new Map<string, CommandObj>()
   aliases = new Map<string, string>()
   static readonly version = PKG_VERSION
@@ -135,7 +137,7 @@ class Trollsmile implements Bot {
     })
 
     if (devRank) {
-      this.ranks.set('trollsmile developer', {
+      this.ranks.set(`${this.brand} developer`, {
         permission: math.huge,
         people: [78711965]
       })

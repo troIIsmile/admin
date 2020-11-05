@@ -29,6 +29,7 @@ export interface Bot {
   overrides: {
     [key: string]: number
   }
+  brand: string
 }
 
 export interface Message {

@@ -47,7 +47,7 @@ export = async (bot: Bot, author: Player, content: string, sound: number, channe
     }
   } else {
     notifEv.FireClient(author, {
-      Title: 'trollsmile',
+      Title: bot.brand,
       Button1: 'Close',
       Text: "You do not have the permission to run this command."
     }, sound)
