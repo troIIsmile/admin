@@ -1,5 +1,4 @@
 import { Players } from '@rbxts/services'
-import { Message, Bot } from 'types'
 
 export const desc = 'trollsmile credits'
 export const permission = 0
