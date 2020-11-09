@@ -119,7 +119,6 @@ class Trollsmile implements Bot {
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
-    cloneTo(StarterPlayer.FindFirstChild('StarterPlayerScripts'), script.include, script.event)
     Object.entries(aliases).forEach(([alias, command]) => {
       this.aliases.set(alias as string, command)
     })
@@ -188,7 +187,9 @@ class Trollsmile implements Bot {
       plr.Chatted.Connect((message, to) => {
         handler(this, plr, message, sound, to)
       })
-
+      // Give scripts
+      const gui = plr.WaitForChild('PlayerGui')
+      cloneTo(gui, script.include, script.event)
       // Welcome player
       if (welcome) {
         notifEv.FireClient(plr, {
@@ -202,11 +203,6 @@ class Trollsmile implements Bot {
 
     Players.GetPlayers().forEach(onPlr)
     Players.PlayerAdded.Connect(onPlr)
-    Players.GetPlayers().forEach(plr => {
-      // Give scripts
-      const gui = plr.WaitForChild('PlayerGui')
-      cloneTo(gui, script.include, script.event)
-    })
   }
 
   rank (plr: Player, rank: string) {
