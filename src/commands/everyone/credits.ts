@@ -1,3 +1,5 @@
+import { Players } from '@rbxts/services'
+
 export const desc = 'trollsmile credits'
 export const permission = 0
 export const run = () => `
