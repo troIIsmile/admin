@@ -3,8 +3,7 @@
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
-require(4874365424) // Load Topbar+
-import { GroupService, MarketplaceService, Players, StarterPlayer } from '@rbxts/services'
+import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
 import { Bot, CommandObj, Rank, PlayerArray } from 'types'
