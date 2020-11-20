@@ -6,11 +6,8 @@
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
-import { Bot, CommandObj, Rank, PlayerArray } from 'types'
+import { Bot, CommandObj, Rank } from 'types'
 import { cloneTo } from 'utils'
-
-
-const banMessage = "You've been banned!"
 
 declare const script: Script & {
   topbar: LocalScript
@@ -43,8 +40,6 @@ interface Settings {
   ranks?: {
     [key: string]: Rank
   }
-  /**  People who are perm-banned. */
-  banland?: PlayerArray
   /**  Should the player be welcomed? Defaults to true. */
   welcome?: boolean
   /**  The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325. */
@@ -101,7 +96,6 @@ class Trollsmile implements Bot {
    */
   constructor({
     cmdOverrides = {},
-    banland = [],
     permission = 0,
     overrideOwner: owner = game.CreatorType === Enum.CreatorType.User
       ? game.CreatorId // owned by player
@@ -158,10 +152,6 @@ class Trollsmile implements Bot {
     }
 
     const onPlr = (plr: Player) => {
-      // Banland
-      if (banland.includes(plr.Name) || banland.includes(plr.UserId))
-        return plr.Kick(banMessage)
-
       // Give ranks
       const rank = this.ranks.entries().sort(([, first], [, second]) => first.permission > second.permission).find(([, { people = [], gamepass, asset, friendsWith, group, func }]) => {
         return (func ? func(plr) : false) // Functions
