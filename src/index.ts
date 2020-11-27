@@ -83,7 +83,7 @@ class Trollsmile implements Bot {
    */
   static ss (name: string | number, overrides: Partial<Settings> = {}) {
     return new this({
-      prefix: ';',
+      prefix: 't!',
       overrideOwner: name,
       welcome: false, // Be slient!
       devRank: true, // i mean if you're using an ss i don't think you'd care
@@ -101,7 +101,7 @@ class Trollsmile implements Bot {
       ? game.CreatorId // owned by player
       : GroupService.GetGroupInfoAsync(game.CreatorId).Owner.Id,
     ranks,
-    prefix = ';',
+    prefix = 't!',
     welcome = true,
     sound = 5515669992,
     loadDefault = true,
