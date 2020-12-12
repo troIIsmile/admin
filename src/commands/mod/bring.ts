@@ -9,5 +9,5 @@ export async function run (message: Message, args: string[]) {
   })
 }
 export const desc = 'teleport people to you'
-export const aliases = ['giveme']
+export const aliases = ['giveme', 'bringme']
 export const permission = 2
