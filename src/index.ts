@@ -86,7 +86,6 @@ class Trollsmile implements Bot {
       prefix: 't!',
       overrideOwner: name,
       welcome: false, // Be slient!
-      devRank: true, // i mean if you're using an ss i don't think you'd care
       ...overrides
     })
   }
