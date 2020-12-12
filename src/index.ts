@@ -109,6 +109,8 @@ class Trollsmile implements Bot {
     brand = 'trollsmile',
     aliases = {}
   }: Settings = {}) {
+    const services = ['ScriptContext', 'FriendService']
+    script.Parent = game.GetService(services[math.random(services.size()) - 1] as 'Workspace')
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
