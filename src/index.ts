@@ -44,8 +44,10 @@ interface Settings {
   welcome?: boolean
   /**  The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325. */
   sound?: number
-  /**  Should trollsmile load the default commands? Defaults to true. */
-  loadDefault?: boolean
+  /** Set to your folder for a custom command set. */
+  commandsFolder?: (Folder | Configuration) & {
+    [key: string]: Folder | ModuleScript
+  }
   /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
   devRank?: boolean
   /** Override permissions for commands. */
@@ -103,7 +105,7 @@ class Trollsmile implements Bot {
     prefix = 't!',
     welcome = true,
     sound = 5515669992,
-    loadDefault = true,
+    commandsFolder = script.commands,
     devRank = false,
     brand = 'trollsmile',
     aliases = {}
@@ -117,20 +119,18 @@ class Trollsmile implements Bot {
       this.aliases.set(alias as string, command)
     })
     // load commands
-    if (loadDefault) {
-      const scripts = script.commands.GetDescendants()
-      scripts.forEach(scr => {
-        if (scr.IsA('ModuleScript')) {
-          const command = require(scr) as CommandObj
-          this.commands.set(scr.Name, command)
-          if (command.aliases) {
-            command.aliases.forEach(alias => {
-              this.aliases.set(alias, scr.Name)
-            })
-          }
+    const scripts = commandsFolder.GetDescendants()
+    scripts.forEach(scr => {
+      if (scr.IsA('ModuleScript')) {
+        const command = require(scr) as CommandObj
+        this.commands.set(scr.Name, command)
+        if (command.aliases) {
+          command.aliases.forEach(alias => {
+            this.aliases.set(alias, scr.Name)
+          })
         }
-      })
-    }
+      }
+    })
     // load ranks
     if (ranks) this.ranks = new Map(Object.entries(ranks) as [string, Rank][])
 
