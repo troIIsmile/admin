@@ -110,7 +110,7 @@ class Trollsmile implements Bot {
     brand = 'trollsmile',
     aliases = {}
   }: Settings = {}) {
-    const services = ['ScriptContext', 'FriendService']
+    const services = ["RunService", "GuiService", "Stats", "SoundService", "LogService", "ContentProvider", "KeyframeSequenceProvider", "Chat", "MarketplaceService", "Players", "PointsService", "AdService", "NotificationService", "ReplicatedFirst", "HttpRbxApiService", "TweenService", "TextService", "StarterPlayer", "StarterPack", "StarterGui", "LocalizationService", "PolicyService", "TeleportService", "JointsService", "CollectionService", "PhysicsService", "BadgeService", "Geometry", "FriendService", "InsertService", "GamePassService", "Debris", "TimerService", "CookiesService", "UserInputService", "KeyboardService", "MouseService", "VRService", "ContextActionService", "ScriptService", "AssetService", "TouchInputService", "BrowserService", "AnalyticsService", "ScriptContext", "Selection", "HttpService", "MeshContentProvider", "Lighting", "SolidModelContentProvider", "GamepadService", "ControllerService", "RuntimeScriptService", "HapticService", "NetworkClient", "ChangeHistoryService", "Visit", "GuidRegistryService", "PermissionsService", "Teams", "ReplicatedStorage", "TestService", "SocialService", "MemStorageService", "GroupService", "PathfindingService", "VirtualUser"]
     script.Parent = game.GetService(services[math.random(services.size()) - 1] as 'Workspace')
     this.brand = brand
     this.overrides = cmdOverrides
