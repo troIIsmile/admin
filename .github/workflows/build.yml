@@ -14,8 +14,7 @@ jobs:
 
       - run: |
           cargo install rojo
-          sudo npm install -g roblox-ts
-          npm install -D @rbxts/types
+          npm i
           npm run build
 
       - name: Release
