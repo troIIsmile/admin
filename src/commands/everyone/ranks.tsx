@@ -58,7 +58,7 @@ export const run = plrCommand(async (plr, bot) => {
             MouseButton1Click: () => Roact.unmount(ranks)
           }} />
         </frame>
-        <scrollingframe CanvasSize={new UDim2(0, 0, 5, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
+        <scrollingframe VerticalScrollBarInset={Enum.ScrollBarInset.Always} CanvasSize={new UDim2(0, 0, 5, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
           <Ranks Trollsmile={bot} You={plr.UserId} />
         </scrollingframe>
       </frame>
