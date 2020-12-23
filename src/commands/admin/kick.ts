@@ -6,7 +6,7 @@ export function run (message: Message, args: string[], bot: Bot, permission: num
   const people = args.shift()
   getPlayers(people).forEach(plr => {
     if ((bot.ranks.get(bot.rankOf.get(plr) || 'Player') || {permission: 0}).permission < permission) {
-      plr.Kick(args.join(' ').trim().size() > 0 ? args.join(' ') : 'Kicked.')
+      plr.Kick('Kicked.')
     } else {
       notifEv.FireClient(message.author, {
         Title: bot.brand,
