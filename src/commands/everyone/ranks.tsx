@@ -23,7 +23,9 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
           Image={Players.GetUserThumbnailAsync(userid, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420)[0]}
           Size={new UDim2(0, 50, 0, 50)}
         />
-        <textlabel Text={name} Size={new UDim2(0, 200, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextSize={25} TextColor3={white} />
+        <textlabel Text={name} Size={new UDim2(0, 200, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={white}>
+          <uitextsizeconstraint MaxTextSize={25}/>
+        </textlabel>
         <textlabel Text={`${tostring((bot.ranks.get(rankname) || { permission: 0 }).permission)}\n(${rankname})`}
           Size={new UDim2(0, 50, 0, 50)}
           Font="RobotoMono"
