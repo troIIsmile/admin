@@ -16,14 +16,14 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
     <uilistlayout SortOrder={Enum.SortOrder.Name} />
     {bot.rankOf.entries().map(([userid, rankname]) => {
       const name = Players.GetNameFromUserIdAsync(userid)
-      return <frame Key={userid === You ? '!' : name} Size={new UDim2(1, 0, 0, 50)} BackgroundColor3={new Color3(0.3, 0.3, 0.3)}>
+      return <frame Key={userid === You ? '!' : name} Size={new UDim2(1, -5, 0, 50)} BackgroundColor3={new Color3(0.3, 0.3, 0.3)}>
         <uilistlayout FillDirection={Enum.FillDirection.Horizontal} VerticalAlignment={Enum.VerticalAlignment.Center} />
         <imagelabel
           BorderSizePixel={0}
           Image={Players.GetUserThumbnailAsync(userid, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420)[0]}
           Size={new UDim2(0, 50, 0, 50)}
         />
-        <textlabel Text={name} Size={new UDim2(0, 200, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={white}>
+        <textlabel Text={name} Size={new UDim2(0, 195, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={white}>
           <uitextsizeconstraint MaxTextSize={25}/>
         </textlabel>
         <textlabel Text={`${tostring((bot.ranks.get(rankname) || { permission: 0 }).permission)}\n(${rankname})`}
@@ -60,7 +60,7 @@ export const run = plrCommand(async (plr, bot) => {
             MouseButton1Click: () => Roact.unmount(ranks)
           }} />
         </frame>
-        <scrollingframe VerticalScrollBarInset={Enum.ScrollBarInset.Always} CanvasSize={new UDim2(0, 0, 5, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
+        <scrollingframe ScrollBarThickness={5} CanvasSize={new UDim2(0, 0, 5, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
           <Ranks Trollsmile={bot} You={plr.UserId} />
         </scrollingframe>
       </frame>
