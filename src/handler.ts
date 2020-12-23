@@ -18,7 +18,7 @@ export = async (bot: Bot, author: Player, content: string, sound: number, channe
   )
   if (!name) return
   // Run the command!
-  const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(author) as string) as { permission: number }).permission
+  const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(author.UserId) as string) as { permission: number }).permission
   const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
     || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
     || (() => { }) // nothing

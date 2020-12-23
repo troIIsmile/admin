@@ -73,7 +73,7 @@ class Trollsmile implements Bot {
   aliases = new Map<string, string>()
   static readonly version = PKG_VERSION
   ranks = new Map<string, Rank>()
-  rankOf = new Map<Player, string>()
+  rankOf = new Map<number, string>()
   prefix: string
   overrides: {
     [key: string]: number
@@ -169,9 +169,9 @@ class Trollsmile implements Bot {
             || (asset ? MarketplaceService.PlayerOwnsAsset(plr, asset) : false) // Asset (T-Shirts and stuff)
         })
       if (rank) {
-        this.rankOf.set(plr, rank[0])
+        this.rankOf.set(plr.UserId, rank[0])
       } else {
-        this.rankOf.set(plr, 'Player')
+        this.rankOf.set(plr.UserId, 'Player')
       }
 
       // Handler
@@ -186,7 +186,7 @@ class Trollsmile implements Bot {
         notifEv.FireClient(plr, {
           Title: 'Welcome!',
           Icon: 'rbxassetid://3250824458',
-          Text: `Your rank is ${this.rankOf.get(plr)} and the prefix is ${this.prefix}.`,
+          Text: `Your rank is ${this.rankOf.get(plr.UserId)} and the prefix is ${this.prefix}.`,
           Button1: 'Close'
         }, sound)
       }
@@ -196,7 +196,7 @@ class Trollsmile implements Bot {
     Players.PlayerAdded.Connect(onPlr)
   }
 
-  rank (plr: Player, rank: string) {
+  rank (plr: number, rank: string) {
     if (this.ranks.get(rank)) {
       this.rankOf.set(plr, rank)
       return this

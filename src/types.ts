@@ -24,7 +24,7 @@ export interface Bot {
    *  print(`Player ${plr.Name} is the owner!`)
    * }
    */
-  rankOf: Map<Player, string>
+  rankOf: Map<number, string>
   prefix: string
   overrides: {
     [key: string]: number
