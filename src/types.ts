@@ -1,3 +1,4 @@
+import Trollsmile from 'index'
 export type PlayerArray = (number | string)[]
 
 export type Rank = {
@@ -13,24 +14,7 @@ export type Rank = {
   func?: (plr: Player) => boolean
 }
 
-export interface Bot {
-  commands: Map<string, CommandObj>
-  aliases: Map<string, string>
-  ranks: Map<string, Rank>
-  /**
-   * The rank of a player.
-   * @example
-   * if (bot.rankOf.get(plr).permission === math.huge) {
-   *  print(`Player ${plr.Name} is the owner!`)
-   * }
-   */
-  rankOf: Map<number, string>
-  prefix: string
-  overrides: {
-    [key: string]: number
-  }
-  brand: string
-}
+export type Bot = Trollsmile
 
 export interface Message {
   content: string

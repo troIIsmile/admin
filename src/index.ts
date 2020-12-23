@@ -66,7 +66,7 @@ interface Settings {
   }
 }
 
-class Trollsmile implements Bot {
+class Trollsmile {
   brand = 'trollsmile' // brand of admin system
 
   commands = new Map<string, CommandObj>()
