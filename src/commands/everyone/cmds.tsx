@@ -8,7 +8,7 @@ function Commands ({ Trollsmile: bot, Perm }: { Trollsmile: Bot, Perm: number })
   return <Roact.Fragment>
     <uilistlayout SortOrder={Enum.SortOrder.Name} />
     {bot.commands.entries().filter(([, { permission = 0 }]) => permission <= Perm).map(([name, { desc = 'this command does not have a description' }]) => {
-      return <textlabel TextSize={25} AutomaticSize={Enum.AutomaticSize.Y} TextWrapped={true} TextColor3={white} BorderSizePixel={0} Font="RobotoMono" Size={new UDim2(1, 0, 0, 50)} Key={name} BackgroundTransparency={1} Text={`${name} - ${desc}`}></textlabel>
+      return <textlabel TextSize={25} AutomaticSize={Enum.AutomaticSize.Y} TextWrapped={true} TextColor3={white} BorderSizePixel={0} Font="RobotoMono" Size={new UDim2(1, -5, 0, 50)} Key={name} BackgroundTransparency={1} Text={`${name} - ${desc}`}></textlabel>
     })}
   </Roact.Fragment>
 }
