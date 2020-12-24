@@ -6,7 +6,7 @@
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
-import { Bot, CommandObj, Rank } from 'types'
+import { CommandObj, Rank } from 'types'
 import { cloneTo } from 'utils'
 
 declare const script: Script & {
