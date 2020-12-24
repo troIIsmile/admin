@@ -5,12 +5,12 @@ import { Bot, Message } from 'types'
 const getPlayersNoComma = (String = 'N/A') => String === 'all' ? Players.GetPlayers() : Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + String.lower())[0])
 export const getPlayers = (String = 'N/A'): Player[] => removeDuplicates(([] as Player[]).concat(...String.split(',').map(getPlayersNoComma)))
 export const removeDuplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
-export function plrCommand (command: (plr: Player, bot: Bot) => unknown) {
-  return (message: Message, args: string[], bot: Bot) => {
+export function plrCommand (command: (plr: Player, bot: Bot, permission: number) => unknown) {
+  return (message: Message, args: string[], bot: Bot, perm: number) => {
     if (args.join('').trim().size()) {
-      getPlayers(args.join(' ')).forEach(plr=>command(plr, bot))
+      getPlayers(args.join(' ')).forEach(plr => command(plr, bot, (bot.ranks.get(bot.rankOf.get(plr.UserId) || '') || { permission: 0 }).permission))
     } else {
-      command(message.author, bot)
+      command(message.author, bot, perm)
     }
   }
 }
