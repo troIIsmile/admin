@@ -1,6 +1,6 @@
 import { plrCommand } from 'utils'
 import Roact from '@rbxts/roact'
-import { Bot } from 'types'
+import Bot from 'index'
 import { Players } from '@rbxts/services'
 
 function Center (props: { [Roact.Children]: Roact.Element | Roact.Element[] }) {
