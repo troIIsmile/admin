@@ -2,7 +2,7 @@ import { plrCommand } from 'utils'
 import Roact from '@rbxts/roact'
 import Bot from 'index'
 import { Players } from '@rbxts/services'
-import { Center } from 'components'
+import { Popup } from 'components'
 
 function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
   const white = new Color3(1, 1, 1)
@@ -18,7 +18,7 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
           Size={new UDim2(0, 50, 0, 50)}
         />
         <textlabel Text={name} Size={new UDim2(0, 195, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={white}>
-          <uitextsizeconstraint MaxTextSize={25}/>
+          <uitextsizeconstraint MaxTextSize={25} />
         </textlabel>
         <textlabel Text={`${tostring((bot.ranks.get(rankname) || { permission: 0 }).permission)}\n(${rankname})`}
           Size={new UDim2(0, 50, 0, 50)}
@@ -32,35 +32,10 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
   </Roact.Fragment>
 }
 
-export const run = plrCommand(async (plr, bot) => {
-  const white = new Color3(1, 1, 1)
-  const padding = new UDim(0, 5)
-  const ranks = Roact.mount(<screengui>
-    <Center>
-      <frame Key="Ranks" Size={new UDim2(0, 300, 0, 500)} BackgroundColor3={new Color3(0.1, 0.1, 0.1)} BorderSizePixel={0}>
-        <frame Key="header" Size={new UDim2(1, 0, 0, 25)} BackgroundColor3={new Color3(0.25, 0.25, 0.25)} BorderSizePixel={0}>
-          <uipadding PaddingLeft={padding} PaddingRight={padding} PaddingTop={padding} PaddingBottom={padding}></uipadding>
-          <uilistlayout FillDirection={Enum.FillDirection.Horizontal} VerticalAlignment={Enum.VerticalAlignment.Center} />
-          <textlabel
-            Text={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`}
-            TextScaled={true}
-            Size={new UDim2(1, -20, 1, 0)}
-            TextColor3={white}
-            BackgroundTransparency={1}
-            Font="RobotoMono"
-            TextXAlignment={Enum.TextXAlignment.Left}
-          />
-          <textbutton BorderSizePixel={0} BackgroundColor3={new Color3(1, 0, 0)} TextColor3={white} Text="×" TextSize={20} Size={new UDim2(0, 25, 0, 25)} Event={{
-            MouseButton1Click: () => Roact.unmount(ranks)
-          }} />
-        </frame>
-        <scrollingframe ScrollBarThickness={5} CanvasSize={new UDim2(0, 0, 5, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
-          <Ranks Trollsmile={bot} You={plr.UserId} />
-        </scrollingframe>
-      </frame>
-    </Center>
-  </screengui>, plr.WaitForChild('PlayerGui'), 'trollsmileRanks')
-})
+export const run = plrCommand(async (plr, bot) => Roact.mount(
+  <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)} Key="trollsmileRanks">
+    <Ranks Trollsmile={bot} You={plr.UserId} />
+  </Popup>, plr.WaitForChild('PlayerGui'), 'trollsmileRanks'))
 export const desc = 'see the ranks of all players that have joined this session'
 export const permission = 0
 export const aliases = ['admins', 'permission']
