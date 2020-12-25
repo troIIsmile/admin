@@ -33,7 +33,7 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
 }
 
 export const run = plrCommand(async (plr, bot) => Roact.mount(
-  <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)} Key="trollsmileRanks">
+  <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)}>
     <Ranks Trollsmile={bot} You={plr.UserId} />
   </Popup>, plr.WaitForChild('PlayerGui'), 'trollsmileRanks'))
 export const desc = 'see the ranks of all players that have joined this session'
