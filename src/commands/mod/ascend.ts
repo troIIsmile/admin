@@ -24,6 +24,8 @@ export const run = plrCommand(async plr => {
   m2.Scale = new Vector3(60, 10000, 60)
   const vel = new Instance('BodyVelocity', pt)
   vel.Velocity = new Vector3(0, 10, 0)
+  vel.MaxForce = new Vector3(math.huge, math.huge, math.huge)
+  vel.P = math.huge
   const choir = new Instance('Sound', pt)
   choir.SoundId = 'rbxassetid://139100774'
   choir.Volume = 1
