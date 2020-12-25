@@ -24,7 +24,7 @@ export function Popup ({ Size = new UDim2(0, 400, 0, 500), HeaderSize = 25, name
             Font="RobotoMono"
             TextXAlignment={Enum.TextXAlignment.Left}
           />
-          <textbutton BorderSizePixel={0} BackgroundColor3={new Color3(1, 0, 0)} TextColor3={white} Text="×" TextSize={20} Size={new UDim2(0, 25, 0, 25)} Modal={true} Event={{
+          <textbutton BorderSizePixel={0} BackgroundColor3={new Color3(1, 0, 0)} TextColor3={white} Text="×" TextSize={20} Size={new UDim2(0, 25, 0, 25)} Event={{
             MouseButton1Click: rbx => {
               const gui = rbx.FindFirstAncestorWhichIsA('ScreenGui')
               if (gui) gui.Destroy()
