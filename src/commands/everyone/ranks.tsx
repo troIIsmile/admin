@@ -20,7 +20,7 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
         <textlabel Text={name} Size={new UDim2(0, 195, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={white}>
           <uitextsizeconstraint MaxTextSize={25} />
         </textlabel>
-        <textlabel Text={`${tostring((bot.ranks.get(rankname) || { permission: 0 }).permission)}\n(${rankname})`}
+        <textlabel Text={`${tostring((bot.ranks.get(rankname))!.permission)}\n(${rankname})`}
           Size={new UDim2(0, 50, 0, 50)}
           Font="RobotoMono"
           BorderSizePixel={0}
