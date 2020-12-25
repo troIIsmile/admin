@@ -27,8 +27,8 @@ export const run = plrCommand(async plr => {
   const choir = new Instance('Sound', pt)
   choir.SoundId = 'rbxassetid://139100774'
   choir.Volume = 1
-  choir.MaxDistance = 75
-  choir.EmitterSize = 50
+  choir.RollOffMaxDistance = 75
+  choir.RollOffMinDistance = 50
   choir.Play()
 
   // start go down
@@ -39,8 +39,8 @@ export const run = plrCommand(async plr => {
     sound.SoundId = 'rbxassetid://906084456'
     sound.Volume = 1
     sound.TimePosition = 2
-    sound.MaxDistance = 75
-    sound.EmitterSize = 50
+    sound.RollOffMaxDistance = 75
+    sound.RollOffMinDistance = 50
     sound.Play()
     sound.Ended.Wait()
     sound.Destroy()
@@ -49,8 +49,8 @@ export const run = plrCommand(async plr => {
   const nope = new Instance('Sound', pt)
   nope.SoundId = 'rbxassetid://130932305'
   nope.Volume = 1
-  nope.MaxDistance = 75
-  nope.EmitterSize = 50
+  nope.RollOffMaxDistance = 75
+  nope.RollOffMinDistance = 50
   nope.Play()
   nope.Ended.Wait()
   nope.Destroy()
@@ -62,8 +62,8 @@ export const run = plrCommand(async plr => {
     const sound = new Instance('Sound', pt)
     sound.SoundId = 'rbxassetid://258057783'
     sound.Volume = 1
-    sound.MaxDistance = 75
-    sound.EmitterSize = 50
+    sound.RollOffMaxDistance = 75
+    sound.RollOffMinDistance = 50
     sound.Play()
     sound.Ended.Wait()
     sound.Destroy()

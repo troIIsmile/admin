@@ -1,19 +1,20 @@
 import notifEv from 'notify'
 import { Bot, Message } from 'types'
 import printEv from 'print'
+import StringUtils from '@rbxts/string-utils'
 
 export = async (bot: Bot, author: Player, content: string, sound: number, channel?: Player) => {
-  if (!content.startsWith(bot.prefix) && !content.startsWith(`/e ${bot.prefix}`)) return // don't waste time lol
+  if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
     author,
     channel,
     content
   }
-  const name = [...bot.commands.keys(), ...bot.aliases.keys()].find(
+  const name = [...[...bot.commands].map(([name]) => name), ...[...bot.aliases].map(([name]) => name)].find(
     cmdname =>
-      content.startsWith(`${bot.prefix}${cmdname} `) || // matches any command with a space after
+      StringUtils.startsWith(content, `${bot.prefix}${cmdname} `) || // matches any command with a space after
       content === bot.prefix + cmdname || // matches any command without arguments
-      content.startsWith(`/e ${bot.prefix}${cmdname} `) || // quiet commands
+      StringUtils.startsWith(content, `/e ${bot.prefix}${cmdname} `) || // quiet commands
       content === '/e ' + bot.prefix + cmdname // quiet commands no arguments
   )
   if (!name) return
@@ -32,7 +33,7 @@ export = async (bot: Bot, author: Player, content: string, sound: number, channe
       message, // the message
       // The arguments
       content
-        .sub(content.startsWith('/e ') ? bot.prefix.size() + 4 + name.size() : bot.prefix.size() + 1 + name.size()) // only the part after the command
+        .sub(StringUtils.startsWith(content, '/e ') ? bot.prefix.size() + 4 + name.size() : bot.prefix.size() + 1 + name.size()) // only the part after the command
         .split(' '), // split with spaces
       bot, // give em the bot
       permissionOfPlayer // give em the permission

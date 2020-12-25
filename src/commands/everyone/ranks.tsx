@@ -8,7 +8,7 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
   const white = new Color3(1, 1, 1)
   return <Roact.Fragment>
     <uilistlayout SortOrder={Enum.SortOrder.Name} />
-    {bot.rankOf.entries().map(([userid, rankname]) => {
+    {[...bot.rankOf].map(([userid, rankname]) => {
       const name = Players.GetNameFromUserIdAsync(userid)
       return <frame Key={userid === You ? '!' : name} Size={new UDim2(1, -5, 0, 50)} BackgroundColor3={new Color3(0.3, 0.3, 0.3)}>
         <uilistlayout FillDirection={Enum.FillDirection.Horizontal} VerticalAlignment={Enum.VerticalAlignment.Center} />

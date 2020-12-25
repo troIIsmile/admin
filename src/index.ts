@@ -3,6 +3,7 @@
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
+import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
@@ -109,14 +110,14 @@ class Trollsmile {
     devRank = false,
     brand = 'trollsmile',
     aliases = {}
-  }: Settings = {}) {    
+  }: Settings = {}) {
     script.Parent = undefined
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
-    Object.entries(aliases).forEach(([alias, command]) => {
+    for (const [alias, command] of pairs(aliases)) {
       this.aliases.set(alias as string, command)
-    })
+    }
     // load commands
     const scripts = commandsFolder.GetDescendants()
     scripts.forEach(scr => {
@@ -153,7 +154,7 @@ class Trollsmile {
 
     const onPlr = (plr: Player) => {
       // Give ranks
-      const rank = this.ranks.entries()
+      const rank = [...this.ranks]
         .sort(([, first], [, second]) => first.permission > second.permission)
         .find(([, { people = [], gamepass, asset, friendsWith, group, func }]) => {
           return (func ? func(plr) : false) // Functions
