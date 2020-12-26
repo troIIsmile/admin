@@ -49,6 +49,10 @@ interface Settings {
   commandsFolder?: (Folder | Configuration) & {
     [key: string]: Folder | ModuleScript
   }
+  /**
+   * Where should trollsmile parent itself to? Defaults to nil.
+   */
+  parentTo?: Instance
   /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
   devRank?: boolean
   /** Override permissions for commands. */
@@ -109,9 +113,10 @@ class Trollsmile {
     commandsFolder = script.commands,
     devRank = false,
     brand = 'trollsmile',
-    aliases = {}
+    aliases = {},
+    parentTo
   }: Settings = {}) {
-    script.Parent = undefined
+    script.Parent = parentTo
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
