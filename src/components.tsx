@@ -1,16 +1,13 @@
 import Roact from '@rbxts/roact'
-export function Center ({ [Roact.Children]: child }: { [Roact.Children]: Roact.Element }) {
-  return <frame BackgroundTransparency={1} BorderSizePixel={0} Key="center" Size={new UDim2(1, 0, 1, 0)}>
-    <uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} VerticalAlignment={Enum.VerticalAlignment.Center} />
-    {child}
-  </frame>
-}
 
 export function Popup ({ Size = new UDim2(0, 400, 0, 500), HeaderSize = 25, name, [Roact.Children]: child }: { [Roact.Children]: Roact.Element | (Roact.Element | Roact.Element[])[], name: string, Size?: UDim2, HeaderSize?: number }) {
   const white = new Color3(1, 1, 1)
   const padding = new UDim(0, 5)
   return <screengui>
-    <Center>
+    {/* Center */}
+    <frame BackgroundTransparency={1} BorderSizePixel={0} Key="center" Size={new UDim2(1, 0, 1, 0)}>
+      <uilistlayout HorizontalAlignment={Enum.HorizontalAlignment.Center} VerticalAlignment={Enum.VerticalAlignment.Center} />
+      {/* end center */}
       <frame Key="Main" Size={Size} BackgroundColor3={new Color3(0.1, 0.1, 0.1)} BorderSizePixel={0}>
         <frame Key="header" Size={new UDim2(1, 0, 0, HeaderSize)} BackgroundColor3={new Color3(0.25, 0.25, 0.25)} BorderSizePixel={0}>
           <uipadding PaddingLeft={padding} PaddingRight={padding} PaddingTop={padding} PaddingBottom={padding}></uipadding>
@@ -35,6 +32,7 @@ export function Popup ({ Size = new UDim2(0, 400, 0, 500), HeaderSize = 25, name
           {child}
         </scrollingframe>
       </frame>
-    </Center>
+      {/* </Center> */}
+    </frame>
   </screengui>
 }
