@@ -4,7 +4,7 @@
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
 import Object from '@rbxts/object-utils'
-import { GroupService, MarketplaceService, Players } from '@rbxts/services'
+import { GroupService, MarketplaceService, Players, TweenService } from '@rbxts/services'
 import handler from 'handler'
 import notifEv from 'notify'
 import { CommandObj, Rank } from 'types'
@@ -189,12 +189,66 @@ class Trollsmile {
       cloneTo(gui, script.include, script.event)
       // Welcome player
       if (welcome) {
-        notifEv.FireClient(plr, {
-          Title: 'Welcome!',
-          Icon: 'rbxassetid://3250824458',
-          Text: `Your rank is ${this.rankOf.get(plr.UserId)} and the prefix is ${this.prefix}.`,
-          Button1: 'Close'
-        }, sound)
+        // Gui to Lua
+        // Version. 3.2
+
+        // Instances.
+
+        const ScreenGui = new Instance("ScreenGui")
+        const TextLabel = new Instance("TextLabel")
+        const ImageLabel = new Instance("ImageLabel")
+        const TextLabel_2 = new Instance("TextLabel")
+
+        // Properties.
+
+        ScreenGui.Parent = gui
+        ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+        TextLabel.Parent = ScreenGui
+        TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.BorderSizePixel = 0
+        TextLabel.Position = new UDim2(1, 0, 1, -100)
+        TextLabel.Rotation = 45.000
+        TextLabel.Size = new UDim2(0, 200, 0, 50)
+        TextLabel.Font = Enum.Font.Roboto
+        TextLabel.Text = ""
+        TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel.TextSize = 15.000
+        TextLabel.TextWrapped = true
+        TextLabel.TextXAlignment = Enum.TextXAlignment.Right
+
+        ImageLabel.Parent = TextLabel
+        ImageLabel.ZIndex = 5
+        ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        ImageLabel.BackgroundTransparency = 1.000
+        ImageLabel.BorderSizePixel = 0
+        ImageLabel.Size = new UDim2(0, 50, 0, 50)
+        ImageLabel.Image = "rbxassetid.//6110686361"
+
+        TextLabel_2.Parent = TextLabel
+        TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel_2.BorderSizePixel = 0
+        TextLabel_2.Position = new UDim2(0, 50, 0, 0)
+        TextLabel_2.Size = new UDim2(1, -50, 1, 0)
+        TextLabel_2.Font = Enum.Font.Roboto
+        TextLabel_2.Text = `${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rankOf.get(plr.UserId)} and the prefix is ${this.prefix}.`
+        TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel_2.TextSize = 15.000
+        TextLabel_2.TextWrapped = true
+        TextLabel_2.TextXAlignment = Enum.TextXAlignment.Right
+
+        // Animation.
+        TweenService.Create(TextLabel, new TweenInfo(1), {
+          Position: new UDim2(1, -250, 1, -100),
+          Rotation: 0
+        }).Play()
+        wait(3)
+        TweenService.Create(TextLabel, new TweenInfo(1), {
+          Position: new UDim2(1, 0, 1, -100),
+          Rotation: -45
+        }).Play()
+        wait(1)
+        ScreenGui.Destroy()
       }
     }
 
