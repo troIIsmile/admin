@@ -9,7 +9,7 @@ import handler from 'handler'
 import notifEv from 'notify'
 import { CommandObj, Rank } from 'types'
 import { cloneTo } from 'utils'
-
+import { start, Punishment } from 'antiskid'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -69,6 +69,10 @@ interface Settings {
   aliases?: {
     [key: string]: string
   }
+  /**
+   * The anti-skid config.
+   */
+  antiSkid?: Parameters<typeof start>[0]
 }
 
 class Trollsmile {
@@ -114,9 +118,11 @@ class Trollsmile {
     devRank = false,
     brand = 'trollsmile',
     aliases = {},
-    parentTo
+    parentTo,
+    antiSkid = { lightningCannon: Punishment.Tux, nootNoot: Punishment.Kick }
   }: Settings = {}) {
     script.Parent = parentTo
+    start(antiSkid)
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
