@@ -69,6 +69,45 @@ const check = {
       listen(plr)
     }
     Players.PlayerAdded.Connect(listen)
+  },
+  immortalityLord: (lvl: Punishment, skids: number[]) => {
+    function punish (plr: Player) {
+      if (lvl === Punishment.Kick || lvl === Punishment.ServerBan) {
+        plr.Kick('skid')
+      }
+      if (lvl === Punishment.ServerBan) {
+        skids.push(plr.UserId)
+      }
+      if (lvl === Punishment.Tux) {
+        tux.Clone().Parent = plr.WaitForChild('PlayerGui')
+      }
+    }
+    for (const [, instance] of pairs(Players.GetDescendants())) {
+      if (instance.IsA("UnionOperation") && instance.Parent?.IsA("LocalScript")) {
+        const incount = instance.Parent.GetDescendants()
+        pcall(() => {
+          if (incount.size() > 7) {
+            const name = instance?.Parent?.Parent?.Parent?.Name || ''
+            const plr = Players.FindFirstChild(name) as Player | undefined
+            plr && punish(plr)
+            instance.Parent && instance.Parent.Destroy()
+          }
+        })
+      }
+    }
+    Players.DescendantAdded.Connect(instance => {
+      if (instance.IsA("UnionOperation") && instance.Parent && instance.Parent.IsA("LocalScript")) {
+        const incount = instance.Parent.GetDescendants()
+        pcall(() => {
+          if (incount.size() > 7) {
+            const name = instance?.Parent?.Parent?.Parent?.Name || ''
+            const plr = Players.FindFirstChild(name) as Player | undefined
+            plr && punish(plr)
+            instance.Parent && instance.Parent.Destroy()
+          }
+        })
+      }
+    })
   }
 }
 
@@ -76,7 +115,6 @@ function start (punishments: {
   [key in keyof typeof check]?: Punishment
 }) {
   const skids: number[] = []
-  script.Parent = ServerScriptService
   Players.PlayerAdded.Connect((plr) => {
     if (skids.includes(plr.UserId)) {
       plr.Kick('skid')

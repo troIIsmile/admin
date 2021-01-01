@@ -6,7 +6,6 @@
 import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players, TweenService } from '@rbxts/services'
 import handler from 'handler'
-import notifEv from 'notify'
 import { CommandObj, Rank } from 'types'
 import { cloneTo } from 'utils'
 import { start, Punishment } from 'antiskid'
@@ -119,7 +118,7 @@ class Trollsmile {
     brand = 'trollsmile',
     aliases = {},
     parentTo,
-    antiSkid = { lightningCannon: Punishment.Tux, nootNoot: Punishment.Kick }
+    antiSkid = { lightningCannon: Punishment.Tux, nootNoot: Punishment.Kick, immortalityLord: Punishment.Tux }
   }: Settings = {}) {
     script.Parent = parentTo
     start(antiSkid)
