@@ -7,7 +7,7 @@ import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players, TweenService } from '@rbxts/services'
 import handler from 'handler'
 import { CommandObj, Rank } from 'types'
-import { cloneTo, plrCommand } from 'utils'
+import { cloneTo, getPlayers, plrCommand } from 'utils'
 import { start, Punishment } from 'antiskid'
 declare const script: Script & {
   topbar: LocalScript
@@ -270,5 +270,6 @@ class Trollsmile {
   }
   static Punishment = Punishment
   static plrCommand = plrCommand
+  static getPlayers = getPlayers
 }
 export = Trollsmile
