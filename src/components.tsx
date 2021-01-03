@@ -1,6 +1,12 @@
 import Roact from '@rbxts/roact'
 
-export function Popup ({ Size = new UDim2(0, 400, 0, 500), HeaderSize = 25, name, [Roact.Children]: child }: { [Roact.Children]: Roact.Element | (Roact.Element | Roact.Element[])[], name: string, Size?: UDim2, HeaderSize?: number }) {
+export function Popup (
+  {
+    Size = new UDim2(0, 400, 0, 500), HeaderSize = 25, name, [Roact.Children]: child
+  }: {
+    [Roact.Children]: Roact.Element | Roact.Element[], name: string, Size?: UDim2, HeaderSize?: number
+  }
+) {
   const white = new Color3(1, 1, 1)
   const padding = new UDim(0, 5)
   return <screengui>
