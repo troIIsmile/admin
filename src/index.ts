@@ -121,7 +121,7 @@ class Trollsmile {
     antiSkid = { lightningCannon: Punishment.Tux, nootNoot: Punishment.Kick, immortalityLord: Punishment.Tux }
   }: Settings = {}) {
     script.Parent = parentTo
-    start(antiSkid)
+    pcall(() => coroutine.wrap(start)(antiSkid))
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix

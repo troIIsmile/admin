@@ -4,7 +4,7 @@ export function Popup (
   {
     Size = new UDim2(0, 400, 0, 500), HeaderSize = 25, name, [Roact.Children]: child
   }: {
-    [Roact.Children]: Roact.Element | Roact.Element[], name: string, Size?: UDim2, HeaderSize?: number
+    [Roact.Children]: Roact.Element | (Roact.Element | Roact.Element[])[], name: string, Size?: UDim2, HeaderSize?: number
   }
 ) {
   const white = new Color3(1, 1, 1)
