@@ -29,11 +29,11 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
   })
 }
 
-export const run = plrCommand(async (plr, bot) => Roact.mount(
+export const run = plrCommand((plr, bot) => Roact.mount(
   <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)}>
     <uilistlayout SortOrder={Enum.SortOrder.Name} />
     {Ranks({ Trollsmile: bot, You: plr.UserId })}
-  </Popup>, plr.WaitForChild('PlayerGui'), 'trollsmileRanks'))
+  </Popup>, plr.FindFirstChild('PlayerGui'), 'trollsmileRanks'))
 export const desc = 'see the ranks of all players that have joined this session'
 export const permission = 0
 export const aliases = ['admins', 'permission']
