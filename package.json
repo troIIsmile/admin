@@ -26,10 +26,10 @@
 	},
 	"main": "src/index.ts",
 	"devDependencies": {
+		"@rbxts/compiler-types": "^1.0.0-beta.12.0",
+		"@rbxts/services": "^1.1.2",
 		"@rbxts/types": "^1.0.431",
 		"rbxts-transformer-services": "^1.0.0",
-		"@rbxts/services": "^1.1.2",
-		"@rbxts/compiler-types": "^1.0.0-beta.11.0",
-		"roblox-ts": "^1.0.0-beta.11"
+		"roblox-ts": "^1.0.0-beta.12"
 	}
 }
