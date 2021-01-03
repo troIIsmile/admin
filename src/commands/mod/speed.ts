@@ -1,10 +1,10 @@
 import { StarterPlayer } from '@rbxts/services'
-import { Message } from 'types'
+import { Bot, Message } from 'types'
 import { getPlayers } from 'utils'
 
-export async function run (message: Message, args: string[]) {
+export async function run (message: Message, args: string[], bot: Bot) {
   const speed = tonumber(args.find(string => tonumber(string) !== undefined)) || StarterPlayer.CharacterWalkSpeed
-  const players = getPlayers(args.filter(string => tonumber(string) === undefined).join(' '))
+  const players = getPlayers(args.filter(string => tonumber(string) === undefined).join(' '), message.author, bot)
   if (players.size() === 0) {
     const hum = message.author.Character?.FindFirstChildWhichIsA('Humanoid')
     if (hum) {

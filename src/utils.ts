@@ -11,9 +11,17 @@ export const flatten = <Type> (arr: Type[][]): Type[] => {
   })
   return newarr
 }
-export const getPlayers = (String = 'N/A', Player?: Player) => {
+export const getPlayers = (String = 'N/A', Player?: Player, bot?: Bot) => {
   if (StringUtils.trim(String) === 'all') return Players.GetPlayers()
   if (Player && StringUtils.trim(String) === 'me') return [Player]
+  if (bot) {
+    const rank = [...bot.ranks].find(([name]) => name.lower() === String.lower() + 's' || name.lower() === String.lower())
+    if (rank) {
+      return [...bot.rankOf]
+        .filter(([, playerrank]) => playerrank === rank[0])
+        .mapFiltered(([id]) => Players.GetPlayerByUserId(id))
+    }
+  }
   return Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + StringUtils.trim(String.lower()))[0])
 }
 
@@ -21,7 +29,7 @@ export const removeDuplicates = <Type> (array: Type[]): Type[] => [...new Set(ar
 export function plrCommand (command: (plr: Player, bot: Bot, permission: number) => unknown) {
   return (message: Message, args: string[], bot: Bot, perm: number) => {
     if (StringUtils.trim(args.join('')).size()) {
-      getPlayers(args.join(' '), message.author).forEach(plr => command(plr, bot, (bot.ranks.get(bot.rankOf.get(plr.UserId) || '') || { permission: 0 }).permission))
+      getPlayers(args.join(' '), message.author, bot).forEach(plr => command(plr, bot, (bot.ranks.get(bot.rankOf.get(plr.UserId) || '') || { permission: 0 }).permission))
     } else {
       command(message.author, bot, perm)
     }
