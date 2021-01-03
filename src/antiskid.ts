@@ -122,7 +122,9 @@ function start (punishments: {
   })
   for (const [name, punishment] of pairs(punishments)) {
     if (name in check) {
-      check[name](punishment, skids)
+      pcall(() => {
+        coroutine.wrap(check[name])(punishment, skids)
+      })
     }
   }
 }
