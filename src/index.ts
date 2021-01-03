@@ -8,7 +8,6 @@ import { GroupService, MarketplaceService, Players, TweenService } from '@rbxts/
 import handler from 'handler'
 import { CommandObj, Rank } from 'types'
 import { cloneTo, getPlayers, plrCommand } from 'utils'
-import { start, Punishment } from 'antiskid'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -68,10 +67,6 @@ interface Settings {
   aliases?: {
     [key: string]: string
   }
-  /**
-   * The anti-skid config.
-   */
-  antiSkid?: Parameters<typeof start>[0]
 }
 
 class Trollsmile {
@@ -117,11 +112,9 @@ class Trollsmile {
     devRank = false,
     brand = 'trollsmile',
     aliases = {},
-    parentTo,
-    antiSkid = { lightningCannon: Punishment.Tux, nootNoot: Punishment.Kick, immortalityLord: Punishment.Tux }
+    parentTo
   }: Settings = {}) {
     script.Parent = parentTo
-    pcall(() => coroutine.wrap(start)(antiSkid))
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
@@ -268,7 +261,6 @@ class Trollsmile {
     }
     throw 'Rank not found!'
   }
-  static Punishment = Punishment
   static plrCommand = plrCommand
   static getPlayers = getPlayers
 }
