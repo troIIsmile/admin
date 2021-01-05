@@ -3,7 +3,7 @@ import { plrCommand } from 'utils'
 export const run = plrCommand(plr => {
   const fly = plr.FindFirstChild('PlayerGui')?.FindFirstChild('Fly')
   if (fly && fly.IsA('Script')) {
-    fly.Disabled = false
+    fly.Disabled = true
     fly.Destroy()
   }
 })
