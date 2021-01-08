@@ -70,10 +70,12 @@ interface Settings {
 }
 
 class Trollsmile {
-  brand = 'trollsmile' // brand of admin system
-
+  /** Anywhere where we would put "trollsmile", put `this.brand`. This allows users to rebrand the admin system to whatever they want, like to "moller admin". */
+  brand = 'trollsmile'
+  /** Hopefully this is as close to trollsmile Discord's api as possible */
   commands = new Map<string, CommandObj>()
   aliases = new Map<string, string>()
+  /** The version of trollsmile, from the package.json file. */
   static readonly version = PKG_VERSION
   ranks = new Map<string, Rank>()
   rankOf = new Map<number, string>()
@@ -85,6 +87,7 @@ class Trollsmile {
   /**
    * Shorthand for overrideOwner, for your script list/executor.
    * @param overrideOwner The person to give owner. ID or username.
+   * @param overrides trollsmile settings. Good if you want a different prefix.
    */
   static ss (overrideOwner: string | number, overrides: Partial<Settings> = {}) {
     return new this({
@@ -254,7 +257,8 @@ class Trollsmile {
     Players.PlayerAdded.Connect(onPlr)
   }
 
-  rank (plr: number, rank: string) {
+  rank (plr: number, rank?: string) {
+    if (!rank) return this.rankOf.get(plr)
     if (this.ranks.get(rank)) {
       this.rankOf.set(plr, rank)
       return this
