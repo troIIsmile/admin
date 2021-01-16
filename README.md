@@ -6,7 +6,7 @@ shittiest admin system
 
 First you'll need ff- wait wrong repo lol
 
-1. [Install Rojo.](https://rojos.space)
+1. [Install Rojo.](https://rojo.space)
 2. `npm i -g roblox-ts`
 3. `npm install`
 
