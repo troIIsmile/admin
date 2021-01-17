@@ -14,7 +14,7 @@ export function run (message: Message, args: string[]) {
       label.TextTransparency = 1
       label.BackgroundTransparency = 1
       label.Position = new UDim2(0, 0, -0.5, 0)
-      TweenService.Create(label, new TweenInfo(1, Enum.EasingStyle.Exponential), {
+      TweenService.Create(label, new TweenInfo(1, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {
         Position: new UDim2(0, 0, 0, 0),
         TextTransparency: 0,
         BackgroundTransparency: 0.5
@@ -29,7 +29,7 @@ export function run (message: Message, args: string[]) {
       label.Position = new UDim2(0, 0, 0, 0)
       label.BackgroundTransparency = 0.5
       wait(1)
-      TweenService.Create(label, new TweenInfo(1, Enum.EasingStyle.Exponential), {
+      TweenService.Create(label, new TweenInfo(1, Enum.EasingStyle.Exponential, Enum.EasingDirection.In), {
         Position: new UDim2(0, 0, 0.5, 0),
         TextTransparency: 1,
         BackgroundTransparency: 1
