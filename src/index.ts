@@ -164,16 +164,16 @@ class Trollsmile {
         .sort(([, first], [, second]) => first.permission > second.permission)
         .find(([, { people = [], gamepass, asset, friendsWith, group, func }]) => {
           return (func ? func(plr) : false) // Functions
-            || (people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
-            || (group ? (typeIs(group, 'number')
+            || (!!people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
+            || (!!group && (typeIs(group, 'number')
               ? plr.IsInGroup(group) // If they just give us a number then just check if they are in the group
               : (typeIs(group.rank, 'number')
                 ? plr.GetRankInGroup(group.id) === group.rank // Number rank
                 : group.rank.includes(plr.GetRankInGroup(group.id))) // Array rank
-            ) : false) // Group
-            || (friendsWith ? plr.IsFriendsWith(friendsWith) : false) // Friends
-            || (gamepass ? MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass) : false) // Gamepass
-            || (asset ? MarketplaceService.PlayerOwnsAsset(plr, asset) : false) // Asset (T-Shirts and stuff)
+            )) // Group
+            || (!!friendsWith && plr.IsFriendsWith(friendsWith)) // Friends
+            || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass)) // Gamepass
+            || (!!asset && MarketplaceService.PlayerOwnsAsset(plr, asset)) // Asset (T-Shirts and stuff)
         })
       if (rank) {
         this.rankOf.set(plr.UserId, rank[0])
