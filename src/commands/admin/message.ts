@@ -28,7 +28,7 @@ export function run (message: Message, args: string[]) {
       wait(1)
       label.Position = new UDim2(0, 0, 0, 0)
       label.BackgroundTransparency = 0.5
-      wait(1)
+      wait(3 + text.size() / 30)
       TweenService.Create(label, new TweenInfo(1, Enum.EasingStyle.Exponential, Enum.EasingDirection.In), {
         Position: new UDim2(0, 0, 0.5, 0),
         TextTransparency: 1,
