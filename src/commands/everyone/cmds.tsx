@@ -1,6 +1,7 @@
 import { plrCommand } from 'utils'
 import Roact from '@rbxts/roact'
 import { Popup } from 'components'
+import { HttpService } from '@rbxts/services'
 export const run = plrCommand((plr, bot, Perm) => Roact.mount(
   <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} commands`} Size={new UDim2(0, 400, 0, 500)}>
     <uilistlayout SortOrder={Enum.SortOrder.Name} />
@@ -17,7 +18,7 @@ export const run = plrCommand((plr, bot, Perm) => Roact.mount(
         BackgroundTransparency={1}
         Text={`${name} - ${desc}`} />
     })}
-  </Popup>, plr.WaitForChild('PlayerGui'), 'trollsmileCmds'))
+  </Popup>, plr.WaitForChild('PlayerGui'), HttpService.GenerateGUID(false)))
 export const desc = 'A list of commands.'
 export const permission = 0
 export const aliases = ['help', 'list']
