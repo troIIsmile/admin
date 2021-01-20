@@ -2,7 +2,8 @@ import notifEv from 'notify'
 import { Bot, Message } from 'types'
 import printEv from 'print'
 import StringUtils from '@rbxts/string-utils'
-
+import { Error } from 'utils'
+import { Fragment } from '@rbxts/roact'
 export = async (bot: Bot, author: Player, content: string, sound: number, channel?: Player) => {
   if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
@@ -48,10 +49,15 @@ export = async (bot: Bot, author: Player, content: string, sound: number, channe
       })
     }
   } else {
-    notifEv.FireClient(author, {
-      Title: bot.brand,
-      Button1: 'Close',
-      Text: "You do not have the permission to run this command."
-    }, sound)
+    const button = new Error()
+    button.setParent(author.FindFirstAncestorWhichIsA('PlayerGui'))
+    button.setErrorTitle(bot.brand)
+    button.updateButtons([{
+      Callback: () => button.setErrorTitle(''),
+      Primary: true,
+      LayoutOrder: 1,
+      Text: 'OK'
+    }])
+    button.onErrorChanged('You do not have the permission to run this command', { Value: 404 })
   }
 }

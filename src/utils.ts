@@ -40,3 +40,18 @@ export const cloneTo = (to: Instance | undefined, ...instances: Instance[]) => {
     instance.Clone().Parent = to
   })
 }
+
+interface Button {
+  Text: string,
+  Primary: boolean,
+  LayoutOrder: number,
+  Callback: (inputObject: InputObject) => unknown
+}
+interface Dialog {
+  setParent (instance?: Instance): void
+  setErrorTitle (title: string): void
+  onErrorChanged (text: string, code?: { Value: number }): void
+  updateButtons (buttons: Button[] | { [key: string]: Button }): void
+}
+
+export const Error = require(6275591790) as & { new(): Dialog }
