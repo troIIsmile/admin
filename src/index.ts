@@ -41,8 +41,6 @@ interface Settings {
   }
   /**  Should the player be welcomed? Defaults to true. */
   welcome?: boolean
-  /**  The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325. */
-  sound?: number
   /** Set to your folder for a custom command set. */
   commandsFolder?: (Folder | Configuration) & {
     [key: string]: Folder | ModuleScript
