@@ -1,4 +1,4 @@
-import { Players } from '@rbxts/services'
+import { Players, ServerScriptService } from '@rbxts/services'
 import StringUtils from '@rbxts/string-utils'
 import { Bot, Message } from 'types'
 
@@ -56,3 +56,24 @@ interface Dialog {
 
 export const Error = require(6275591790) as & { new(): Dialog }
 export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
+
+interface ChatChannel {
+  Name: string
+  WelcomeMessage: string
+  Joinable: boolean
+  Leavable: boolean
+  AutoJoin: boolean
+  Private: boolean
+  KickSpeaker (name: string, reason?: string): void
+  MuteSpeaker (name: string, reason?: string, duration?: number): void
+  UnmuteSpeaker (name: string): void
+  GetSpeakerList (): string[]
+  SendSystemMessage (msg: string): void
+}
+interface IChatService {
+  AddChannel (name: string): ChatChannel
+  RemoveChannel (name: string): void
+}
+export const ChatService: Promise<IChatService> = (async function () {
+  return require(ServerScriptService.WaitForChild('ChatServiceRunner').FindFirstChild('ChatService')! as ModuleScript) as IChatService
+})()
