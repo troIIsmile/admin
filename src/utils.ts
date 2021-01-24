@@ -55,3 +55,4 @@ interface Dialog {
 }
 
 export const Error = require(6275591790) as & { new(): Dialog }
+export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
