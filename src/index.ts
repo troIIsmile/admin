@@ -108,7 +108,6 @@ class Trollsmile {
     ranks,
     prefix = 't!',
     welcome = true,
-    sound = 5515669992,
     commandsFolder = script.commands,
     devRank = false,
     brand = 'trollsmile',
@@ -181,7 +180,7 @@ class Trollsmile {
 
       // Handler
       plr.Chatted.Connect((message, to) => {
-        handler(this, plr, message, sound, to)
+        handler(this, plr, message, to)
       })
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
