@@ -1,4 +1,5 @@
-import { Bot, Message } from 'types'
+import { Message } from 'types'
+import type Bot from 'index'
 import { getPlayers } from 'utils'
 
 export async function run (message: Message, args: string[], bot: Bot) {

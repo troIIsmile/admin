@@ -1,5 +1,6 @@
 import { TeleportService } from '@rbxts/services'
-import { Bot, Message } from 'types'
+import { Message } from 'types'
+import type Bot from 'index'
 import { getPlayers } from 'utils'
 export function run (message: Message, args: string[], bot: Bot) {
   const [id] = TeleportService.ReserveServer(game.PlaceId)

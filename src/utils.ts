@@ -1,6 +1,7 @@
 import { Players, ServerScriptService } from '@rbxts/services'
 import StringUtils from '@rbxts/string-utils'
-import { Bot, Message } from 'types'
+import { Message } from 'types'
+import type Bot from '.'
 
 export const flatten = <Type> (arr: Type[][]): Type[] => {
   const newarr: Type[] = []

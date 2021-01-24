@@ -1,7 +1,8 @@
-import { Bot, Message } from 'types'
+import { Message } from 'types'
 import printEv from 'print'
 import StringUtils from '@rbxts/string-utils'
 import { Error, keys } from 'utils'
+import type Bot from 'index'
 export = async (bot: Bot, author: Player, content: string, channel?: Player) => {
   if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
