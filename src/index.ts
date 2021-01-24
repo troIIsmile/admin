@@ -254,6 +254,8 @@ class Trollsmile {
     Players.PlayerAdded.Connect(onPlr)
   }
 
+  rank (plr: number): string
+  rank (plr: number, rank: string): this
   rank (plr: number, rank?: string) {
     if (!rank) return this.rankOf.get(plr)
     if (this.ranks.get(rank)) {
