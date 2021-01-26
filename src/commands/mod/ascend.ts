@@ -10,7 +10,7 @@ async function waitUntilTouch (char: Model): Promise<BasePart> {
   })
 }
 export const run = plrCommand(async plr => {
-  const char = plr.Character as Model
+  const char = plr.Character!
   const pt = (char.FindFirstChild('Torso') || char.FindFirstChild('HumanoidRootPart')) as Part
   const circle = new Instance('Part', pt)
   circle.Anchored = true
@@ -79,8 +79,8 @@ export const run = plrCommand(async plr => {
     exp.Position = pt.Position
     exp.BlastPressure = 1e4
     exp.BlastRadius = 10
-    circle.Destroy();
-    (char.FindFirstChildWhichIsA('Humanoid') as Humanoid).Health = 0
+    circle.Destroy()
+    char.FindFirstChildWhichIsA('Humanoid')!.Health = 0
   })
 })
 

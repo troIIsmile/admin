@@ -3,7 +3,7 @@ import { Message } from 'types'
 
 MessagingService.SubscribeAsync('GlobalMessageTrollsmile', ({ Data: [text, author] }: { Data: [string, string] }) => {
   Players.GetPlayers().forEach(plr => {
-    const gui = plr.FindFirstChild('PlayerGui') as PlayerGui | undefined
+    const gui = plr.FindFirstChild('PlayerGui')
 
     if (gui) {
       const alertGUI = new Instance('ScreenGui', gui)

@@ -3,6 +3,7 @@ import printEv from 'print'
 import StringUtils from '@rbxts/string-utils'
 import { Error, keys } from 'utils'
 import type Bot from 'index'
+import { RunService } from '@rbxts/services'
 export = async (bot: Bot, author: Player, content: string, channel?: Player) => {
   if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
@@ -19,7 +20,7 @@ export = async (bot: Bot, author: Player, content: string, channel?: Player) => 
   )
   if (!name) return
   // Run the command!
-  const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(author.UserId) as string) as { permission: number }).permission
+  const permissionOfPlayer = bot.ranks.get(bot.rankOf.get(author.UserId)!)!.permission
   const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
     || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
     || (() => { }) // nothing
@@ -40,7 +41,7 @@ export = async (bot: Bot, author: Player, content: string, channel?: Player) => 
     )
 
     if (output) {
-      wait()
+      RunService.Heartbeat.Wait()
       printEv.FireClient(author, {
         Text: output,
         Font: Enum.Font.RobotoMono
