@@ -1,24 +1,26 @@
-import notifEv from 'notify'
-import { Bot, Message } from 'types'
+import { Message } from 'types'
 import printEv from 'print'
-
-export = async (bot: Bot, author: Player, content: string, sound: number, channel?: Player) => {
-  if (!content.startsWith(bot.prefix) && !content.startsWith(`/e ${bot.prefix}`)) return // don't waste time lol
+import StringUtils from '@rbxts/string-utils'
+import { Error, keys } from 'utils'
+import type Bot from 'index'
+import { RunService } from '@rbxts/services'
+export = async (bot: Bot, author: Player, content: string, channel?: Player) => {
+  if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
   const message: Message = {
     author,
     channel,
     content
   }
-  const name = [...bot.commands.keys(), ...bot.aliases.keys()].find(
+  const name = [...keys(bot.commands), ...keys(bot.aliases)].find(
     cmdname =>
-      content.startsWith(`${bot.prefix}${cmdname} `) || // matches any command with a space after
+      StringUtils.startsWith(content, `${bot.prefix}${cmdname} `) || // matches any command with a space after
       content === bot.prefix + cmdname || // matches any command without arguments
-      content.startsWith(`/e ${bot.prefix}${cmdname} `) || // quiet commands
+      StringUtils.startsWith(content, `/e ${bot.prefix}${cmdname} `) || // quiet commands
       content === '/e ' + bot.prefix + cmdname // quiet commands no arguments
   )
   if (!name) return
   // Run the command!
-  const permissionOfPlayer = (bot.ranks.get(bot.rankOf.get(author.UserId) as string) as { permission: number }).permission
+  const permissionOfPlayer = bot.ranks.get(bot.rankOf.get(author.UserId)!)!.permission
   const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
     || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
     || (() => { }) // nothing
@@ -32,24 +34,29 @@ export = async (bot: Bot, author: Player, content: string, sound: number, channe
       message, // the message
       // The arguments
       content
-        .sub(content.startsWith('/e ') ? bot.prefix.size() + 4 + name.size() : bot.prefix.size() + 1 + name.size()) // only the part after the command
+        .sub(StringUtils.startsWith(content, '/e ') ? bot.prefix.size() + 4 + name.size() : bot.prefix.size() + 1 + name.size()) // only the part after the command
         .split(' '), // split with spaces
       bot, // give em the bot
       permissionOfPlayer // give em the permission
     )
 
     if (output) {
-      wait()
+      RunService.Heartbeat.Wait()
       printEv.FireClient(author, {
         Text: output,
         Font: Enum.Font.RobotoMono
       })
     }
   } else {
-    notifEv.FireClient(author, {
-      Title: bot.brand,
-      Button1: 'Close',
-      Text: "You do not have the permission to run this command."
-    }, sound)
+    const button = new Error()
+    button.setParent(author.FindFirstAncestorWhichIsA('PlayerGui'))
+    button.setErrorTitle(bot.brand)
+    button.updateButtons([{
+      Callback: () => button.setErrorTitle(''),
+      Primary: true,
+      LayoutOrder: 1,
+      Text: 'OK'
+    }])
+    button.onErrorChanged('You do not have the permission to run this command', { Value: 404 })
   }
 }

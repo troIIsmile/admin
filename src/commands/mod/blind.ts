@@ -4,6 +4,7 @@ export const run = plrCommand(plr => {
   blindGUI.Name = 'trollsmileBlind'
   blindGUI.ResetOnSpawn = false
   blindGUI.DisplayOrder = 2147483647
+  blindGUI.IgnoreGuiInset = true
   const frame = new Instance('Frame', blindGUI)
   frame.Size = new UDim2(1, 0, 1, 0)
   frame.BorderSizePixel = 0

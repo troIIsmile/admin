@@ -1,6 +1,8 @@
 import { Message } from 'types'
+const lua = require(5612987995) as (code: string) => () => void
+getfenv(1).script = new Instance('Script')
 export function run (message: Message, code: string[]) {
-  (require(5612987995) as (code: string) => () => void)(code.join(' '))()
+  lua(code.join(' '))()
 }
 
 export const desc = 'Run code.'

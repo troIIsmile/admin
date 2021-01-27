@@ -10,7 +10,7 @@ async function waitUntilTouch (char: Model): Promise<BasePart> {
   })
 }
 export const run = plrCommand(async plr => {
-  const char = plr.Character as Model
+  const char = plr.Character!
   const pt = (char.FindFirstChild('Torso') || char.FindFirstChild('HumanoidRootPart')) as Part
   const circle = new Instance('Part', pt)
   circle.Anchored = true
@@ -24,11 +24,13 @@ export const run = plrCommand(async plr => {
   m2.Scale = new Vector3(60, 10000, 60)
   const vel = new Instance('BodyVelocity', pt)
   vel.Velocity = new Vector3(0, 10, 0)
+  vel.MaxForce = new Vector3(math.huge, math.huge, math.huge)
+  vel.P = math.huge
   const choir = new Instance('Sound', pt)
   choir.SoundId = 'rbxassetid://139100774'
   choir.Volume = 1
-  choir.MaxDistance = 75
-  choir.EmitterSize = 50
+  choir.RollOffMaxDistance = 75
+  choir.RollOffMinDistance = 50
   choir.Play()
 
   // start go down
@@ -39,8 +41,8 @@ export const run = plrCommand(async plr => {
     sound.SoundId = 'rbxassetid://906084456'
     sound.Volume = 1
     sound.TimePosition = 2
-    sound.MaxDistance = 75
-    sound.EmitterSize = 50
+    sound.RollOffMaxDistance = 75
+    sound.RollOffMinDistance = 50
     sound.Play()
     sound.Ended.Wait()
     sound.Destroy()
@@ -49,8 +51,8 @@ export const run = plrCommand(async plr => {
   const nope = new Instance('Sound', pt)
   nope.SoundId = 'rbxassetid://130932305'
   nope.Volume = 1
-  nope.MaxDistance = 75
-  nope.EmitterSize = 50
+  nope.RollOffMaxDistance = 75
+  nope.RollOffMinDistance = 50
   nope.Play()
   nope.Ended.Wait()
   nope.Destroy()
@@ -62,8 +64,8 @@ export const run = plrCommand(async plr => {
     const sound = new Instance('Sound', pt)
     sound.SoundId = 'rbxassetid://258057783'
     sound.Volume = 1
-    sound.MaxDistance = 75
-    sound.EmitterSize = 50
+    sound.RollOffMaxDistance = 75
+    sound.RollOffMinDistance = 50
     sound.Play()
     sound.Ended.Wait()
     sound.Destroy()
@@ -77,8 +79,8 @@ export const run = plrCommand(async plr => {
     exp.Position = pt.Position
     exp.BlastPressure = 1e4
     exp.BlastRadius = 10
-    circle.Destroy();
-    (char.FindFirstChildWhichIsA('Humanoid') as Humanoid).Health = 0
+    circle.Destroy()
+    char.FindFirstChildWhichIsA('Humanoid')!.Health = 0
   })
 })
 

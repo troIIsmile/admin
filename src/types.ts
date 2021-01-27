@@ -1,6 +1,5 @@
-import Trollsmile from 'index'
+import type Bot from 'index'
 export type PlayerArray = (number | string)[]
-
 export type Rank = {
   permission: number
   people?: PlayerArray
@@ -13,8 +12,6 @@ export type Rank = {
   } | number
   func?: (plr: Player) => boolean
 }
-
-export type Bot = Trollsmile
 
 export interface Message {
   content: string

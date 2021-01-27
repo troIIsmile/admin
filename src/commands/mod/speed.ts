@@ -2,16 +2,23 @@ import { StarterPlayer } from '@rbxts/services'
 import { Message } from 'types'
 import { getPlayers } from 'utils'
 
-export async function run (message: Message, [speedOrPlrs, speed]: string[]) {
-  if (!tonumber(speedOrPlrs)) {
-    getPlayers(speedOrPlrs).forEach(plr => {
-      const hum = (plr.Character || plr.CharacterAdded.Wait()[0]).FindFirstChildWhichIsA('Humanoid')
-      if (hum) hum.WalkSpeed = tonumber(speed) || StarterPlayer.CharacterWalkSpeed
-    })
+export async function run (message: Message, args: string[]) {
+  const speed = tonumber(args.find(string => tonumber(string) !== undefined)) || StarterPlayer.CharacterWalkSpeed
+  const players = getPlayers(args.filter(string => tonumber(string) === undefined).join(' '), message.author)
+  if (players.size() === 0) {
+    const hum = message.author.Character?.FindFirstChildWhichIsA('Humanoid')
+    if (hum) {
+      hum.WalkSpeed = speed
+    }
   } else {
-    const hum = (message.author.Character || message.author.CharacterAdded.Wait()[0]).FindFirstChildWhichIsA('Humanoid')
-    if (hum) hum.WalkSpeed = tonumber(speedOrPlrs)  || StarterPlayer.CharacterWalkSpeed
+    players.forEach(plr => {
+      const hum = plr.Character?.FindFirstChildWhichIsA('Humanoid')
+      if (hum) {
+        hum.WalkSpeed = speed
+      }
+    })
   }
+
 }
 export const desc = 'gotta go fast'
 export const aliases = ['walkspeed', 'walkSpeed']

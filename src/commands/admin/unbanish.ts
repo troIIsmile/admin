@@ -1,4 +1,4 @@
-import { Bot } from 'types'
+import type Bot from 'index'
 import { plrCommand } from 'utils'
 
 export const run = plrCommand((plr, bot: Bot & { banishedPlayers?: Set<string> }) => {

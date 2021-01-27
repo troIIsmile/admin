@@ -3,12 +3,11 @@
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
-import { GroupService, MarketplaceService, Players } from '@rbxts/services'
+import Object from '@rbxts/object-utils'
+import { GroupService, MarketplaceService, Players, TweenService } from '@rbxts/services'
 import handler from 'handler'
-import notifEv from 'notify'
 import { CommandObj, Rank } from 'types'
-import { cloneTo } from 'utils'
-
+import { cloneTo, getPlayers, plrCommand } from 'utils'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -42,12 +41,14 @@ interface Settings {
   }
   /**  Should the player be welcomed? Defaults to true. */
   welcome?: boolean
-  /**  The sound to use on notifcations. Set to 0 for no sound. Defaults to 1925504325. */
-  sound?: number
   /** Set to your folder for a custom command set. */
   commandsFolder?: (Folder | Configuration) & {
     [key: string]: Folder | ModuleScript
   }
+  /**
+   * Where should trollsmile parent itself to? Defaults to nil.
+   */
+  parentTo?: Instance
   /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
   devRank?: boolean
   /** Override permissions for commands. */
@@ -67,10 +68,12 @@ interface Settings {
 }
 
 class Trollsmile {
-  brand = 'trollsmile' // brand of admin system
-
+  /** Anywhere where we would put "trollsmile", put `this.brand`. This allows users to rebrand the admin system to whatever they want, like to "moller admin". */
+  brand = 'trollsmile'
+  /** Hopefully this is as close to trollsmile Discord's api as possible */
   commands = new Map<string, CommandObj>()
   aliases = new Map<string, string>()
+  /** The version of trollsmile, from the package.json file. */
   static readonly version = PKG_VERSION
   ranks = new Map<string, Rank>()
   rankOf = new Map<number, string>()
@@ -82,6 +85,7 @@ class Trollsmile {
   /**
    * Shorthand for overrideOwner, for your script list/executor.
    * @param overrideOwner The person to give owner. ID or username.
+   * @param overrides trollsmile settings. Good if you want a different prefix.
    */
   static ss (overrideOwner: string | number, overrides: Partial<Settings> = {}) {
     return new this({
@@ -104,19 +108,19 @@ class Trollsmile {
     ranks,
     prefix = 't!',
     welcome = true,
-    sound = 5515669992,
     commandsFolder = script.commands,
     devRank = false,
     brand = 'trollsmile',
-    aliases = {}
-  }: Settings = {}) {    
-    script.Parent = undefined
+    aliases = {},
+    parentTo
+  }: Settings = {}) {
+    script.Parent = parentTo
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
-    Object.entries(aliases).forEach(([alias, command]) => {
+    for (const [alias, command] of pairs(aliases)) {
       this.aliases.set(alias as string, command)
-    })
+    }
     // load commands
     const scripts = commandsFolder.GetDescendants()
     scripts.forEach(scr => {
@@ -153,20 +157,20 @@ class Trollsmile {
 
     const onPlr = (plr: Player) => {
       // Give ranks
-      const rank = this.ranks.entries()
+      const rank = [...this.ranks]
         .sort(([, first], [, second]) => first.permission > second.permission)
         .find(([, { people = [], gamepass, asset, friendsWith, group, func }]) => {
           return (func ? func(plr) : false) // Functions
-            || (people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
-            || (group ? (typeIs(group, 'number')
+            || (!!people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
+            || (!!group && (typeIs(group, 'number')
               ? plr.IsInGroup(group) // If they just give us a number then just check if they are in the group
               : (typeIs(group.rank, 'number')
                 ? plr.GetRankInGroup(group.id) === group.rank // Number rank
                 : group.rank.includes(plr.GetRankInGroup(group.id))) // Array rank
-            ) : false) // Group
-            || (friendsWith ? plr.IsFriendsWith(friendsWith) : false) // Friends
-            || (gamepass ? MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass) : false) // Gamepass
-            || (asset ? MarketplaceService.PlayerOwnsAsset(plr, asset) : false) // Asset (T-Shirts and stuff)
+            )) // Group
+            || (!!friendsWith && plr.IsFriendsWith(friendsWith)) // Friends
+            || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass)) // Gamepass
+            || (!!asset && MarketplaceService.PlayerOwnsAsset(plr, asset)) // Asset (T-Shirts and stuff)
         })
       if (rank) {
         this.rankOf.set(plr.UserId, rank[0])
@@ -176,19 +180,73 @@ class Trollsmile {
 
       // Handler
       plr.Chatted.Connect((message, to) => {
-        handler(this, plr, message, sound, to)
+        handler(this, plr, message, to)
       })
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
       cloneTo(gui, script.include, script.event)
       // Welcome player
       if (welcome) {
-        notifEv.FireClient(plr, {
-          Title: 'Welcome!',
-          Icon: 'rbxassetid://3250824458',
-          Text: `Your rank is ${this.rankOf.get(plr.UserId)} and the prefix is ${this.prefix}.`,
-          Button1: 'Close'
-        }, sound)
+        // Gui to Lua
+        // Version. 3.2
+
+        // Instances.
+
+        const ScreenGui = new Instance("ScreenGui")
+        const TextLabel = new Instance("TextLabel")
+        const ImageLabel = new Instance("ImageLabel")
+        const TextLabel_2 = new Instance("TextLabel")
+
+        // Properties.
+
+        ScreenGui.Parent = gui
+        ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+        TextLabel.Parent = ScreenGui
+        TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.BorderSizePixel = 0
+        TextLabel.Position = new UDim2(1, 0, 1, -100)
+        TextLabel.Rotation = 45.000
+        TextLabel.Size = new UDim2(0, 200, 0, 50)
+        TextLabel.Font = Enum.Font.Roboto
+        TextLabel.Text = ""
+        TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel.TextSize = 15.000
+        TextLabel.TextWrapped = true
+        TextLabel.TextXAlignment = Enum.TextXAlignment.Right
+
+        ImageLabel.Parent = TextLabel
+        ImageLabel.ZIndex = 5
+        ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        ImageLabel.BackgroundTransparency = 1.000
+        ImageLabel.BorderSizePixel = 0
+        ImageLabel.Size = new UDim2(0, 50, 0, 50)
+        ImageLabel.Image = "rbxassetid.//6110686361"
+
+        TextLabel_2.Parent = TextLabel
+        TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel_2.BorderSizePixel = 0
+        TextLabel_2.Position = new UDim2(0, 50, 0, 0)
+        TextLabel_2.Size = new UDim2(1, -50, 1, 0)
+        TextLabel_2.Font = Enum.Font.Roboto
+        TextLabel_2.Text = `${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rankOf.get(plr.UserId)} and the prefix is ${this.prefix}.`
+        TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel_2.TextSize = 15.000
+        TextLabel_2.TextWrapped = true
+        TextLabel_2.TextXAlignment = Enum.TextXAlignment.Right
+
+        // Animation.
+        TweenService.Create(TextLabel, new TweenInfo(1), {
+          Position: new UDim2(1, -250, 1, -100),
+          Rotation: 0
+        }).Play()
+        wait(3)
+        TweenService.Create(TextLabel, new TweenInfo(1), {
+          Position: new UDim2(1, 0, 1, -100),
+          Rotation: -45
+        }).Play()
+        wait(1)
+        ScreenGui.Destroy()
       }
     }
 
@@ -196,12 +254,17 @@ class Trollsmile {
     Players.PlayerAdded.Connect(onPlr)
   }
 
-  rank (plr: number, rank: string) {
+  rank (plr: number): string
+  rank (plr: number, rank: string): this
+  rank (plr: number, rank?: string) {
+    if (!rank) return this.rankOf.get(plr)
     if (this.ranks.get(rank)) {
       this.rankOf.set(plr, rank)
       return this
     }
     throw 'Rank not found!'
   }
+  static plrCommand = plrCommand
+  static getPlayers = getPlayers
 }
 export = Trollsmile

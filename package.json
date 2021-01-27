@@ -13,18 +13,23 @@
 		"url": "git+https://github.com/troIIsmile/admin.git"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "Jack <hello@5079.ml> (https://5079.ml)",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/troIIsmile/admin/issues"
 	},
 	"homepage": "https://github.com/troIIsmile/admin#readme",
 	"dependencies": {
+		"@rbxts/object-utils": "^1.0.4",
 		"@rbxts/roact": "^1.3.0-ts.7",
-		"@rbxts/services": "^1.1.0",
-		"@rbxts/types": "^1.0.400"
+		"@rbxts/string-utils": "^1.0.1"
 	},
+	"main": "src/index.ts",
 	"devDependencies": {
-		"roblox-ts": "0.3.2"
+		"@rbxts/compiler-types": "^1.0.0-beta.12.0",
+		"@rbxts/services": "^1.1.2",
+		"@rbxts/types": "^1.0.431",
+		"rbxts-transformer-services": "^1.0.0",
+		"roblox-ts": "^1.0.0-beta.15"
 	}
 }
