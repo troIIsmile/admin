@@ -15,6 +15,7 @@ export const flatten = <Type> (arr: Type[][]): Type[] => {
 export const getPlayers = (String = 'N/A', Player?: Player) => {
   if (StringUtils.trim(String) === 'all') return Players.GetPlayers()
   if (Player && StringUtils.trim(String) === 'me') return [Player]
+  if (Player && StringUtils.trim(String) === 'others') return Players.GetPlayers().filter(plr => plr !== Player)
   return Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + StringUtils.trim(String.lower()))[0])
 }
 
