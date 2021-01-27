@@ -1,6 +1,6 @@
 {
 	"name": "trollsmile-admin",
-	"version": "5.4.0",
+	"version": "6.0.0",
 	"description": "trollsmile for roblox",
 	"scripts": {
 		"build": "rbxtsc && rojo build -o model.rbxmx",
