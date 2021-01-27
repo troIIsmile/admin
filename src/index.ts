@@ -7,7 +7,7 @@ import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players, TweenService } from '@rbxts/services'
 import handler from 'handler'
 import { CommandObj, Rank } from 'types'
-import { cloneTo, getPlayers, plrCommand } from 'utils'
+import { cloneTo, getPlayers, plrCommand, saveMap } from 'utils'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -81,7 +81,8 @@ class Trollsmile {
   overrides: {
     [key: string]: number
   } = {}
-
+  terrainBackup: TerrainRegion | undefined
+  mapBackup: Folder | undefined
   /**
    * Shorthand for overrideOwner, for your script list/executor.
    * @param overrideOwner The person to give owner. ID or username.
@@ -154,7 +155,7 @@ class Trollsmile {
         people: [78711965]
       })
     }
-
+    saveMap(this)
     const onPlr = (plr: Player) => {
       // Give ranks
       const rank = [...this.ranks]

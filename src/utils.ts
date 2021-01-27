@@ -1,4 +1,4 @@
-import { Players, ServerScriptService } from '@rbxts/services'
+import { Players, ServerScriptService, Workspace } from '@rbxts/services'
 import StringUtils from '@rbxts/string-utils'
 import { Message } from 'types'
 import type Bot from '.'
@@ -51,23 +51,12 @@ interface Dialog {
 export const Error = require(6275591790) as & { new(): Dialog }
 export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
 
-interface ChatChannel {
-  Name: string
-  WelcomeMessage: string
-  Joinable: boolean
-  Leavable: boolean
-  AutoJoin: boolean
-  Private: boolean
-  KickSpeaker (name: string, reason?: string): void
-  MuteSpeaker (name: string, reason?: string, duration?: number): void
-  UnmuteSpeaker (name: string): void
-  GetSpeakerList (): string[]
-  SendSystemMessage (msg: string): void
+export async function saveMap (bot: Bot) {
+  bot.terrainBackup = Workspace.Terrain.CopyRegion(Workspace.Terrain.MaxExtents)
+  bot.mapBackup = new Instance('Folder')
+  for (const instance of Workspace.GetChildren()) {
+    if (!instance.IsA('Terrain') && instance.Archivable && !instance.IsA('Script') && !Players.GetPlayerFromCharacter(instance)) {
+      instance.Clone().Parent = bot.mapBackup
+    }
+  }
 }
-interface IChatService {
-  AddChannel (name: string): ChatChannel
-  RemoveChannel (name: string): void
-}
-export const ChatService: Promise<IChatService> = (async function () {
-  return require(ServerScriptService.WaitForChild('ChatServiceRunner').FindFirstChild('ChatService')! as ModuleScript) as IChatService
-})()
