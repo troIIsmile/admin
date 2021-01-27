@@ -1,11 +1,10 @@
 import { Message } from 'types'
-import type Bot from 'index'
 import { getPlayers } from 'utils'
 
-export async function run (message: Message, args: string[], bot: Bot) {
+export async function run (message: Message, args: string[]) {
   const speakerChar = message.author.Character || message.author.CharacterAdded.Wait()[0]
   const pos = ((speakerChar.PrimaryPart || speakerChar.FindFirstChild('HumanoidRootPart') || speakerChar.FindFirstChild('Torso')) as Part).Position
-  getPlayers(args.join(' '), message.author, bot).forEach(plr => {
+  getPlayers(args.join(' '), message.author).forEach(plr => {
     (plr.Character || plr.CharacterAdded.Wait()[0]).MoveTo(pos)
   })
 }
