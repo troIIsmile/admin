@@ -2,7 +2,7 @@ import { Workspace, Players } from '@rbxts/services'
 import Trollsmile from 'index'
 import { Message } from 'types'
 export const aliases = ['restoreMap', 'restoremap', 'clear', 'loadMap']
-export const help = 'Restore the map to its original state.'
+export const desc = 'Restore the map to its original state.'
 export function run (_: Message, __: string[], bot: Trollsmile) {
   if (bot.mapBackup) {
     for (const instance of Workspace.GetChildren()) {
