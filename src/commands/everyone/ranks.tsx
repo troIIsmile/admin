@@ -3,6 +3,8 @@ import Roact from '@rbxts/roact'
 import Bot from 'index'
 import { Players } from '@rbxts/services'
 import { Popup } from 'components'
+import { Message } from 'types'
+import Trollsmile from 'index'
 
 function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
   const white = new Color3(1, 1, 1)
@@ -29,11 +31,13 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
   })
 }
 
-export const run = plrCommand((plr, bot) => Roact.mount(
-  <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)}>
-    <uilistlayout SortOrder={Enum.SortOrder.Name} />
-    {Ranks({ Trollsmile: bot, You: plr.UserId })}
-  </Popup>, plr.FindFirstChild('PlayerGui'), 'trollsmileRanks'))
+export const run = function ({ author: plr }: Message, _: string[], bot: Trollsmile) {
+  Roact.mount(
+    <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)}>
+      <uilistlayout SortOrder={Enum.SortOrder.Name} />
+      {Ranks({ Trollsmile: bot, You: plr.UserId })}
+    </Popup>, plr.FindFirstChild('PlayerGui'), 'trollsmileRanks')
+}
 export const desc = 'see the ranks of all players that have joined this session'
 export const permission = 0
 export const aliases = ['admins', 'permission']
