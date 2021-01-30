@@ -12,6 +12,7 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile, 
           TextSize={25}
           AutomaticSize={Enum.AutomaticSize.Y}
           TextWrapped={true}
+          TextXAlignment="Left"
           TextColor3={new Color3(1, 1, 1)}
           BorderSizePixel={0}
           Font="RobotoMono"
