@@ -24,5 +24,5 @@ export function run (message: Message, args: string[]) {
 }
 
 export const desc = 'Display a message on every server.'
-export const permission = 4
+export const permission = 3
 export const aliases = ['ga', 'gm']
