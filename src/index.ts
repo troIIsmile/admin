@@ -189,7 +189,6 @@ class Trollsmile {
       // Welcome player
       if (welcome) {
         notif({
-          bot: this,
           plr: plr,
           text: `${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rank(plr.UserId)} and the prefix is ${this.prefix}.`
         })
