@@ -61,7 +61,7 @@ export async function saveMap (bot: Bot) {
   }
 }
 
-export function notif ({ plr, text }: { plr: Player; text: string }) {
+export async function notif ({ plr, text }: { plr: Player; text: string }) {
   // Gui to Lua
   // Version. 3.2
 
