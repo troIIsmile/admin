@@ -265,6 +265,9 @@ class Trollsmile {
     }
     throw 'Rank not found!'
   }
+  permission (userid: number): number {
+    return this.ranks.get(this.rank(userid))?.permission || 0
+  }
   static plrCommand = plrCommand
   static getPlayers = getPlayers
 }
