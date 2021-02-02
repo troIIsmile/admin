@@ -1,0 +1,27 @@
+import { Players } from '@rbxts/services'
+import Trollsmile from 'index'
+import { Message } from 'types'
+import { getPlayers } from 'utils'
+
+let ev: RBXScriptConnection
+export function run (message: Message, [players, ...reason]: string[], bot: Trollsmile) {
+  const permission = bot.permission(message.author.UserId)
+  if (!ev) {
+    Players.PlayerAdded.Connect(plr => {
+      if (bot.banned[plr.UserId]) {
+        plr.Kick(bot.banned[plr.UserId])
+      }
+    })
+  }
+  getPlayers(players ?? '', message.author).forEach(plr => {
+    if (bot.permission(plr.UserId) < permission) {
+      plr.Kick(reason.size() ? reason.join(' ') : 'You have been banned from the server.')
+      bot.banned[plr.UserId] = reason.size() ? reason.join(' ') : 'You have been banned from the server.'
+    } else {
+      // tell the player that they can't kick this person because their permission is greater than or equal to their permission
+    }
+  })
+}
+export const desc = 'Remove someone from the server and remove them again if they rejoin.'
+export const permission = 3
+export const aliases = ['ban', 'serverban', 'serverBan', 'b4n']

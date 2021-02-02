@@ -81,6 +81,10 @@ class Trollsmile {
   overrides: {
     [key: string]: number
   } = {}
+
+  banned: {
+    [key: number]: string
+  } = {}
   terrainBackup: TerrainRegion | undefined
   mapBackup: Folder | undefined
   /**
