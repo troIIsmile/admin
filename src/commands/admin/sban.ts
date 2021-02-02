@@ -4,7 +4,9 @@ import { Message } from 'types'
 import { getPlayers } from 'utils'
 
 let ev: RBXScriptConnection
-export function run (message: Message, [players, ...reason]: string[], bot: Trollsmile) {
+export function run (message: Message, args: string[], bot: Trollsmile) {
+  const players = args.shift()
+  const reason = args.join(' ')
   const permission = bot.permission(message.author.UserId)
   if (!ev) {
     Players.PlayerAdded.Connect(plr => {
@@ -15,8 +17,8 @@ export function run (message: Message, [players, ...reason]: string[], bot: Trol
   }
   getPlayers(players ?? '', message.author).forEach(plr => {
     if (bot.permission(plr.UserId) < permission) {
-      plr.Kick(reason.size() ? reason.join(' ') : 'You have been banned from the server.')
-      bot.banned[plr.UserId] = reason.size() ? reason.join(' ') : 'You have been banned from the server.'
+      plr.Kick(reason.size() ? reason : 'You have been banned from the server.')
+      bot.banned[plr.UserId] = reason.size() ? reason : 'You have been banned from the server.'
     } else {
       // tell the player that they can't kick this person because their permission is greater than or equal to their permission
     }
