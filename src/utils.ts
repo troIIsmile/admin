@@ -1,4 +1,4 @@
-import { Players, ServerScriptService, TweenService, Workspace } from '@rbxts/services'
+import { Players, TweenService, Workspace } from '@rbxts/services'
 import StringUtils from '@rbxts/string-utils'
 import { Message } from 'types'
 import type Bot from '.'
