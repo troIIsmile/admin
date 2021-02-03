@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>trollsmile admin</title>
+    <link rel="stylesheet" href="source-sans-3.css">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .hero {
+        display: block;
+        height: 100%;
+        padding: 0;
+        background: linear-gradient(to top right, yellow, green);
+        color: white;
+        padding-left: 8em;
+        padding-top: 8em;
+      }
+
+      html,
+      body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
+      .button {
+        background: white;
+        color: black;
+        text-decoration: none;
+        padding: 1em;
+        border-radius: 1em;
+      }
+      section {
+        background: linear-gradient(to top right, red, black);
+        color: white;
+        min-height: 30%;
+        display: block;
+        padding-top: 5em;
+        padding-left: 5em;
+      }
+      label {
+        margin-right: 1em;
+      }
+      #chat {
+        background: rgba(0, 0, 0, 0.6);
+        font-size: 18px;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: rgba(0, 0, 0, 0.75);
+        font-family: 'Source Sans 3';
+        font-weight: bold;
+      }
+      input {
+        -webkit-text-stroke: transparent;
+      }
+      .name {
+        color: rgb(232, 186, 200);
+      }
+      pre {
+        background: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="hero">
+      <h1>
+        :trollsmile: admin
+      </h1>
+      the world's worst admin system
+      <br>
+      <br>
+      <a href="https://www.roblox.com/library/6308376202/trollsmile-admin-loader" class="button">GET THE PLUGIN</a>
+    </header>
+    <section>
+      <h1>Config Generator</h1>
+      <div id="chat">
+        Chat '/?' or '/help' for a list of chat commands.<br>
+        <span class="name">
+          [SunRaysEffect]: 
+        </span>
+        so uh here you can configure trollsmile admin
+      </div>
+      <br>
+      <label for="t!">Prefix</label><input type="string" name="prefix" id="prefix" value="t!">
+      <label for="permission">Default permission</label><input type="number" name="permission" id="permission" value="0" min="-1">
+      <pre>require(5685499094).new(game:GetService('HttpService'):JSONDecode[[{
+        
+}]])</pre>
+    </section>
+    <script src="main.js"></script>
+  </body>
+
+</html>
