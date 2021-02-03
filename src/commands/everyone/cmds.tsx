@@ -25,4 +25,4 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile, 
 }
 export const desc = 'A list of commands.'
 export const permission = 0
-export const aliases = ['help', 'list']
+export const aliases = ['help', 'list', 'commands']
