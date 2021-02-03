@@ -26,7 +26,7 @@ export function Popup (
           TextXAlignment={Enum.TextXAlignment.Left}
         />
         <textbutton BorderSizePixel={0} BackgroundColor3={new Color3(1, 0, 0)} TextColor3={white} Text="×" TextSize={20} Size={new UDim2(0, 25, 0, 25)} Event={{
-          MouseButton1Click: rbx => {
+          MouseButton1Click: (rbx: TextButton) => {
             const gui = rbx.FindFirstAncestorWhichIsA('ScreenGui')
             if (gui) gui.Destroy()
           }

@@ -123,3 +123,15 @@ export async function notif ({ plr, text }: { plr: Player; text: string }) {
   wait(1)
   ScreenGui.Destroy()
 }
+
+export const AutoResize = {
+  AbsoluteContentSize: (rbx: UIListLayout) => {
+    const frame = rbx.Parent! as ScrollingFrame
+    frame.CanvasSize = new UDim2(
+      0,
+      0,
+      0,
+      rbx.AbsoluteContentSize.Y,
+    )
+  }
+}

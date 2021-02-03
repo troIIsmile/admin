@@ -3,6 +3,7 @@ import { Popup } from 'components'
 import Roact from '@rbxts/roact'
 import Trollsmile from 'index'
 import { Message } from 'types'
+import { AutoResize } from 'utils'
 
 export const desc = 'trollsmile credits'
 export const permission = 0
@@ -32,7 +33,7 @@ function Credit ({ id, they }: { id: number, they?: string }) {
 export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) {
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} v${PKG_VERSION} credits`} Size={new UDim2(0, 400, 0, 500)}>
-      <uilistlayout SortOrder={Enum.SortOrder.LayoutOrder} />
+      <uilistlayout SortOrder={Enum.SortOrder.LayoutOrder} Change={AutoResize} />
       <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>

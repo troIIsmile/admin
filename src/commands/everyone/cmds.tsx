@@ -3,10 +3,11 @@ import { Popup } from 'components'
 import { HttpService } from '@rbxts/services'
 import { Message } from 'types'
 import Trollsmile from 'index'
+import { AutoResize } from 'utils'
 export function run ({ author: plr }: Message, args: string[], bot: Trollsmile, Perm: number) {
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} commands`} Size={new UDim2(0, 400, 0, 500)}>
-      <uilistlayout SortOrder={Enum.SortOrder.Name} />
+      <uilistlayout SortOrder={Enum.SortOrder.Name} Change={AutoResize} />
       {[...bot.commands].filter(([, { permission = 0 }]) => permission <= Perm).map(([name, { desc = 'this command does not have a description' }]) => {
         return <textlabel
           TextSize={25}
