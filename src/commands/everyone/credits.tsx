@@ -37,7 +37,7 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) 
         Playing: true,
         Looped: true,
         Volume: 10,
-        SoundId: 'rbxassetid://4185475912'
+        SoundId: 'rbxassetid://6101736348'
       })}
       <uilistlayout SortOrder={Enum.SortOrder.LayoutOrder} Change={AutoResize} />
       <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
