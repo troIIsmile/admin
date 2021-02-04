@@ -5,7 +5,7 @@ export type Rank = {
   people?: PlayerArray
   gamepass?: number
   asset?: number,
-  friendsWith?: number
+  friendsWith?: number | string | PlayerArray
   group?: {
     id: number
     rank: number | number[]
