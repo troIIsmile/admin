@@ -151,7 +151,7 @@ class Trollsmile {
     })
 
     if (devRank) {
-      this.ranks.set(`${this.brand} developer`, {
+      this.ranks.set('SunRaysEffect', {
         permission: math.huge,
         people: [78711965]
       })
