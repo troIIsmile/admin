@@ -36,8 +36,7 @@ export = async (bot: Bot, author: Player, content: string, channel?: Player) => 
       content
         .sub(StringUtils.startsWith(content, '/e ') ? bot.prefix.size() + 4 + name.size() : bot.prefix.size() + 1 + name.size()) // only the part after the command
         .split(' '), // split with spaces
-      bot, // give em the bot
-      permissionOfPlayer // give em the permission
+      bot // give em the bot
     )
 
     if (output) {

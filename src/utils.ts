@@ -21,11 +21,11 @@ export const getPlayers = (String = 'N/A', Player?: Player) => {
 
 export const removeDuplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
 export function plrCommand (command: (plr: Player, bot: Bot, permission: number) => unknown) {
-  return (message: Message, args: string[], bot: Bot, perm: number) => {
+  return (message: Message, args: string[], bot: Bot) => {
     if (StringUtils.trim(args.join('')).size()) {
-      getPlayers(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.ranks.get(bot.rankOf.get(plr.UserId)!)!.permission))
+      getPlayers(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
     } else {
-      command(message.author, bot, perm)
+      command(message.author, bot, bot.permission(message.author.UserId))
     }
   }
 }

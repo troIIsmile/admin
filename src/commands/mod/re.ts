@@ -1,7 +1,7 @@
 import { plrCommand } from 'utils'
 export const run = plrCommand(plr => {
   const char = plr.Character
-  if (!char) return
+  if (!char) return plr.LoadCharacter()
   const part = char.PrimaryPart
   const cframe = part?.CFrame
   plr.LoadCharacter()
