@@ -7,7 +7,7 @@ import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import { CommandObj, Rank } from 'types'
-import { cloneTo, getPlayers, plrCommand, saveMap, notif } from 'utils'
+import { cloneTo, getPlayers, plrCommand, saveMap, notif, instancesOf } from 'utils'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -127,16 +127,13 @@ class Trollsmile {
       this.aliases.set(alias as string, command)
     }
     // load commands
-    const scripts = commandsFolder.GetDescendants()
-    scripts.forEach(scr => {
-      if (scr.IsA('ModuleScript')) {
-        const command = require(scr) as CommandObj
-        this.commands.set(scr.Name, command)
-        if (command.aliases) {
-          command.aliases.forEach(alias => {
-            this.aliases.set(alias, scr.Name)
-          })
-        }
+    instancesOf(commandsFolder, 'ModuleScript').forEach(scr => {
+      const command = require(scr) as CommandObj
+      this.commands.set(scr.Name, command)
+      if (command.aliases) {
+        command.aliases.forEach(alias => {
+          this.aliases.set(alias, scr.Name)
+        })
       }
     })
     // load ranks

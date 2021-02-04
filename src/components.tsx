@@ -1,5 +1,6 @@
 import Roact from '@rbxts/roact'
 import { Debris, TweenService } from '@rbxts/services'
+import { instancesOf } from 'utils'
 
 export function Popup (
   {
@@ -30,13 +31,14 @@ export function Popup (
           MouseButton1Click: (rbx: TextButton) => {
             const gui = rbx.FindFirstAncestorWhichIsA('ScreenGui')
             if (gui) {
-              for (const instance of gui.GetDescendants().filter((instance): instance is Sound => instance.IsA('Sound'))) {
-                instance.Parent = gui.Parent
-                TweenService.Create(instance, new TweenInfo(5), {
+              instancesOf(gui, 'Sound').forEach(sound => {
+                sound.Parent = gui.Parent
+                TweenService.Create(sound, new TweenInfo(5), {
                   PlaybackSpeed: 0
                 }).Play()
-                Debris.AddItem(instance, 5)
-              }
+                Debris.AddItem(sound, 5)
+              })
+
               gui.Destroy()
             }
           }
