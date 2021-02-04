@@ -6,5 +6,5 @@ export const run = plrCommand(async plr => {
   }
 })
 export const desc = 'Set your (or other player\'s) health to the maximum.'
-export const permission = 3
+export const permission = 2
 export const aliases = []
