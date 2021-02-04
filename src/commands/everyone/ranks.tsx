@@ -36,7 +36,7 @@ export const run = function ({ author: plr }: Message, _: string[], bot: Trollsm
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)}>
       <uilistlayout SortOrder={Enum.SortOrder.Name} Change={AutoResize} />
       {Ranks({ Trollsmile: bot, You: plr.UserId })}
-    </Popup>, plr.FindFirstChild('PlayerGui'), 'trollsmileRanks')
+    </Popup>, plr.FindFirstChildWhichIsA('PlayerGui'), 'trollsmileRanks')
 }
 export const desc = 'see the ranks of all players that have joined this session'
 export const permission = 0

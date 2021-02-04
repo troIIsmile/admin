@@ -4,7 +4,7 @@ import { Message } from 'types'
 export function run (message: Message, args: string[]) {
   const text = Chat.FilterStringForBroadcast(args.join(' '), message.author)
   Players.GetPlayers().forEach(plr => {
-    const gui = plr.FindFirstChild('PlayerGui')
+    const gui = plr.FindFirstChildWhichIsA('PlayerGui')
 
     if (gui) {
       const alertGUI = new Instance('ScreenGui', gui)
