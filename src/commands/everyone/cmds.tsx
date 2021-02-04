@@ -4,27 +4,35 @@ import { HttpService } from '@rbxts/services'
 import { Message } from 'types'
 import Trollsmile from 'index'
 import { AutoResize } from 'utils'
+
+function Command ({ command, description }: { command: string, description?: string }) {
+  return <frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(1, 0, 0, 50)}>
+    <uilistlayout FillDirection="Horizontal" />
+    {description ? (<frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(0, 395, 0, 50)}>
+      <uilistlayout FillDirection="Vertical" />
+      <textlabel Text={command} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Left">
+        <uitextsizeconstraint MaxTextSize={25} />
+      </textlabel>
+      <textlabel Text={description} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(.4, .4, .4)} TextXAlignment="Left">
+        <uitextsizeconstraint MaxTextSize={20} />
+      </textlabel>
+    </frame>)
+      : (<textlabel Text={command} Size={new UDim2(0, 345, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Left">
+        <uitextsizeconstraint MaxTextSize={25} />
+      </textlabel>)}
+  </frame>
+}
 export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) {
   const Perm = bot.permission(plr.UserId)
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} commands`} Size={new UDim2(0, 400, 0, 500)}>
       <uilistlayout SortOrder={Enum.SortOrder.Name} Change={AutoResize} />
-      {[...bot.commands].filter(([, { permission = 0 }]) => permission <= Perm).map(([name, { desc = 'this command does not have a description' }]) => {
-        return <textlabel
-          TextSize={25}
-          AutomaticSize={Enum.AutomaticSize.Y}
-          TextWrapped={true}
-          TextXAlignment="Left"
-          TextColor3={new Color3(1, 1, 1)}
-          BorderSizePixel={0}
-          Font="RobotoMono"
-          Size={new UDim2(1, -5, 0, 50)}
-          Key={name}
-          BackgroundTransparency={1}
-          Text={`${name} - ${desc}`} />
+      {[...bot.commands].filter(([, { permission = 0 }]) => permission <= Perm).map(([name, { desc, aliases }]) => {
+        return <Command command={aliases && aliases.size() > 0 ? `${name} (AKA ${aliases.join(', ')})` : name} description={desc} Key={name} />
       })}
     </Popup>, plr.WaitForChild('PlayerGui'), HttpService.GenerateGUID(false))
 }
+
 export const desc = 'A list of commands.'
 export const permission = 0
 export const aliases = ['help', 'list', 'commands']
