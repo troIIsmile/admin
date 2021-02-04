@@ -157,23 +157,33 @@ class Trollsmile {
       })
     }
     saveMap(this)
+    function hasRank (rank: Rank, player: Player) {
+      const {
+        asset,
+        friendsWith,
+        func,
+        gamepass,
+        group,
+        people = []
+      } = rank
+      
+      return (!!func && func(player)) // Functions
+        || (!!people.includes(player.UserId) || people.includes(player.Name)) // Standard people array check
+        || (!!group && (typeIs(group, 'number')
+          ? player.IsInGroup(group) // If they just give us a number then just check if they are in the group
+          : (typeIs(group.rank, 'number')
+            ? player.GetRankInGroup(group.id) === group.rank // Number rank
+            : group.rank.includes(player.GetRankInGroup(group.id))) // Array rank
+        )) // Group
+        || (!!friendsWith && player.IsFriendsWith(friendsWith)) // Friends
+        || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
+        || (!!asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts and stuff)
+    }
     const onPlr = (plr: Player) => {
       // Give ranks
       const rank = [...this.ranks]
         .sort(([, first], [, second]) => first.permission > second.permission)
-        .find(([, { people = [], gamepass, asset, friendsWith, group, func }]) => {
-          return (func ? func(plr) : false) // Functions
-            || (!!people.includes(plr.UserId) || people.includes(plr.Name)) // Standard people array check
-            || (!!group && (typeIs(group, 'number')
-              ? plr.IsInGroup(group) // If they just give us a number then just check if they are in the group
-              : (typeIs(group.rank, 'number')
-                ? plr.GetRankInGroup(group.id) === group.rank // Number rank
-                : group.rank.includes(plr.GetRankInGroup(group.id))) // Array rank
-            )) // Group
-            || (!!friendsWith && plr.IsFriendsWith(friendsWith)) // Friends
-            || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(plr.UserId, gamepass)) // Gamepass
-            || (!!asset && MarketplaceService.PlayerOwnsAsset(plr, asset)) // Asset (T-Shirts and stuff)
-        })
+        .find(([, rank]) => hasRank(rank, plr))
       if (rank) {
         this.rankOf.set(plr.UserId, rank[0])
       } else {
