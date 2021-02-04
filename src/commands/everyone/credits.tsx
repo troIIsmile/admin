@@ -33,6 +33,12 @@ function Credit ({ id, they }: { id: number, they?: string }) {
 export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) {
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} v${PKG_VERSION} credits`} Size={new UDim2(0, 400, 0, 500)}>
+      {Roact.createElement('Sound', {
+        Playing: true,
+        Looped: true,
+        Volume: 10,
+        SoundId: 'rbxassetid://4185475912'
+      })}
       <uilistlayout SortOrder={Enum.SortOrder.LayoutOrder} Change={AutoResize} />
       <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
