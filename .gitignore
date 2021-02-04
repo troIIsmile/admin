@@ -2,3 +2,4 @@ node_modules
 include
 out
 model.rbxmx
+# change so github builds site
