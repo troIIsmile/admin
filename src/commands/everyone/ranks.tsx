@@ -40,4 +40,4 @@ export const run = function ({ author: plr }: Message, _: string[], bot: Trollsm
 }
 export const desc = 'see the ranks of all players that have joined this session'
 export const permission = 0
-export const aliases = ['admins', 'permission']
+export const aliases = ['admins', 'permission', 'serverRanks', 'serverranks']
