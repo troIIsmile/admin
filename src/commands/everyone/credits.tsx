@@ -3,7 +3,7 @@ import { Popup } from 'components'
 import Roact from '@rbxts/roact'
 import Trollsmile from 'index'
 import { Message } from 'types'
-import { AutoResize } from 'utils'
+import { AutoResize, random } from 'utils'
 
 export const desc = 'trollsmile credits'
 export const permission = 0
@@ -37,7 +37,17 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) 
         Playing: true,
         Looped: true,
         Volume: 10,
-        SoundId: 'rbxassetid://6101736348'
+        SoundId: 'rbxassetid://' + random([
+          6101736348, // that one luaquack script
+          1571897668, // Conro - On My Way Up
+          952774272, // how
+          1899417820, // rainbow hell
+          2264258418, // rainbow puncher
+          1214497430, // trollar
+          // NERO'S DAY AT DISNEYLAND
+          4185475912,
+          919231299
+        ])
       })}
       <uilistlayout SortOrder={Enum.SortOrder.LayoutOrder} Change={AutoResize} />
       <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">

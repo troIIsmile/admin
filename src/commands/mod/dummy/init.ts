@@ -1,6 +1,5 @@
 import { Workspace } from '@rbxts/services'
-import { plrCommand } from 'utils'
-const random = <Type> (arr: Type[]): Type => arr[math.floor(math.random() * arr.size())]
+import { plrCommand, random } from 'utils'
 
 export const run = plrCommand(async plr => {
   const dummy = random(script.GetChildren()).Clone() as Model

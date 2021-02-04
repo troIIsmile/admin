@@ -135,3 +135,5 @@ export const AutoResize = {
     )
   }
 }
+
+export const random = <Type> (arr: Type[]): Type => arr[math.floor(math.random() * arr.size())]
