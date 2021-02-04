@@ -21,13 +21,13 @@ export = async (bot: Bot, author: Player, content: string, channel?: Player) => 
   if (!name) return
   // Run the command!
   const permissionOfPlayer = bot.permission(author.UserId)
-  const command = (bot.commands.get(name) || { run: undefined }).run // The command if it found it
-    || (bot.commands.get(bot.aliases.get(name) || '') || { run: undefined }).run // Aliases
+  const command = bot.commands.get(name)?.run // The command if it found it
+    || (bot.commands.get(bot.aliases.get(name) || ''))?.run // Aliases
     || (() => { }) // nothing
 
   const permission = bot.overrides[name] // overrrides first
-    || (bot.commands.get(name) || { permission: undefined }).permission // The command if it found it
-    || (bot.commands.get(bot.aliases.get(name) || '') || { permission: undefined }).permission // Aliases
+    || bot.commands.get(name)?.permission // The command if it found it
+    || (bot.commands.get(bot.aliases.get(name) || ''))?.permission // Aliases
     || 0 // nothing
   if (permissionOfPlayer >= permission) {
     const output = await command(
