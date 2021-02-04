@@ -11,7 +11,7 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
   return [...bot.rankOf].map(([userid, rankname]) => {
     const name = Players.GetNameFromUserIdAsync(userid)
     return <frame Key={userid === You ? '!' : name} Size={new UDim2(1, -5, 0, 50)} BackgroundColor3={new Color3(0.3, 0.3, 0.3)}>
-      <uilistlayout FillDirection={Enum.FillDirection.Horizontal} VerticalAlignment={Enum.VerticalAlignment.Center} Change={AutoResize} />
+      <uilistlayout FillDirection={Enum.FillDirection.Horizontal} VerticalAlignment={Enum.VerticalAlignment.Center} />
       <imagelabel
         BorderSizePixel={0}
         Image={Players.GetUserThumbnailAsync(userid, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420)[0]}
@@ -34,7 +34,7 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
 export const run = function ({ author: plr }: Message, _: string[], bot: Trollsmile) {
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)}>
-      <uilistlayout SortOrder={Enum.SortOrder.Name} />
+      <uilistlayout SortOrder={Enum.SortOrder.Name} Change={AutoResize} />
       {Ranks({ Trollsmile: bot, You: plr.UserId })}
     </Popup>, plr.FindFirstChild('PlayerGui'), 'trollsmileRanks')
 }
