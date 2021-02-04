@@ -96,7 +96,7 @@ export async function notif ({ plr, text }: { plr: Player; text: string }) {
   ImageLabel.BackgroundTransparency = 1.000
   ImageLabel.BorderSizePixel = 0
   ImageLabel.Size = new UDim2(0, 50, 0, 50)
-  ImageLabel.Image = "rbxassetid//6110686361"
+  ImageLabel.Image = "rbxassetid://6110686361"
 
   TextLabel_2.Parent = TextLabel
   TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
