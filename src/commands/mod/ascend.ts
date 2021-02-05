@@ -1,4 +1,4 @@
-import { plrCommand } from 'utils'
+import { player_command } from 'utils'
 
 async function waitUntilTouch (char: Model): Promise<BasePart> {
   return new Promise(resolve => {
@@ -9,7 +9,7 @@ async function waitUntilTouch (char: Model): Promise<BasePart> {
     })
   })
 }
-export const run = plrCommand(async plr => {
+export const run = player_command(async plr => {
   const char = plr.Character!
   const pt = (char.FindFirstChild('Torso') || char.FindFirstChild('HumanoidRootPart')) as Part
   const circle = new Instance('Part', pt)

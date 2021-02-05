@@ -12,7 +12,7 @@ export const flatten = <Type> (arr: Type[][]): Type[] => {
   })
   return newarr
 }
-export const getPlayers = (String = 'N/A', Player?: Player) => {
+export const get_players = (String = 'N/A', Player?: Player) => {
   if (StringUtils.trim(String) === 'all') return Players.GetPlayers()
   if (Player && StringUtils.trim(String) === 'me') return [Player]
   if (Player && StringUtils.trim(String) === 'friends') return Player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => Players.GetPlayerByUserId(friend_id))
@@ -20,17 +20,17 @@ export const getPlayers = (String = 'N/A', Player?: Player) => {
   return Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + StringUtils.trim(String.lower()))[0])
 }
 
-export const removeDuplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
-export function plrCommand (command: (plr: Player, bot: Bot, permission: number) => unknown) {
+export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
+export function player_command (command: (plr: Player, bot: Bot, permission: number) => unknown) {
   return (message: Message, args: string[], bot: Bot) => {
     if (StringUtils.trim(args.join('')).size()) {
-      getPlayers(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
+      get_players(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
     } else {
       command(message.author, bot, bot.permission(message.author.UserId))
     }
   }
 }
-export const cloneTo = (to: Instance | undefined, ...instances: Instance[]) => {
+export const clone_to = (to: Instance | undefined, ...instances: Instance[]) => {
   instances.forEach(instance => {
     instance.Clone().Parent = to
   })
@@ -52,7 +52,7 @@ interface Dialog {
 export const Error = require(6275591790) as & { new(): Dialog }
 export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
 
-export async function saveMap (bot: Bot) {
+export async function save_map (bot: Bot) {
   bot.terrainBackup = Workspace.Terrain.CopyRegion(Workspace.Terrain.MaxExtents)
   bot.mapBackup = new Instance('Folder')
   for (const instance of Workspace.GetChildren()) {
@@ -68,61 +68,62 @@ export async function notif ({ plr, text }: { plr: Player; text: string }) {
 
   // Instances.
 
-  const ScreenGui = new Instance("ScreenGui")
-  const TextLabel = new Instance("TextLabel")
-  const ImageLabel = new Instance("ImageLabel")
-  const TextLabel_2 = new Instance("TextLabel")
+  const screen_gui = new Instance("ScreenGui")
+  const frame = new Instance("TextLabel")
+  const image = new Instance("ImageLabel")
+  const actual_fucking_text = new Instance("TextLabel")
 
   // Properties.
 
-  ScreenGui.Parent = plr.FindFirstChildWhichIsA('PlayerGui')
-  ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+  screen_gui.Parent = plr.FindFirstChildWhichIsA('PlayerGui')
+  screen_gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-  TextLabel.Parent = ScreenGui
-  TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  TextLabel.BorderSizePixel = 0
-  TextLabel.Position = new UDim2(1, 0, 1, -100)
-  TextLabel.Rotation = 45.000
-  TextLabel.Size = new UDim2(0, 200, 0, 50)
-  TextLabel.Font = Enum.Font.Roboto
-  TextLabel.Text = ""
-  TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-  TextLabel.TextSize = 15.000
-  TextLabel.TextWrapped = true
-  TextLabel.TextXAlignment = Enum.TextXAlignment.Right
+  frame.Parent = screen_gui
+  frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+  frame.BorderSizePixel = 0
+  frame.Position = new UDim2(1, 0, 1, -100)
+  frame.Rotation = 45.000
+  frame.Size = new UDim2(0, 200, 0, 50)
+  frame.Font = Enum.Font.Roboto
+  frame.Text = ""
+  frame.TextColor3 = Color3.fromRGB(0, 0, 0)
+  frame.TextSize = 15.000
+  frame.TextWrapped = true
+  frame.TextXAlignment = Enum.TextXAlignment.Right
 
-  ImageLabel.Parent = TextLabel
-  ImageLabel.ZIndex = 5
-  ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  ImageLabel.BackgroundTransparency = 1.000
-  ImageLabel.BorderSizePixel = 0
-  ImageLabel.Size = new UDim2(0, 50, 0, 50)
-  ImageLabel.Image = "rbxassetid://6110686361"
+  image.Parent = frame
+  image.ZIndex = 5
+  image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+  image.BackgroundTransparency = 1.000
+  image.BorderSizePixel = 0
+  image.Size = new UDim2(0, 50, 0, 50)
+  image.Image = "rbxassetid://6110686361"
 
-  TextLabel_2.Parent = TextLabel
-  TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  TextLabel_2.BorderSizePixel = 0
-  TextLabel_2.Position = new UDim2(0, 50, 0, 0)
-  TextLabel_2.Size = new UDim2(1, -50, 1, 0)
-  TextLabel_2.Font = Enum.Font.Roboto
-  TextLabel_2.Text = text
-  TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
-  TextLabel_2.TextSize = 15.000
-  TextLabel_2.TextWrapped = true
-  TextLabel_2.TextXAlignment = Enum.TextXAlignment.Right
+  actual_fucking_text.Parent = frame
+  actual_fucking_text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+  actual_fucking_text.BorderSizePixel = 0
+  actual_fucking_text.BackgroundTransparency = 1
+  actual_fucking_text.Position = new UDim2(0, 50, 0, 0)
+  actual_fucking_text.Size = new UDim2(1, -50, 1, 0)
+  actual_fucking_text.Font = Enum.Font.Roboto
+  actual_fucking_text.Text = text
+  actual_fucking_text.TextColor3 = Color3.fromRGB(0, 0, 0)
+  actual_fucking_text.TextSize = 15.000
+  actual_fucking_text.TextWrapped = true
+  actual_fucking_text.TextXAlignment = Enum.TextXAlignment.Right
 
   // Animation.
-  TweenService.Create(TextLabel, new TweenInfo(1), {
+  TweenService.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, -250, 1, -100),
     Rotation: 0
   }).Play()
   wait(3)
-  TweenService.Create(TextLabel, new TweenInfo(1), {
+  TweenService.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, 0, 1, -100),
     Rotation: -45
   }).Play()
   wait(1)
-  ScreenGui.Destroy()
+  screen_gui.Destroy()
 }
 
 export const AutoResize = {
@@ -138,7 +139,7 @@ export const AutoResize = {
 }
 
 export const random = <Type> (arr: Type[]): Type => arr[math.random(arr.size()) - 1]
-export const instancesOf = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
+export const instances_of = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
   const list: Instances[instance_type][] = []
   for (const heir of instance.GetDescendants()) {
     if (heir.IsA(class_name)) {

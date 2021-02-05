@@ -1,7 +1,7 @@
 import { Workspace } from '@rbxts/services'
-import { plrCommand } from 'utils'
+import { player_command } from 'utils'
 
-export const run = plrCommand(plr => {
+export const run = player_command(plr => {
   const humanoid = (plr.Character || plr.CharacterAdded.Wait()[0]).FindFirstChildWhichIsA('Humanoid')
   if (humanoid) {
     humanoid.Health = 0

@@ -1,5 +1,5 @@
-import { plrCommand } from 'utils'
-export const run = plrCommand(async plr => {
+import { player_command } from 'utils'
+export const run = player_command(async plr => {
   const hum = plr.Character?.FindFirstChildWhichIsA('Humanoid')
   if (hum) hum.Sit = true
 })

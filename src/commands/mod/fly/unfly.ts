@@ -1,6 +1,6 @@
-import { plrCommand } from 'utils'
+import { player_command } from 'utils'
 
-export const run = plrCommand(plr => {
+export const run = player_command(plr => {
   const fly = plr.FindFirstChildWhichIsA('PlayerGui')?.FindFirstChild('Fly')
   if (fly && fly.IsA('Script')) {
     fly.Disabled = true

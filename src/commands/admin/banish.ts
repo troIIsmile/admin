@@ -1,10 +1,10 @@
 // 5787689701
 import { Workspace } from '@rbxts/services'
 import type Bot from 'index'
-import { plrCommand } from 'utils'
+import { player_command } from 'utils'
 let ev: RBXScriptConnection
 
-export const run = plrCommand((plr, bot: Bot & { banishedPlayers?: Set<string> }) => {
+export const run = player_command((plr, bot: Bot & { banishedPlayers?: Set<string> }) => {
   bot.banishedPlayers = bot.banishedPlayers || new Set()
   bot.banishedPlayers.add(plr.Name)
   if (!ev) {

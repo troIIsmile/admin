@@ -1,10 +1,10 @@
 import { Message } from 'types'
-import { getPlayers } from 'utils'
+import { get_players } from 'utils'
 
 export async function run (message: Message, args: string[]) {
   const speakerChar = message.author.Character || message.author.CharacterAdded.Wait()[0]
   const pos = ((speakerChar.PrimaryPart || speakerChar.FindFirstChild('HumanoidRootPart') || speakerChar.FindFirstChild('Torso')) as Part).Position
-  getPlayers(args.join(' '), message.author).forEach(plr => {
+  get_players(args.join(' '), message.author).forEach(plr => {
     (plr.Character || plr.CharacterAdded.Wait()[0]).MoveTo(pos)
   })
 }

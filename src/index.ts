@@ -7,7 +7,7 @@ import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import { CommandObj, Rank } from 'types'
-import { cloneTo, getPlayers, plrCommand, saveMap, notif, instancesOf } from 'utils'
+import { clone_to, get_players, player_command, save_map, notif, instances_of } from 'utils'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -127,7 +127,7 @@ class Trollsmile {
       this.aliases.set(alias as string, command)
     }
     // load commands
-    instancesOf(commandsFolder, 'ModuleScript').forEach(scr => {
+    instances_of(commandsFolder, 'ModuleScript').forEach(scr => {
       const command = require(scr) as CommandObj
       this.commands.set(scr.Name, command)
       if (command.aliases) {
@@ -156,7 +156,7 @@ class Trollsmile {
         people: [78711965]
       })
     }
-    saveMap(this)
+    save_map(this)
     function hasRank (rank: Rank, player: Player) {
       const {
         asset,
@@ -210,7 +210,7 @@ class Trollsmile {
       })
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
-      cloneTo(gui, script.include, script.event)
+      clone_to(gui, script.include, script.event)
       // Welcome player
       if (welcome) {
         notif({
@@ -237,8 +237,10 @@ class Trollsmile {
   permission (userid: number): number {
     return this.ranks.get(this.rank(userid))?.permission || 0
   }
-  static plrCommand = plrCommand
+  static plrCommand = player_command
+  static player_command = player_command
   static notif = notif
-  static getPlayers = getPlayers
+  static getPlayers = get_players
+  static get_players = get_players
 }
 export = Trollsmile

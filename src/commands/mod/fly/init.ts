@@ -1,8 +1,8 @@
-import { plrCommand } from 'utils'
+import { player_command } from 'utils'
 declare const script: ModuleScript & {
   Fly: LocalScript
 }
-export const run = plrCommand(plr => {
+export const run = player_command(plr => {
   const gui = plr.WaitForChild('PlayerGui')
   const fly = script.Fly.Clone()
   fly.Parent = gui

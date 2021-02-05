@@ -1,11 +1,11 @@
 import Roact from '@rbxts/roact'
 import { Debris, TweenService } from '@rbxts/services'
-import { instancesOf } from 'utils'
+import { instances_of } from 'utils'
 
 function MouseButton1Click (rbx: TextButton) {
   const gui = rbx.FindFirstAncestorWhichIsA('ScreenGui')
   if (gui) {
-    instancesOf(gui, 'Sound').forEach(sound => {
+    instances_of(gui, 'Sound').forEach(sound => {
       sound.Parent = gui.Parent
       TweenService.Create(sound, new TweenInfo(5), {
         PlaybackSpeed: 0

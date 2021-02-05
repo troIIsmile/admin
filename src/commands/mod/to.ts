@@ -1,8 +1,8 @@
 import { Message } from 'types'
-import { getPlayers } from 'utils'
+import { get_players } from 'utils'
 
 export function run (message: Message, args: string[]) {
-  const [plr] = getPlayers(args.join(' '))
+  const [plr] = get_players(args.join(' '))
   const speakerChar = message.author.Character || message.author.CharacterAdded.Wait()[0]
   const victimChar = plr.Character || plr.CharacterAdded.Wait()[0]
   speakerChar.MoveTo(((victimChar.PrimaryPart || victimChar.FindFirstChild('HumanoidRootPart') || victimChar.FindFirstChild('Torso')) as Part).Position)

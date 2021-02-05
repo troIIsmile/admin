@@ -1,7 +1,7 @@
 import { Workspace } from '@rbxts/services'
-import { plrCommand, random } from 'utils'
+import { player_command, random } from 'utils'
 
-export const run = plrCommand(async plr => {
+export const run = player_command(async plr => {
   const dummy = random(script.GetChildren()).Clone() as Model
   dummy.Parent = Workspace
   dummy.MoveTo(plr.Character?.PrimaryPart?.Position || new Vector3(0, 10, 0))
