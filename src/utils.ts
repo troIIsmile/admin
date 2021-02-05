@@ -1,4 +1,4 @@
-import { Players, TweenService, Workspace } from '@rbxts/services'
+import { Debris, Players, TweenService, Workspace } from '@rbxts/services'
 import StringUtils from '@rbxts/string-utils'
 import { Message } from 'types'
 import type Bot from '.'
@@ -62,17 +62,17 @@ export async function save_map (bot: Bot) {
   }
 }
 
-export async function notif ({ plr, text }: { plr: Player; text: string }) {
+export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
   // Gui to Lua
   // Version. 3.2
 
   // Instances.
 
   const screen_gui = new Instance("ScreenGui")
-  const frame = new Instance("TextLabel")
+  const frame = new Instance("TextButton")
   const image = new Instance("ImageLabel")
   const actual_fucking_text = new Instance("TextLabel")
-
+  Debris.AddItem(screen_gui, show_for + 2)
   // Properties.
 
   screen_gui.Parent = plr.FindFirstChildWhichIsA('PlayerGui')
@@ -90,7 +90,17 @@ export async function notif ({ plr, text }: { plr: Player; text: string }) {
   frame.TextSize = 15.000
   frame.TextWrapped = true
   frame.TextXAlignment = Enum.TextXAlignment.Right
-
+  frame.AutoButtonColor = false
+  frame.MouseButton1Click.Connect(() => {
+    if (on_click) {
+      on_click()
+      TweenService.Create(frame, new TweenInfo(1), {
+        Position: new UDim2(1, 0, 1, -100),
+        Rotation: -45
+      }).Play()
+      Debris.AddItem(screen_gui, 1)
+    }
+  })
   image.Parent = frame
   image.ZIndex = 5
   image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -113,17 +123,17 @@ export async function notif ({ plr, text }: { plr: Player; text: string }) {
   actual_fucking_text.TextXAlignment = Enum.TextXAlignment.Right
 
   // Animation.
-  TweenService.Create(frame, new TweenInfo(1), {
+  const comeIn = TweenService.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, -250, 1, -100),
     Rotation: 0
-  }).Play()
-  wait(3)
+  })
+  comeIn.Play()
+  comeIn.Completed.Wait()
+  wait(show_for)
   TweenService.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, 0, 1, -100),
     Rotation: -45
   }).Play()
-  wait(1)
-  screen_gui.Destroy()
 }
 
 export const AutoResize = {
