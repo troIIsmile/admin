@@ -193,7 +193,7 @@ class Trollsmile {
         || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
         || (!!asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts and stuff)
     }
-    const onPlr = (plr: Player) => {
+    const on_player = (plr: Player) => {
       // Give ranks
       const rank = [...this.ranks]
         .sort(([, first], [, second]) => first.permission > second.permission)
@@ -220,8 +220,8 @@ class Trollsmile {
       }
     }
 
-    Players.GetPlayers().forEach(onPlr)
-    Players.PlayerAdded.Connect(onPlr)
+    Players.GetPlayers().forEach(on_player)
+    Players.PlayerAdded.Connect(on_player)
   }
 
   rank (plr: number): string
