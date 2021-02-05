@@ -3,7 +3,7 @@ import { Popup } from 'components'
 import { HttpService } from '@rbxts/services'
 import { Message } from 'types'
 import Trollsmile from 'index'
-import { AutoResize } from 'utils'
+import { auto_resize } from 'utils'
 
 function Command ({ command, description }: { command: string, description?: string }) {
   return <frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(1, 0, 0, 50)}>
@@ -26,7 +26,7 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) 
   const Perm = bot.permission(plr.UserId)
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} commands`} Size={new UDim2(0, 400, 0, 500)}>
-      <uilistlayout SortOrder={Enum.SortOrder.Name} Change={AutoResize} />
+      <uilistlayout SortOrder={Enum.SortOrder.Name} Change={auto_resize} />
       {[...bot.commands].filter(([, { permission = 0 }]) => permission <= Perm).map(([name, { desc, aliases }]) => (
         <Command command={aliases && aliases.size() > 0 ? `${name} (AKA ${aliases.join(', ')})` : name} description={desc} Key={name} />
       ))}

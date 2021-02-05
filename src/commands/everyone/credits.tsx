@@ -3,7 +3,7 @@ import { Popup } from 'components'
 import Roact from '@rbxts/roact'
 import Trollsmile from 'index'
 import { Message } from 'types'
-import { AutoResize, random } from 'utils'
+import { auto_resize, random } from 'utils'
 
 export const desc = 'trollsmile credits'
 export const permission = 0
@@ -57,7 +57,7 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) 
           919231299
         ])
       })}
-      <uilistlayout SortOrder="LayoutOrder" Change={AutoResize} />
+      <uilistlayout SortOrder="LayoutOrder" Change={auto_resize} />
       <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>

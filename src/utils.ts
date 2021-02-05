@@ -1,5 +1,5 @@
 import { Debris, Players, TweenService, Workspace } from '@rbxts/services'
-import StringUtils from '@rbxts/string-utils'
+import string_utils from '@rbxts/string-utils'
 import { Message } from 'types'
 import type Bot from '.'
 
@@ -13,17 +13,17 @@ export const flatten = <Type> (arr: Type[][]): Type[] => {
   return newarr
 }
 export const get_players = (String = 'N/A', Player?: Player) => {
-  if (StringUtils.trim(String) === 'all') return Players.GetPlayers()
-  if (Player && StringUtils.trim(String) === 'me') return [Player]
-  if (Player && StringUtils.trim(String) === 'friends') return Player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => Players.GetPlayerByUserId(friend_id))
-  if (Player && StringUtils.trim(String) === 'others') return Players.GetPlayers().filter(plr => plr !== Player)
-  return Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + StringUtils.trim(String.lower()))[0])
+  if (string_utils.trim(String) === 'all') return Players.GetPlayers()
+  if (Player && string_utils.trim(String) === 'me') return [Player]
+  if (Player && string_utils.trim(String) === 'friends') return Player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => Players.GetPlayerByUserId(friend_id))
+  if (Player && string_utils.trim(String) === 'others') return Players.GetPlayers().filter(plr => plr !== Player)
+  return Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + string_utils.trim(String.lower()))[0])
 }
 
 export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
 export function player_command (command: (plr: Player, bot: Bot, permission: number) => unknown) {
   return (message: Message, args: string[], bot: Bot) => {
-    if (StringUtils.trim(args.join('')).size()) {
+    if (string_utils.trim(args.join('')).size()) {
       get_players(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
     } else {
       command(message.author, bot, bot.permission(message.author.UserId))
@@ -123,12 +123,12 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
   actual_fucking_text.TextXAlignment = Enum.TextXAlignment.Right
 
   // Animation.
-  const comeIn = TweenService.Create(frame, new TweenInfo(1), {
+  const in_animation = TweenService.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, -250, 1, -100),
     Rotation: 0
   })
-  comeIn.Play()
-  comeIn.Completed.Wait()
+  in_animation.Play()
+  in_animation.Completed.Wait()
   wait(show_for)
   TweenService.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, 0, 1, -100),
@@ -136,7 +136,7 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
   }).Play()
 }
 
-export const AutoResize = {
+export const auto_resize = {
   AbsoluteContentSize: (rbx: UIListLayout) => {
     const frame = rbx.Parent! as ScrollingFrame
     frame.CanvasSize = new UDim2(

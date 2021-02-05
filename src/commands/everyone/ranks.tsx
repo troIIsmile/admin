@@ -1,4 +1,4 @@
-import { AutoResize } from 'utils'
+import { auto_resize } from 'utils'
 import Roact from '@rbxts/roact'
 import Bot from 'index'
 import { Players } from '@rbxts/services'
@@ -34,7 +34,7 @@ function Ranks ({ Trollsmile: bot, You }: { Trollsmile: Bot, You: number }) {
 export const run = function ({ author: plr }: Message, _: string[], bot: Trollsmile) {
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} ranks`} Size={new UDim2(0, 300, 0, 500)}>
-      <uilistlayout SortOrder="Name" Change={AutoResize} />
+      <uilistlayout SortOrder="Name" Change={auto_resize} />
       {Ranks({ Trollsmile: bot, You: plr.UserId })}
     </Popup>, plr.FindFirstChildWhichIsA('PlayerGui'), 'trollsmileRanks')
 }
