@@ -26,14 +26,14 @@ function Credit ({ id, they, onclick }: { id: number, they?: string, onclick?: (
     />}
     {they ? (<frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(0, 345, 0, 50)}>
       <uilistlayout FillDirection="Vertical" />
-      <textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)}>
+      <textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)}>
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>
-      <textlabel Text={they} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(.3, .3, .3)}>
+      <textlabel Text={they} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(.3, .3, .3)}>
         <uitextsizeconstraint MaxTextSize={20} />
       </textlabel>
     </frame>)
-      : (<textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(0, 345, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)}>
+      : (<textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(0, 345, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)}>
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>)}
   </frame>
@@ -57,13 +57,13 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) 
           919231299
         ])
       })}
-      <uilistlayout SortOrder={Enum.SortOrder.LayoutOrder} Change={AutoResize} />
-      <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
+      <uilistlayout SortOrder="LayoutOrder" Change={AutoResize} />
+      <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>
       <Credit id={78711965} they="Maintainer of trollsmile" />
       <Credit id={1929053738} they='"""admin dev"""' />
-      <textlabel Text={"Special thanks to"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
+      <textlabel Text={"Special thanks to"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>
       <Credit id={1308783007} they="He's LuaQuack" onclick={(rbx) => {
@@ -73,7 +73,7 @@ export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) 
         sound.PlayOnRemove = true
         sound.Destroy()
       }} />
-      <textlabel Text={"Uses libraries developed by"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled={true} TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
+      <textlabel Text={"Uses libraries developed by"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>
       <Credit id={83348} they="roblox-ts" />
