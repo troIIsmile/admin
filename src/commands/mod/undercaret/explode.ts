@@ -6,10 +6,11 @@ export const run = plrCommand(plr => {
   if (humanoid) {
     humanoid.Health = 0
     const humanoid_root_part = humanoid.Parent!.FindFirstChild('HumanoidRootPart')
-    if (humanoid_root_part) {
+    if (humanoid_root_part && humanoid_root_part.IsA('BasePart')) {
       const explosion = new Instance('Explosion')
       explosion.DestroyJointRadiusPercent = 1
       explosion.Parent = Workspace
+      explosion.Position = humanoid_root_part.Position
       explosion.ExplosionType = Enum.ExplosionType.NoCraters
     }
   }
