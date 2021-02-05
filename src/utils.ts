@@ -137,7 +137,7 @@ export const AutoResize = {
   }
 }
 
-export const random = <Type> (arr: Type[]): Type => arr[math.floor(math.random() * arr.size())]
+export const random = <Type> (arr: Type[]): Type => arr[math.random(arr.size()) - 1]
 export const instancesOf = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
   const list: Instances[instance_type][] = []
   for (const heir of instance.GetDescendants()) {
