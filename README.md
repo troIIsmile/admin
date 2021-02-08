@@ -1,6 +1,6 @@
 # trollsmile admin
 
-shittiest admin system
+worst admin system
 
 ## How to install
 

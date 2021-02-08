@@ -85,8 +85,8 @@ class Trollsmile {
   banned: {
     [key: number]: string
   } = {}
-  terrainBackup: TerrainRegion | undefined
-  mapBackup: Folder | undefined
+  terrain_backup: TerrainRegion | undefined
+  map_backup: Folder | undefined
   /**
    * Shorthand for overrideOwner, for your script list/executor.
    * @param overrideOwner The person to give owner. ID or username.
