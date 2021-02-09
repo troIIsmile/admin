@@ -63,7 +63,7 @@ export async function save_map (bot: Bot) {
 }
 
 export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
-  const sound = new Instance("Sound", plr.FindFirstAncestorWhichIsA('PlayerGui'))
+  const sound = new Instance("Sound", plr.FindFirstChildWhichIsA('PlayerGui'))
   sound.SoundId = 'rbxassetid://6366788549'
   sound.PlayOnRemove = true
   sound.Volume = 10
