@@ -126,11 +126,10 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
   text_label.TextXAlignment = Enum.TextXAlignment.Right
 
   // Animation.
-  const in_animation = tween_service.Create(frame, new TweenInfo(1), {
+  tween_service.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, -250, 1, -100),
     Rotation: 0
-  })
-  in_animation.Play()
+  }).Play()
   wait(show_for)
   Debris.AddItem(screen_gui, 1)
   tween_service.Create(frame, new TweenInfo(1), {
