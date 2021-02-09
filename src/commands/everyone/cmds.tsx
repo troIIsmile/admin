@@ -1,7 +1,7 @@
 import Roact from '@rbxts/roact'
 import { Popup } from 'components'
 import { HttpService } from '@rbxts/services'
-import { Message } from 'types'
+import { message } from 'types'
 import Trollsmile from 'index'
 import { auto_resize } from 'utils'
 
@@ -22,7 +22,7 @@ function Command ({ command, description }: { command: string, description?: str
       </textlabel>)}
   </frame>
 }
-export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) {
+export function run ({ author: plr }: message, args: string[], bot: Trollsmile) {
   const Perm = bot.permission(plr.UserId)
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} commands`} Size={new UDim2(0, 400, 0, 500)}>

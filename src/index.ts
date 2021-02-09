@@ -6,7 +6,7 @@
 import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
-import { CommandObj, Rank } from 'types'
+import { command_obj, Rank } from 'types'
 import { clone_to, get_players, player_command, save_map, notif, instances_of } from 'utils'
 declare const script: Script & {
   topbar: LocalScript
@@ -71,7 +71,7 @@ class Trollsmile {
   /** Anywhere where we would put "trollsmile", put `this.brand`. This allows users to rebrand the admin system to whatever they want, like to "moller admin". */
   brand = 'trollsmile'
   /** Hopefully this is as close to trollsmile Discord's api as possible */
-  commands = new Map<string, CommandObj>()
+  commands = new Map<string, command_obj>()
   aliases = new Map<string, string>()
   /** The version of trollsmile, from the package.json file. */
   static readonly version = PKG_VERSION
@@ -128,7 +128,7 @@ class Trollsmile {
     }
     // load commands
     instances_of(commandsFolder, 'ModuleScript').forEach(scr => {
-      const command = require(scr) as CommandObj
+      const command = require(scr) as command_obj
       this.commands.set(scr.Name, command)
       if (command.aliases) {
         command.aliases.forEach(alias => {

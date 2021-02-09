@@ -1,7 +1,7 @@
 import { Chat, Players, TweenService, Debris } from '@rbxts/services'
-import { Message } from 'types'
+import { message } from 'types'
 
-export function run (message: Message, args: string[]) {
+export function run (message: message, args: string[]) {
   const text = Chat.FilterStringForBroadcast(args.join(' '), message.author)
   Players.GetPlayers().forEach(plr => {
     const gui = plr.FindFirstChildWhichIsA('PlayerGui')

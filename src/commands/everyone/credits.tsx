@@ -2,7 +2,7 @@ import { Players, HttpService, SoundService } from '@rbxts/services'
 import { Popup } from 'components'
 import Roact from '@rbxts/roact'
 import Trollsmile from 'index'
-import { Message } from 'types'
+import { message } from 'types'
 import { auto_resize, random } from 'utils'
 
 export const desc = 'trollsmile credits'
@@ -38,7 +38,7 @@ function Credit ({ id, they, onclick }: { id: number, they?: string, onclick?: (
       </textlabel>)}
   </frame>
 }
-export function run ({ author: plr }: Message, args: string[], bot: Trollsmile) {
+export function run ({ author: plr }: message, args: string[], bot: Trollsmile) {
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} v${PKG_VERSION} credits`} Size={new UDim2(0, 400, 0, 500)}>
       {Roact.createElement('Sound', {

@@ -1,7 +1,7 @@
 import Trollsmile from 'index'
-import { Message } from 'types'
+import { message } from 'types'
 import { get_players } from 'utils'
-export function run (message: Message, args: string[], bot: Trollsmile) {
+export function run (message: message, args: string[], bot: Trollsmile) {
   const players = args.shift()
   const reason = args.join(' ').size() > 0 ? args.join(' ') : 'You have been kicked from the game.'
   const permission = bot.permission(message.author.UserId)

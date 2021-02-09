@@ -1,7 +1,7 @@
-import { Message } from 'types'
+import { message } from 'types'
 import { get_players } from 'utils'
 
-export async function run (message: Message, args: string[]) {
+export async function run (message: message, args: string[]) {
   const speakerChar = message.author.Character || message.author.CharacterAdded.Wait()[0]
   const pos = ((speakerChar.PrimaryPart || speakerChar.FindFirstChild('HumanoidRootPart') || speakerChar.FindFirstChild('Torso')) as Part).Position
   get_players(args.join(' '), message.author).forEach(plr => {

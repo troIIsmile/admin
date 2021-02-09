@@ -1,6 +1,6 @@
 import { Debris as debris, Players as players, TweenService as tween_service, Workspace } from '@rbxts/services'
 import string_utils from '@rbxts/string-utils'
-import { Message } from 'types'
+import { message } from 'types'
 import type Bot from '.'
 
 export const flatten = <Type> (arr: Type[][]): Type[] => {
@@ -22,7 +22,7 @@ export const get_players = (selector = 'N/A', player?: Player) => {
 
 export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
 export function player_command (command: (plr: Player, bot: Bot, permission: number) => unknown) {
-  return (message: Message, args: string[], bot: Bot) => {
+  return (message: message, args: string[], bot: Bot) => {
     if (string_utils.trim(args.join('')).size()) {
       get_players(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
     } else {

@@ -1,8 +1,8 @@
 import Trollsmile from 'index'
-import { Message } from 'types'
+import { message } from 'types'
 import { get_players } from 'utils'
 
-export function run (message: Message, players: string[], bot: Trollsmile) {
+export function run (message: message, players: string[], bot: Trollsmile) {
   get_players(players.join(' ') ?? '', message.author).forEach(plr => {
     delete bot.banned[plr.UserId]
   })
