@@ -76,7 +76,6 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
   const frame = new Instance("TextButton")
   const image = new Instance("ImageLabel")
   const text_label = new Instance("TextLabel")
-  Debris.AddItem(screen_gui, show_for + 2)
   // Properties.
 
   screen_gui.Parent = plr.FindFirstChildWhichIsA('PlayerGui')
@@ -132,8 +131,8 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
     Rotation: 0
   })
   in_animation.Play()
-  in_animation.Completed.Wait()
   wait(show_for)
+  Debris.AddItem(screen_gui, 1)
   tween_service.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, 0, 1, -100),
     Rotation: -45
