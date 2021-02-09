@@ -1,4 +1,4 @@
-import { Debris, Players, TweenService as tween_service, Workspace } from '@rbxts/services'
+import { Debris as debris, Players as players, TweenService as tween_service, Workspace } from '@rbxts/services'
 import string_utils from '@rbxts/string-utils'
 import { Message } from 'types'
 import type Bot from '.'
@@ -12,12 +12,12 @@ export const flatten = <Type> (arr: Type[][]): Type[] => {
   })
   return newarr
 }
-export const get_players = (String = 'N/A', Player?: Player) => {
-  if (string_utils.trim(String) === 'all') return Players.GetPlayers()
-  if (Player && string_utils.trim(String) === 'me') return [Player]
-  if (Player && string_utils.trim(String) === 'friends') return Player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => Players.GetPlayerByUserId(friend_id))
-  if (Player && string_utils.trim(String) === 'others') return Players.GetPlayers().filter(plr => plr !== Player)
-  return Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + string_utils.trim(String.lower()))[0])
+export const get_players = (selector = 'N/A', player?: Player) => {
+  if (string_utils.trim(selector) === 'all') return players.GetPlayers()
+  if (player && string_utils.trim(selector) === 'me') return [player]
+  if (player && string_utils.trim(selector) === 'friends') return player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => players.GetPlayerByUserId(friend_id))
+  if (player && string_utils.trim(selector) === 'others') return players.GetPlayers().filter(plr => plr !== player)
+  return players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + string_utils.trim(selector.lower()))[0])
 }
 
 export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
@@ -56,7 +56,7 @@ export async function save_map (bot: Bot) {
   bot.terrain_backup = Workspace.Terrain.CopyRegion(Workspace.Terrain.MaxExtents)
   bot.map_backup = new Instance('Folder')
   for (const instance of Workspace.GetChildren()) {
-    if (!instance.IsA('Terrain') && instance.Archivable && !instance.IsA('Script') && !Players.GetPlayerFromCharacter(instance)) {
+    if (!instance.IsA('Terrain') && instance.Archivable && !instance.IsA('Script') && !players.GetPlayerFromCharacter(instance)) {
       instance.Clone().Parent = bot.map_backup
     }
   }
@@ -101,7 +101,7 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
         Position: new UDim2(1, 0, 1, -100),
         Rotation: -45
       }).Play()
-      Debris.AddItem(screen_gui, 1)
+      debris.AddItem(screen_gui, 1)
     }
   })
   image.Parent = frame
@@ -131,7 +131,7 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
     Rotation: 0
   }).Play()
   wait(show_for)
-  Debris.AddItem(screen_gui, 1)
+  debris.AddItem(screen_gui, 1)
   tween_service.Create(frame, new TweenInfo(1), {
     Position: new UDim2(1, 0, 1, -100),
     Rotation: -45
