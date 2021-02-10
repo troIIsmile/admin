@@ -7,7 +7,7 @@ import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import { command_obj, Rank } from 'types'
-import { clone_to, get_players, player_command, save_map, notif, instances_of } from 'utils'
+import { get_players, player_command, save_map, notif, instances_of } from 'utils'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -210,7 +210,7 @@ class Trollsmile {
       })
       // Give scripts
       const gui = plr.WaitForChild('PlayerGui')
-      clone_to(gui, script.include, script.event)
+      script.event.Clone().Parent = gui
       // Welcome player
       if (welcome) {
         notif({

@@ -30,11 +30,6 @@ export function player_command (command: (plr: Player, bot: Bot, permission: num
     }
   }
 }
-export const clone_to = (to: Instance | undefined, ...instances: Instance[]) => {
-  instances.forEach(instance => {
-    instance.Clone().Parent = to
-  })
-}
 
 interface Button {
   Text: string,
