@@ -4,6 +4,8 @@ const storage: ReplicatedStorage & {
   trollsmilePrint?: RemoteEvent<(conf: MakeSystemMessageConfig) => void>
 } = ReplicatedStorage
 
+storage.WaitForChild('trollsmile7Print')
+
 if (storage.trollsmilePrint) {
   storage.trollsmilePrint.OnClientEvent.Connect((conf) => {
     StarterGui.SetCore('ChatMakeSystemMessage', conf)
