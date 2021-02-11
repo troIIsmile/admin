@@ -1,4 +1,4 @@
-name: Build
+name: CI
 
 on: push
 
@@ -13,3 +13,11 @@ jobs:
           cargo install rojo
           npm i
           npm run build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          # Artifact name
+          name: MainModule
+          # A file, directory or wildcard pattern that describes what to upload
+          path: model.rbxmx
+          # The desired behavior if no files are found using the provided path.
