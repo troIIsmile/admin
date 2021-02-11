@@ -3,7 +3,6 @@
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
-import Object from '@rbxts/object-utils'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import handler from 'handler'
 import { command_obj, Rank } from 'types'
@@ -17,6 +16,16 @@ declare const script: Script & {
   }
 }
 
+function entries<V> (object: {
+  [key: string]: V
+  [key: number]: V
+}): (string | number | Exclude<V, undefined>)[][] {
+  const array = []
+  for (const [key, value] of pairs(object)) {
+    array.push([key, value])
+  }
+  return array
+}
 interface Settings {
   /**
    * The prefix before each command.
@@ -135,7 +144,7 @@ class Trollsmile {
       }
     })
     // load ranks
-    if (ranks) this.ranks = new Map(Object.entries(ranks) as [string, Rank][])
+    if (ranks) this.ranks = new Map(entries(ranks) as [string, Rank][])
 
     // setup owner
     this.ranks.set('Owner', {
