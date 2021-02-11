@@ -46,7 +46,7 @@ interface Dialog {
 export const Error = require(6275591790) as & { new(): Dialog }
 export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
 
-export const save_map = coroutine.wrap((bot: Bot) => {
+export async function save_map (bot: Bot) {
   bot.terrain_backup = Workspace.Terrain.CopyRegion(Workspace.Terrain.MaxExtents)
   bot.map_backup = new Instance('Folder')
   for (const instance of Workspace.GetChildren()) {
@@ -54,9 +54,9 @@ export const save_map = coroutine.wrap((bot: Bot) => {
       instance.Clone().Parent = bot.map_backup
     }
   }
-})
+}
 
-export const notif = coroutine.wrap(({ plr, text, show_for = 3, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) => {
+export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
   const sound = new Instance("Sound", plr.FindFirstChildWhichIsA('PlayerGui'))
   sound.SoundId = 'rbxassetid://6366788549'
   sound.PlayOnRemove = true
@@ -130,7 +130,7 @@ export const notif = coroutine.wrap(({ plr, text, show_for = 3, on_click }: { pl
     Position: new UDim2(1, 0, 1, -100),
     Rotation: -45
   }).Play()
-})
+}
 
 export const auto_resize = {
   AbsoluteContentSize: (rbx: UIListLayout) => {

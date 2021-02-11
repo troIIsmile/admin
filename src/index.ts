@@ -191,24 +191,13 @@ class Trollsmile {
         || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
         || (!!asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts and stuff)
     }
-    const on_player = (plr: Player) => {
+    const on_player = async (plr: Player) => {
       // Give ranks
       const rank = [...this.ranks]
         .sort(([, first], [, second]) => first.permission > second.permission)
         .find(([, rank]) => hasRank(rank, plr))
-      if (rank) {
-        this.rankOf.set(plr.UserId, rank[0])
-      } else {
-        this.rankOf.set(plr.UserId, 'Player')
-      }
+      this.rankOf.set(plr.UserId, rank ? rank[0] : 'Player')
 
-      // Handler
-      plr.Chatted.Connect((message, to) => {
-        handler(this, plr, message, to)
-      })
-      // Give scripts
-      const gui = plr.WaitForChild('PlayerGui')
-      script.event.Clone().Parent = gui
       // Welcome player
       if (welcome) {
         notif({
@@ -216,6 +205,13 @@ class Trollsmile {
           text: `${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rank(plr.UserId)} and the prefix is ${this.prefix}.`
         })
       }
+
+      // Handler
+      plr.Chatted.Connect((message, to) => {
+        handler(this, plr, message, to)
+      })
+      // Give print handler
+      script.event.Clone().Parent = plr.WaitForChild('PlayerGui')
     }
 
     Players.GetPlayers().forEach(on_player)
