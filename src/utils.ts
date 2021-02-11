@@ -1,8 +1,7 @@
 import { Debris as debris, Players as players, TweenService as tween_service, Workspace } from '@rbxts/services'
-import string_utils from '@rbxts/string-utils'
 import { message } from 'types'
 import type Bot from '.'
-
+export const trim = (str: string) => str.match('^%s*(.-)%s*$')[0] as string
 export const flatten = <Type> (arr: Type[][]): Type[] => {
   const newarr: Type[] = []
   arr.forEach(actualarr => {
@@ -13,17 +12,17 @@ export const flatten = <Type> (arr: Type[][]): Type[] => {
   return newarr
 }
 export const get_players = (selector = 'N/A', player?: Player) => {
-  if (string_utils.trim(selector) === 'all') return players.GetPlayers()
-  if (player && string_utils.trim(selector) === 'me') return [player]
-  if (player && string_utils.trim(selector) === 'friends') return player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => players.GetPlayerByUserId(friend_id))
-  if (player && string_utils.trim(selector) === 'others') return players.GetPlayers().filter(plr => plr !== player)
-  return players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + string_utils.trim(selector.lower()))[0])
+  if (trim(selector) === 'all') return players.GetPlayers()
+  if (player && trim(selector) === 'me') return [player]
+  if (player && trim(selector) === 'friends') return player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => players.GetPlayerByUserId(friend_id))
+  if (player && trim(selector) === 'others') return players.GetPlayers().filter(plr => plr !== player)
+  return players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + trim(selector.lower()))[0])
 }
 
 export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
 export function player_command (command: (plr: Player, bot: Bot, permission: number) => unknown) {
   return (message: message, args: string[], bot: Bot) => {
-    if (string_utils.trim(args.join('')).size()) {
+    if ((trim(args.join('')) as string).size()) {
       get_players(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
     } else {
       command(message.author, bot, bot.permission(message.author.UserId))
@@ -47,7 +46,7 @@ interface Dialog {
 export const Error = require(6275591790) as & { new(): Dialog }
 export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
 
-export async function save_map (bot: Bot) {
+export const save_map = coroutine.wrap((bot: Bot) => {
   bot.terrain_backup = Workspace.Terrain.CopyRegion(Workspace.Terrain.MaxExtents)
   bot.map_backup = new Instance('Folder')
   for (const instance of Workspace.GetChildren()) {
@@ -55,9 +54,9 @@ export async function save_map (bot: Bot) {
       instance.Clone().Parent = bot.map_backup
     }
   }
-}
+})
 
-export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
+export const notif = coroutine.wrap(({ plr, text, show_for = 3, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) => {
   const sound = new Instance("Sound", plr.FindFirstChildWhichIsA('PlayerGui'))
   sound.SoundId = 'rbxassetid://6366788549'
   sound.PlayOnRemove = true
@@ -131,7 +130,7 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
     Position: new UDim2(1, 0, 1, -100),
     Rotation: -45
   }).Play()
-}
+})
 
 export const auto_resize = {
   AbsoluteContentSize: (rbx: UIListLayout) => {
