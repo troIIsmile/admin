@@ -1,0 +1,15 @@
+name: Build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - run: |
+          cargo install rojo
+          npm i
+          npm run build
