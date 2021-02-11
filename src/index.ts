@@ -116,10 +116,8 @@ class Trollsmile {
     commandsFolder = script.commands,
     devRank = false,
     brand = 'trollsmile',
-    aliases = {},
-    parentTo
+    aliases = {}
   }: Settings = {}) {
-    script.Parent = parentTo
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
@@ -127,7 +125,7 @@ class Trollsmile {
       this.aliases.set(alias as string, command)
     }
     // load commands
-    instances_of(commandsFolder, 'ModuleScript').forEach(scr => {
+    instances_of(commandsFolder, 'ModuleScript').forEach(async scr => {
       const command = require(scr) as command_obj
       this.commands.set(scr.Name, command)
       if (command.aliases) {
