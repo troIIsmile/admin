@@ -10,4 +10,3 @@ if (storage.trollsmile7Print) {
     StarterGui.SetCore('ChatMakeSystemMessage', conf)
   })
 }
-export { }
