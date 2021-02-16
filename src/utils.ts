@@ -2,22 +2,15 @@ import { Debris as debris, Players as players, TweenService as tween_service, Wo
 import { message } from 'types'
 import type Bot from '.'
 export const trim = (str: string) => str.match('^%s*(.-)%s*$')[0] as string
-export const flatten = <Type> (arr: Type[][]): Type[] => {
-  const newarr: Type[] = []
-  arr.forEach(actualarr => {
-    actualarr.forEach(ele => {
-      newarr.push(ele)
-    })
-  })
-  return newarr
-}
-export const get_players = (selector = 'N/A', player?: Player) => {
+export const flatten = <Type> (arr: Type[][]): Type[] => arr.reduce((a, b) => [...a, ...b])
+export const get_players_no_comma = (selector = 'N/A', player?: Player) => {
   if (trim(selector) === 'all') return players.GetPlayers()
   if (player && trim(selector) === 'me') return [player]
   if (player && trim(selector) === 'friends') return player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => players.GetPlayerByUserId(friend_id))
   if (player && trim(selector) === 'others') return players.GetPlayers().filter(plr => plr !== player)
   return players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + trim(selector.lower()))[0])
 }
+export const get_players = (selector = 'N/A', player?: Player) => flatten(selector.split(',').map(str => get_players_no_comma(str, player)))
 
 export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
 export function player_command (command: (plr: Player, bot: Bot, permission: number) => unknown) {
