@@ -1,9 +1,9 @@
-import { Players, HttpService, SoundService } from '@rbxts/services'
+import { Players, HttpService } from '@rbxts/services'
 import { Popup } from 'components'
 import Roact from '@rbxts/roact'
 import Trollsmile from 'index'
 import { message } from 'types'
-import { auto_resize, random } from 'utils'
+import { random } from 'utils'
 
 export const desc = 'trollsmile credits'
 export const permission = 0
@@ -57,7 +57,7 @@ export function run ({ author: plr }: message, args: string[], bot: Trollsmile) 
           919231299
         ])
       })}
-      <uilistlayout SortOrder="LayoutOrder" Change={auto_resize} />
+      <uilistlayout SortOrder="LayoutOrder" />
       <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>

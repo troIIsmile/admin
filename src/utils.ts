@@ -125,17 +125,6 @@ export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Playe
   }).Play()
 }
 
-export const auto_resize = {
-  AbsoluteContentSize: (rbx: UIListLayout) => {
-    const frame = rbx.Parent! as ScrollingFrame
-    frame.CanvasSize = new UDim2(
-      0,
-      0,
-      0,
-      rbx.AbsoluteContentSize.Y,
-    )
-  }
-}
 
 export const random = <Type> (arr: Type[]): Type => arr[math.random(arr.size()) - 1]
 export const instances_of = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
