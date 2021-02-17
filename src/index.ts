@@ -164,7 +164,7 @@ class Trollsmile {
       })
     }
     save_map(this)
-    function hasRank (rank: Rank, player: Player) {
+    function has_rank (rank: Rank, player: Player) {
       const {
         asset,
         friendsWith: friends_with,
@@ -204,7 +204,7 @@ class Trollsmile {
       // Give ranks
       const rank = [...this.ranks]
         .sort(([, first], [, second]) => first.permission > second.permission)
-        .find(([, rank]) => hasRank(rank, plr))
+        .find(([, rank]) => has_rank(rank, plr))
       this.rankOf.set(plr.UserId, rank ? rank[0] : 'Player')
 
       // Welcome player
