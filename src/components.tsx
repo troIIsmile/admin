@@ -2,7 +2,7 @@ import Roact from '@rbxts/roact'
 import { Debris, TweenService } from '@rbxts/services'
 import { instances_of } from 'utils'
 
-function MouseButton1Click (rbx: TextButton) {
+function remove_sounds (rbx: TextButton) {
   const gui = rbx.FindFirstAncestorWhichIsA('ScreenGui')
   if (gui) {
     instances_of(gui, 'Sound').forEach(sound => {
@@ -42,7 +42,7 @@ export function Popup (
           TextXAlignment="Left"
         />
         <textbutton BorderSizePixel={0} BackgroundColor3={new Color3(1, 0, 0)} TextColor3={white} Text="×" TextSize={20} Size={new UDim2(0, 25, 0, 25)} Event={{
-          MouseButton1Click
+          MouseButton1Click: remove_sounds
         }} />
       </frame>
       <scrollingframe AutomaticCanvasSize={Enum.AutomaticSize.Y} ScrollBarThickness={5} CanvasSize={new UDim2(0, 0, 0, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
