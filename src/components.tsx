@@ -45,7 +45,7 @@ export function Popup (
           MouseButton1Click
         }} />
       </frame>
-      <scrollingframe AutomaticCanvasSize={Enum.AutomaticSize.Y} ScrollBarThickness={5} CanvasSize={new UDim2(0, 0, 5, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
+      <scrollingframe AutomaticCanvasSize={Enum.AutomaticSize.Y} ScrollBarThickness={5} CanvasSize={new UDim2(0, 0, 0, 0)} BackgroundTransparency={1} Key="list" Position={new UDim2(0, 0, 0, 25)} Size={new UDim2(1, 0, 1, -25)}>
         {child}
       </scrollingframe>
     </frame>
