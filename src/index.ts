@@ -173,30 +173,32 @@ class Trollsmile {
         group,
         people = []
       } = rank
-      function checkFriends () {
-        if (!friends_with) return false
-        if (typeIs(friends_with, 'number') || typeIs(friends_with, 'string')) {
-          return player.IsFriendsWith(typeIs(friends_with, 'string') ? Players.GetUserIdFromNameAsync(friends_with) : friends_with)
-        } else {
-          return friends_with
-            .map(id_or_string => typeIs(id_or_string, 'string') ? Players.GetUserIdFromNameAsync(id_or_string) : id_or_string)
-            .some(id => player.IsFriendsWith(id))
+      const check = {
+        friends () {
+          if (!friends_with) return false
+          if (typeIs(friends_with, 'number') || typeIs(friends_with, 'string')) {
+            return player.IsFriendsWith(typeIs(friends_with, 'string') ? Players.GetUserIdFromNameAsync(friends_with) : friends_with)
+          } else {
+            return friends_with
+              .map(id_or_string => typeIs(id_or_string, 'string') ? Players.GetUserIdFromNameAsync(id_or_string) : id_or_string)
+              .some(id => player.IsFriendsWith(id))
+          }
+        },
+        group () {
+          if (!group) return false
+          if (typeIs(group, 'number')) {
+            return player.IsInGroup(group)
+          }
+          if (typeIs(group.rank, 'number')) {
+            return player.GetRankInGroup(group.id) === group.rank // Number rank
+          }
+          return group.rank.includes(player.GetRankInGroup(group.id))
         }
-      }
-      function checkGroup () {
-        if (!group) return false
-        if (typeIs(group, 'number')) {
-          return player.IsInGroup(group)
-        }
-        if (typeIs(group.rank, 'number')) {
-          return player.GetRankInGroup(group.id) === group.rank // Number rank
-        }
-        return group.rank.includes(player.GetRankInGroup(group.id))
       }
       return (!!func && func(player)) // Functions
         || (!!people.includes(player.UserId) || people.includes(player.Name)) // Standard people array check
-        || checkGroup()
-        || checkFriends()
+        || check.group()
+        || check.friends()
         || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
         || (!!asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts and stuff)
     }
