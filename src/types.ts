@@ -16,7 +16,6 @@ export type Rank = {
 export interface message {
   content: string
   author: Player
-  channel?: Player
 }
 export interface command_obj {
   /**

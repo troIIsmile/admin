@@ -4,11 +4,10 @@ import StringUtils from '@rbxts/string-utils'
 import { Error, keys } from 'utils'
 import type Bot from 'index'
 import { RunService } from '@rbxts/services'
-export = async (bot: Bot, author: Player, content: string, channel?: Player) => {
+export = async (bot: Bot, author: Player, content: string) => {
   if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
   const message: message = {
     author,
-    channel,
     content
   }
   const name = [...keys(bot.aliases), ...keys(bot.commands)].find(
