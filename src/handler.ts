@@ -11,7 +11,7 @@ export = async (bot: Bot, author: Player, content: string, channel?: Player) => 
     channel,
     content
   }
-  const name = [...keys(bot.commands), ...keys(bot.aliases)].find(
+  const name = [...keys(bot.aliases), ...keys(bot.commands)].find(
     cmdname =>
       StringUtils.startsWith(content, `${bot.prefix}${cmdname} `) || // matches any command with a space after
       content === bot.prefix + cmdname || // matches any command without arguments
