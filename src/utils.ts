@@ -1,5 +1,7 @@
-import { Debris as debris, Players as players, TweenService as tween_service, Workspace } from '@rbxts/services'
+import { Players as players, Workspace } from '@rbxts/services'
+import { Notification } from 'components'
 import { message } from 'types'
+import Roact from '@rbxts/roact'
 import type Bot from '.'
 export const trim = (str: string) => str.match('^%s*(.-)%s*$')[0] as string
 export const flatten = <Type> (arr: Type[][]): Type[] => arr.reduce((a, b) => [...a, ...b])
@@ -49,80 +51,12 @@ export async function save_map (bot: Bot) {
   }
 }
 
-export async function notif ({ plr, text, show_for = 3, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
-  const sound = new Instance("Sound", plr.FindFirstChildWhichIsA('PlayerGui'))
-  sound.SoundId = 'rbxassetid://6366788549'
-  sound.PlayOnRemove = true
-  sound.Volume = 10
-  sound.Destroy()
-  // Gui to Lua
-  // Version. 3.2
-
-  // Instances.
-  const screen_gui = new Instance("ScreenGui")
-  const frame = new Instance("TextButton")
-  const image = new Instance("ImageLabel")
-  const text_label = new Instance("TextLabel")
-  // Properties.
-
-  screen_gui.Parent = plr.FindFirstChildWhichIsA('PlayerGui')
-  screen_gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-  frame.Parent = screen_gui
-  frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  frame.BorderSizePixel = 0
-  frame.Position = new UDim2(1, 0, 1, -100)
-  frame.Rotation = 45.000
-  frame.Size = new UDim2(0, 200, 0, 50)
-  frame.Font = Enum.Font.Roboto
-  frame.Text = ""
-  frame.TextColor3 = Color3.fromRGB(0, 0, 0)
-  frame.TextSize = 15.000
-  frame.TextWrapped = true
-  frame.TextXAlignment = Enum.TextXAlignment.Right
-  frame.AutoButtonColor = false
-  frame.MouseButton1Click.Connect(() => {
-    if (on_click) {
-      on_click()
-      tween_service.Create(frame, new TweenInfo(1), {
-        Position: new UDim2(1, 0, 1, -100),
-        Rotation: -45
-      }).Play()
-      debris.AddItem(screen_gui, 1)
-    }
-  })
-  image.Parent = frame
-  image.ZIndex = 5
-  image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  image.BackgroundTransparency = 1.000
-  image.BorderSizePixel = 0
-  image.Size = new UDim2(0, 50, 0, 50)
-  image.Image = "rbxassetid://6110686361"
-
-  text_label.Parent = frame
-  text_label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  text_label.BorderSizePixel = 0
-  text_label.BackgroundTransparency = 1
-  text_label.Position = new UDim2(0, 50, 0, 0)
-  text_label.Size = new UDim2(1, -50, 1, 0)
-  text_label.Font = Enum.Font.Roboto
-  text_label.Text = text
-  text_label.TextColor3 = Color3.fromRGB(0, 0, 0)
-  text_label.TextSize = 15.000
-  text_label.TextWrapped = true
-  text_label.TextXAlignment = Enum.TextXAlignment.Right
-
-  // Animation.
-  tween_service.Create(frame, new TweenInfo(1), {
-    Position: new UDim2(1, -250, 1, -100),
-    Rotation: 0
-  }).Play()
-  wait(show_for)
-  debris.AddItem(screen_gui, 1)
-  tween_service.Create(frame, new TweenInfo(1), {
-    Position: new UDim2(1, 0, 1, -100),
-    Rotation: -45
-  }).Play()
+export async function notif ({ plr, text, show_for = 10, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
+  Roact.mount(Roact.createElement(Notification, {
+    text,
+    showFor: show_for,
+    onClick: on_click
+  }), plr.FindFirstChildWhichIsA('PlayerGui'))
 }
 
 

@@ -1,5 +1,5 @@
 import Roact from '@rbxts/roact'
-import { Debris, TweenService } from '@rbxts/services'
+import { Debris as debris, TweenService as tween_service } from '@rbxts/services'
 import { instances_of } from 'utils'
 
 function remove_sounds (rbx: TextButton) {
@@ -7,10 +7,10 @@ function remove_sounds (rbx: TextButton) {
   if (gui) {
     instances_of(gui, 'Sound').forEach(sound => {
       sound.Parent = gui.Parent
-      TweenService.Create(sound, new TweenInfo(5), {
+      tween_service.Create(sound, new TweenInfo(5), {
         PlaybackSpeed: 0
       }).Play()
-      Debris.AddItem(sound, 5)
+      debris.AddItem(sound, 5)
     })
 
     gui.Destroy()
@@ -50,4 +50,81 @@ export function Popup (
       </scrollingframe>
     </frame>
   </screengui>
+}
+
+
+export class Notification extends Roact.Component<{ text: string; showFor?: number, onClick?: () => {} }> {
+  frame: Roact.Ref<TextButton> | undefined
+
+  render () {
+    this.frame = Roact.createRef<TextButton>()
+    function out (rbx: TextButton) {
+
+      tween_service.Create(rbx, new TweenInfo(1), {
+        Position: new UDim2(1, 0, 1, -100),
+        Rotation: -45
+      }).Play()
+      const screen_gui = rbx.FindFirstAncestorWhichIsA('ScreenGui')
+      if (screen_gui) debris.AddItem(screen_gui, 1)
+    }
+    const { text, onClick: onClick } = this.props
+    return <screengui ZIndexBehavior="Sibling">
+      <textbutton
+        Ref={this.frame}
+        Text=""
+        BackgroundColor3={new Color3(1, 1, 1)}
+        Rotation={45}
+        Position={new UDim2(1, 0, 1, -100)}
+        BorderSizePixel={0}
+        Size={new UDim2(0, 200, 0, 50)}
+        AutoButtonColor={false}
+        Event={{
+          MouseButton1Click: (rbx: TextButton) => {
+            if (onClick) onClick()
+            out(rbx)
+          }
+        }}>
+        <imagelabel
+          ZIndex={5}
+          BorderSizePixel={0}
+          Size={new UDim2(0, 50, 0, 50)}
+          BackgroundTransparency={1}
+          Image="rbxassetid://6110686361"
+        />
+        <textlabel
+          TextWrapped
+          TextXAlignment="Right"
+          TextSize={15}
+          Text={text}
+          Size={new UDim2(1, -50, 1, 0)}
+          Position={new UDim2(0, 50, 0, 0)}
+          TextColor3={new Color3(0, 0, 0)}
+          BorderSizePixel={0}
+          BackgroundTransparency={1}
+          Font="Roboto"
+          TextYAlignment="Center"
+        />
+      </textbutton>
+    </screengui>
+  }
+  didMount () {
+    const frame = this.frame?.getValue()
+    if (!frame) return
+    const sound = new Instance("Sound", frame)
+    sound.SoundId = 'rbxassetid://6366788549'
+    sound.PlayOnRemove = true
+    sound.Volume = 10
+    sound.Destroy()
+    // Animation.
+    tween_service.Create(frame, new TweenInfo(1), {
+      Position: new UDim2(1, -250, 1, -100),
+      Rotation: 0
+    }).Play()
+    wait(this.props.showFor ?? 3)
+    debris.AddItem(frame.FindFirstAncestorWhichIsA('ScreenGui') || frame, 1)
+    tween_service.Create(frame, new TweenInfo(1), {
+      Position: new UDim2(1, 0, 1, -100),
+      Rotation: -45
+    }).Play()
+  }
 }

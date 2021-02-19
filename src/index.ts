@@ -3,7 +3,9 @@
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
+import Roact from '@rbxts/roact'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
+import { Notification } from 'components'
 import handler from 'handler'
 import { command_obj, Rank } from 'types'
 import { get_players, player_command, save_map, notif, instances_of } from 'utils'
@@ -209,20 +211,22 @@ class Trollsmile {
         .find(([, rank]) => has_rank(rank, player))
       this.rankOf.set(player.UserId, rank ? rank[0] : 'Player')
 
-      // Welcome player
-      if (welcome) {
-        notif({
-          plr: player,
-          text: `${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rank(player.UserId)} and the prefix is ${this.prefix}.`
-        })
-      }
 
-      // Handler
+      // Chat handler
       player.Chatted.Connect(message => {
         handler(this, player, message)
       })
-      // Give print handler
-      script.event.Clone().Parent = player.WaitForChild('PlayerGui')
+
+      // Print listener
+      const player_gui = player.WaitForChild('PlayerGui')
+      script.event.Clone().Parent = player_gui
+      // Welcome player
+      if (welcome) {
+        Roact.mount(Roact.createElement(Notification, {
+          text: `${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rank(player.UserId)} and the prefix is ${this.prefix}.`,
+          showFor: 10,
+        }), player_gui)
+      }
     }
 
     Players.GetPlayers().forEach(on_player)
