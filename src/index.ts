@@ -122,7 +122,7 @@ class Trollsmile {
       })
     }
     save_map(this)
-    function has_rank (rank: Rank, player: Player) {
+    function has_rank (rank: Rank, player: Player): boolean {
       const {
         asset,
         friendsWith: friends_with,
@@ -153,12 +153,14 @@ class Trollsmile {
           return group.rank.includes(player.GetRankInGroup(group.id))
         }
       }
-      return (!!func && func(player)) // Functions
-        || (!!people.includes(player.UserId) || people.includes(player.Name)) // Standard people array check
+      return !!(
+        (func && func(player)) // Functions
+        || (people.includes(player.UserId) || people.includes(player.Name)) // Standard people array check
         || check.group()
         || check.friends()
-        || (!!gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
-        || (!!asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts and stuff)
+        || (gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
+        || (asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts, models, etc)
+      ) 
     }
     const on_player = async (player: Player) => {
       // Give ranks
