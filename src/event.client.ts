@@ -5,8 +5,6 @@ const storage: ReplicatedStorage & {
 
 storage.WaitForChild('trollsmile7Print')
 
-if (storage.trollsmile7Print) {
-  storage.trollsmile7Print.OnClientEvent.Connect((conf) => {
-    StarterGui.SetCore('ChatMakeSystemMessage', conf)
-  })
-}
+storage.trollsmile7Print!.OnClientEvent.Connect((conf) => {
+  StarterGui.SetCore('ChatMakeSystemMessage', conf)
+})
