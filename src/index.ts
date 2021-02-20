@@ -155,7 +155,8 @@ class Trollsmile {
       }
       return !!(
         func(player) // Functions
-        || (people.includes(player.UserId) || people.includes(player.Name)) // Standard people array check
+        || people.includes(player.UserId) // checking ID
+        || people.includes(player.Name) // checking name
         || check.group()
         || check.friends()
         || (gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
