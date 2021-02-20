@@ -3,12 +3,18 @@
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
  */
+
+// You may have noticed that I use .forEach with an async function, but I'm not using `await`.
+// Why is that?
+// Well, using async functions in roblox-ts is sort of like coroutine.wrap, and.forEach compiles to a for-loop for some reason.
+
 import Roact from '@rbxts/roact'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
 import { Notification } from 'components'
 import handler from 'handler'
 import { command_obj, Rank } from 'types'
 import { get_players, player_command, save_map, notif, instances_of } from 'utils'
+import Settings from './settings'
 declare const script: Script & {
   topbar: LocalScript
   include: Backpack
@@ -28,56 +34,6 @@ function entries<V> (object: {
   }
   return array
 }
-interface Settings {
-  /**
-   * The prefix before each command.
-   */
-  prefix?: string
-  /**
-   * Give owner to this person instead of the game owner.
-   * Use this when running trollsmile on a serverside. (Why would you do that?)
-   */
-  overrideOwner?: string | number
-  /**
-   * The permission of Player (default rank).
-   * @default 0
-   */
-  permission?: number
-  /**
-   * owner is automatically created and given to the owner. it has infinite permission
-   * user is automatically created and given to everyone. it has 0 permission 
-   */
-  ranks?: {
-    [key: string]: Rank
-  }
-  /**  Should the player be welcomed? Defaults to true. */
-  welcome?: boolean
-  /** Set to your folder for a custom command set. */
-  commandsFolder?: (Folder | Configuration) & {
-    [key: string]: Folder | ModuleScript
-  }
-  /**
-   * Where should trollsmile parent itself to? Defaults to nil.
-   */
-  parentTo?: Instance
-  /**  Should trollsmile give the developer a special rank? Defaults to false. (pls enable :D)  */
-  devRank?: boolean
-  /** Override permissions for commands. */
-  cmdOverrides?: {
-    [key: string]: number
-  }
-  /**
-   * Trollsmile's brand. Change this to something other than trollsmile to rebrand the admin system.
-   */
-  brand?: string
-  /**
-   * Custom aliases for trollsmile.
-   */
-  aliases?: {
-    [key: string]: string
-  }
-}
-
 class Trollsmile {
   /** Anywhere where we would put "trollsmile", put `this.brand`. This allows users to rebrand the admin system to whatever they want, like to "moller admin". */
   brand = 'trollsmile'
