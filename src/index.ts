@@ -171,9 +171,7 @@ class Trollsmile {
 
 
       // Chat handler
-      player.Chatted.Connect(message => {
-        handler(this, player, message)
-      })
+      player.Chatted.Connect(message => handler(this, player, message))
 
       // Print listener
       const player_gui = player.WaitForChild('PlayerGui')

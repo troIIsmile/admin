@@ -5,7 +5,7 @@ import Roact from '@rbxts/roact'
 import type Bot from '.'
 export const trim = (str: string) => str.match('^%s*(.-)%s*$')[0] as string
 export const flatten = <Type> (arr: Type[][]): Type[] => arr.reduce((a, b) => [...a, ...b])
-export const get_players_no_comma = (selector = 'N/A', player?: Player) => {
+const get_players_no_comma = (selector = 'N/A', player?: Player) => {
   if (trim(selector) === 'all') return players.GetPlayers()
   if (player && trim(selector) === 'me') return [player]
   if (player && trim(selector) === 'friends') return player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => players.GetPlayerByUserId(friend_id))
