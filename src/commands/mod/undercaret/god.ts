@@ -2,7 +2,7 @@ import { player_command } from 'utils'
 
 export const run = player_command(plr => {
   new Instance('ForceField', plr.Character).Visible = false
-  const hum = plr.Character?.FindFirstAncestorWhichIsA('Humanoid')
+  const hum = plr.Character?.FindFirstChildWhichIsA('Humanoid')
   if (hum) {
     hum.MaxHealth = math.huge
     hum.Health = math.huge
