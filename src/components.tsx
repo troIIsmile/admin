@@ -1,6 +1,15 @@
 import Roact from '@rbxts/roact'
 import { Debris as debris, TweenService as tween_service } from '@rbxts/services'
-import { instances_of } from 'utils'
+
+const instances_of = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
+  const list: Instances[instance_type][] = []
+  for (const heir of instance.GetDescendants()) {
+    if (heir.IsA(class_name)) {
+      list.push(heir)
+    }
+  }
+  return list
+}
 
 function remove_sounds (rbx: TextButton) {
   const gui = rbx.FindFirstAncestorWhichIsA('ScreenGui')
