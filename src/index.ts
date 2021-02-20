@@ -126,7 +126,7 @@ class Trollsmile {
       const {
         asset,
         friendsWith: friends_with,
-        func,
+        func = () => false,
         gamepass,
         group,
         people = []
@@ -154,13 +154,13 @@ class Trollsmile {
         }
       }
       return !!(
-        (func && func(player)) // Functions
+        func(player) // Functions
         || (people.includes(player.UserId) || people.includes(player.Name)) // Standard people array check
         || check.group()
         || check.friends()
         || (gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
         || (asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts, models, etc)
-      ) 
+      )
     }
     const on_player = async (player: Player) => {
       // Give ranks
