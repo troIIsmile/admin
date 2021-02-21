@@ -15,7 +15,7 @@ export const run = player_command(async plr => {
   vel.MaxForce = new Vector3(math.huge, math.huge, math.huge)
   vel.P = math.huge
   const smoke = new Instance("ParticleEmitter")
-  smoke.Enabled = false
+  smoke.Enabled = true
   smoke.Lifetime = new NumberRange(0, 3)
   smoke.Rate = 999999
   smoke.RotSpeed = new NumberRange(0, 20)
