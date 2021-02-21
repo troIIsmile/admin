@@ -13,6 +13,8 @@ export const run = player_command(async plr => {
   wait(1.4)
   const vel = new Instance('BodyVelocity', root)
   vel.Velocity = new CFrame(root.Position.sub(new Vector3(0, 1, 0)), root.CFrame.LookVector.mul(5).add(root.Position)).LookVector.mul(1500)
+  vel.MaxForce = new Vector3(math.huge, math.huge, math.huge)
+  vel.P = math.huge
   const smoke = new Instance("ParticleEmitter")
   smoke.Enabled = true
   smoke.Lifetime = new NumberRange(0, 3)
