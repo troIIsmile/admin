@@ -1,3 +1,4 @@
+import { Debris } from '@rbxts/services'
 import { player_command } from 'utils'
 export const run = player_command(async plr => {
   const character = plr.Character
@@ -11,9 +12,7 @@ export const run = player_command(async plr => {
   sound.Destroy()
   wait(1.4)
   const vel = new Instance('BodyVelocity', root)
-  vel.Velocity = new Vector3(0, 100, 0)
-  vel.MaxForce = new Vector3(math.huge, math.huge, math.huge)
-  vel.P = math.huge
+  vel.Velocity = new CFrame(root.Position.sub(new Vector3(0, 1, 0)), root.CFrame.LookVector.mul(5).add(root.Position)).LookVector.mul(1500)
   const smoke = new Instance("ParticleEmitter")
   smoke.Enabled = true
   smoke.Lifetime = new NumberRange(0, 3)
@@ -26,8 +25,8 @@ export const run = player_command(async plr => {
   smoke.Texture = "rbxassetid://642204234"
   smoke.Transparency = new NumberSequence([new NumberSequenceKeypoint(0, 0, 0), new NumberSequenceKeypoint(1, 1, 0)])
   smoke.Parent = root
-
-
+  Debris.AddItem(smoke, 99)
+  Debris.AddItem(vel, 99)
 })
 export const desc = 'you are going to Brazil!'
 export const permission = 2
