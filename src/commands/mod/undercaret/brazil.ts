@@ -14,6 +14,20 @@ export const run = player_command(async plr => {
   vel.Velocity = new Vector3(0, 100, 0)
   vel.MaxForce = new Vector3(math.huge, math.huge, math.huge)
   vel.P = math.huge
+  const smoke = new Instance("ParticleEmitter")
+  smoke.Enabled = false
+  smoke.Lifetime = new NumberRange(0, 3)
+  smoke.Rate = 999999
+  smoke.RotSpeed = new NumberRange(0, 20)
+  smoke.Rotation = new NumberRange(0, 360)
+  smoke.Size = new NumberSequence([new NumberSequenceKeypoint(0, 1.25, 1.25), new NumberSequenceKeypoint(1, 1.25, 1.25)])
+  smoke.Speed = new NumberRange(1, 1)
+  smoke.SpreadAngle = new Vector2(360, 360)
+  smoke.Texture = "rbxassetid://642204234"
+  smoke.Transparency = new NumberSequence([new NumberSequenceKeypoint(0, 0, 0), new NumberSequenceKeypoint(1, 1, 0)])
+  smoke.Parent = root
+
+
 })
 export const desc = 'you are going to Brazil!'
 export const permission = 2
