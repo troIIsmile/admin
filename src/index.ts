@@ -122,52 +122,11 @@ class Trollsmile {
       })
     }
     save_map(this)
-    function has_rank (rank: Rank, player: Player): boolean {
-      const {
-        asset,
-        friendsWith: friends_with,
-        func = () => false,
-        gamepass,
-        group,
-        people = []
-      } = rank
-      const check = {
-        friends () {
-          if (!friends_with) return false
-          if (typeIs(friends_with, 'number') || typeIs(friends_with, 'string')) {
-            return player.IsFriendsWith(typeIs(friends_with, 'string') ? Players.GetUserIdFromNameAsync(friends_with) : friends_with)
-          } else {
-            return friends_with
-              .map(id_or_string => typeIs(id_or_string, 'string') ? Players.GetUserIdFromNameAsync(id_or_string) : id_or_string)
-              .some(id => player.IsFriendsWith(id))
-          }
-        },
-        group () {
-          if (!group) return false
-          if (typeIs(group, 'number')) {
-            return player.IsInGroup(group)
-          }
-          if (typeIs(group.rank, 'number')) {
-            return player.GetRankInGroup(group.id) === group.rank // Number rank
-          }
-          return group.rank.includes(player.GetRankInGroup(group.id))
-        }
-      }
-      return !!(
-        func(player) // Functions
-        || people.includes(player.UserId) // checking ID
-        || people.includes(player.Name) // checking name
-        || check.group()
-        || check.friends()
-        || (gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
-        || (asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts, models, etc)
-      )
-    }
     const on_player = async (player: Player) => {
       // Give ranks
       const rank = [...this.ranks]
         .sort(([, first], [, second]) => first.permission > second.permission)
-        .find(([, rank]) => has_rank(rank, player))
+        .find(([, rank]) => this.has_rank(rank, player))
       this.rankOf.set(player.UserId, rank ? rank[0] : 'Player')
 
 
@@ -188,6 +147,47 @@ class Trollsmile {
 
     Players.GetPlayers().forEach(on_player)
     Players.PlayerAdded.Connect(on_player)
+  }
+  protected has_rank (rank: Rank, player: Player): boolean {
+    const {
+      asset,
+      friendsWith: friends_with,
+      func = () => false,
+      gamepass,
+      group,
+      people = []
+    } = rank
+    const check = {
+      friends () {
+        if (!friends_with) return false
+        if (typeIs(friends_with, 'number') || typeIs(friends_with, 'string')) {
+          return player.IsFriendsWith(typeIs(friends_with, 'string') ? Players.GetUserIdFromNameAsync(friends_with) : friends_with)
+        } else {
+          return friends_with
+            .map(id_or_string => typeIs(id_or_string, 'string') ? Players.GetUserIdFromNameAsync(id_or_string) : id_or_string)
+            .some(id => player.IsFriendsWith(id))
+        }
+      },
+      group () {
+        if (!group) return false
+        if (typeIs(group, 'number')) {
+          return player.IsInGroup(group)
+        }
+        if (typeIs(group.rank, 'number')) {
+          return player.GetRankInGroup(group.id) === group.rank // Number rank
+        }
+        return group.rank.includes(player.GetRankInGroup(group.id))
+      }
+    }
+    return !!(
+      func(player) // Functions
+      || people.includes(player.UserId) // checking ID
+      || people.includes(player.Name) // checking name
+      || check.group()
+      || check.friends()
+      || (gamepass && MarketplaceService.UserOwnsGamePassAsync(player.UserId, gamepass)) // Gamepass
+      || (asset && MarketplaceService.PlayerOwnsAsset(player, asset)) // Asset (T-Shirts, models, etc)
+    )
   }
 
   rank (plr: number): string
