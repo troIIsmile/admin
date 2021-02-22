@@ -1,10 +1,12 @@
 # trollsmile admin
 
-worst admin system
+✨ *the only good command is t!brazil™* ✨
+
+warning: it is bad
+
+a stupid port of a Discord bot to Roblox
 
 ## How to install
-
-First you'll need ff- wait wrong repo lol
 
 1. [Install Rojo.](https://rojo.space)
 2. `npm i -g roblox-ts`
