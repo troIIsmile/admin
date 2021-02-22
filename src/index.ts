@@ -55,7 +55,8 @@ class Trollsmile {
   terrain_backup: TerrainRegion | undefined
   map_backup: Folder | undefined
   /**
-   * Shorthand for overrideOwner, for your script list/executor.
+   * Shorthand for overrideOwner, for the lazy.
+   * Good for executor games.
    * @param overrideOwner The person to give owner. ID or username.
    * @param overrides trollsmile settings. Good if you want a different prefix.
    */
