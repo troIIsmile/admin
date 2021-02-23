@@ -2,11 +2,14 @@
  * @fileoverview trollsmile admin MainModule
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
+ * 
+ * if you see TS.import in this file this means you aren't looking at the source
+ * please go to github.com/troIImile/admin for the source
  */
 
 // You may have noticed that I use .forEach with an async function, but I'm not using `await`.
 // Why is that?
-// Well, using async functions in roblox-ts is sort of like coroutine.wrap, and.forEach compiles to a for-loop for some reason.
+// Well, using async functions in roblox-ts is sort of like coroutine.wrap, and .forEach compiles to a for-loop for some reason.
 
 import Roact from '@rbxts/roact'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
