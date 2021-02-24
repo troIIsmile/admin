@@ -6,8 +6,6 @@ warning: it is bad
 
 a stupid port of a Discord bot to Roblox
 
-please don't use this in an SS (backdoor); that breaks TOS which is gross
-
 ## How to install
 
 1. [Install Rojo.](https://rojo.space)
