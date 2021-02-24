@@ -1,12 +1,10 @@
 import { ReplicatedStorage, StarterGui } from '@rbxts/services'
 const storage: ReplicatedStorage & {
-  trollsmile?: RemoteEvent<(notif: SendNotificationConfig, sound?: number) => void>
-  trollsmilePrint?: RemoteEvent<(conf: MakeSystemMessageConfig) => void>
+  trollsmile7Print?: RemoteEvent<(conf: MakeSystemMessageConfig) => void>
 } = ReplicatedStorage
 
-if (storage.trollsmilePrint) {
-  storage.trollsmilePrint.OnClientEvent.Connect((conf) => {
-    StarterGui.SetCore('ChatMakeSystemMessage', conf)
-  })
-}
-export { }
+storage.WaitForChild('trollsmile7Print')
+
+storage.trollsmile7Print!.OnClientEvent.Connect((conf) => {
+  StarterGui.SetCore('ChatMakeSystemMessage', conf)
+})

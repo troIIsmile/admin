@@ -1,11 +1,11 @@
 import type Bot from 'index'
-export type PlayerArray = (number | string)[]
+export type player_array = (number | string)[]
 export type Rank = {
   permission: number
-  people?: PlayerArray
+  people?: player_array
   gamepass?: number
   asset?: number,
-  friendsWith?: number
+  friendsWith?: number | string | player_array
   group?: {
     id: number
     rank: number | number[]
@@ -13,16 +13,15 @@ export type Rank = {
   func?: (plr: Player) => boolean
 }
 
-export interface Message {
+export interface message {
   content: string
   author: Player
-  channel?: Player
 }
-export interface CommandObj {
+export interface command_obj {
   /**
    * code ran when the command is used.
    */
-  run: (message: Message, args: string[], bot: Bot) => string | void | Promise<string | void>
+  run: (message: message, args: string[], bot: Bot) => string | void | Promise<string | void>
   /**
    * you can use these instead of the filename
    */

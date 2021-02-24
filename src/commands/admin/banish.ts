@@ -1,15 +1,15 @@
 // 5787689701
 import { Workspace } from '@rbxts/services'
 import type Bot from 'index'
-import { plrCommand } from 'utils'
+import { player_command } from 'utils'
 let ev: RBXScriptConnection
 
-export const run = plrCommand((plr, bot: Bot & { banishedPlayers?: Set<string> }) => {
-  bot.banishedPlayers = bot.banishedPlayers || new Set()
-  bot.banishedPlayers.add(plr.Name)
+export const run = player_command((plr, bot: Bot & { banished_players?: Set<string> }) => {
+  bot.banished_players ||= new Set()
+  bot.banished_players.add(plr.Name)
   if (!ev) {
     ev = Workspace.ChildAdded.Connect(instance => {
-      if (bot.banishedPlayers && bot.banishedPlayers.has(instance.Name)) {
+      if (bot.banished_players && bot.banished_players.has(instance.Name)) {
         instance.Destroy()
       }
     })

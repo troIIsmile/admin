@@ -1,5 +1,5 @@
 import { Chat, Debris, MessagingService, Players } from '@rbxts/services'
-import { Message } from 'types'
+import { message } from 'types'
 
 MessagingService.SubscribeAsync('GlobalMessageTrollsmile', ({ Data: [text, author] }: { Data: [string, string] }) => {
   Players.GetPlayers().forEach(plr => {
@@ -19,7 +19,7 @@ MessagingService.SubscribeAsync('GlobalMessageTrollsmile', ({ Data: [text, autho
   })
 })
 
-export function run (message: Message, args: string[]) {
+export function run (message: message, args: string[]) {
   MessagingService.PublishAsync('GlobalMessageTrollsmile', [Chat.FilterStringForBroadcast(args.join(' '), message.author), message.author.Name])
 }
 

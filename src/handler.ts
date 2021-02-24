@@ -1,17 +1,16 @@
-import { Message } from 'types'
+import { message } from 'types'
 import printEv from 'print'
 import StringUtils from '@rbxts/string-utils'
 import { Error, keys } from 'utils'
 import type Bot from 'index'
 import { RunService } from '@rbxts/services'
-export = async (bot: Bot, author: Player, content: string, channel?: Player) => {
+export = async (bot: Bot, author: Player, content: string) => {
   if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
-  const message: Message = {
+  const message: message = {
     author,
-    channel,
     content
   }
-  const name = [...keys(bot.commands), ...keys(bot.aliases)].find(
+  const name = [...keys(bot.aliases), ...keys(bot.commands)].find(
     cmdname =>
       StringUtils.startsWith(content, `${bot.prefix}${cmdname} `) || // matches any command with a space after
       content === bot.prefix + cmdname || // matches any command without arguments

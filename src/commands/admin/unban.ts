@@ -1,12 +1,12 @@
 import Trollsmile from 'index'
-import { Message } from 'types'
-import { getPlayers } from 'utils'
+import { message } from 'types'
+import { get_players } from 'utils'
 
-export function run (message: Message, players: string[], bot: Trollsmile) {
-  getPlayers(players.join(' ') ?? '', message.author).forEach(plr => {
+export function run (message: message, players: string[], bot: Trollsmile) {
+  get_players(players.join(' ') ?? '', message.author).forEach(plr => {
     delete bot.banned[plr.UserId]
   })
 }
-export const desc = 'Remove someone from the server and remove them again if they rejoin.'
+export const desc = 'Remove someone from the banland.'
 export const permission = 3
-export const aliases = ['ban', 'serverban', 'serverBan', 'b4n']
+export const aliases = []

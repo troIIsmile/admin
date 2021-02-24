@@ -1,10 +1,10 @@
 import { Players } from '@rbxts/services'
 import Trollsmile from 'index'
-import { Message } from 'types'
-import { getPlayers } from 'utils'
+import { message } from 'types'
+import { get_players } from 'utils'
 
 let ev: RBXScriptConnection
-export function run (message: Message, args: string[], bot: Trollsmile) {
+export function run (message: message, args: string[], bot: Trollsmile) {
   const players = args.shift()
   const reason = args.join(' ').size() > 0 ? args.join(' ') : 'You have been banned from the server.'
   const permission = bot.permission(message.author.UserId)
@@ -15,7 +15,7 @@ export function run (message: Message, args: string[], bot: Trollsmile) {
       }
     })
   }
-  getPlayers(players ?? '', message.author).forEach(plr => {
+  get_players(players ?? '', message.author).forEach(plr => {
     if (bot.permission(plr.UserId) < permission) {
       plr.Kick(reason)
       bot.banned[plr.UserId] = reason

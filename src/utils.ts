@@ -1,38 +1,28 @@
-import { Players, TweenService, Workspace } from '@rbxts/services'
-import StringUtils from '@rbxts/string-utils'
-import { Message } from 'types'
+import { Players as players, Workspace } from '@rbxts/services'
+import { Notification } from 'components'
+import { message } from 'types'
+import Roact from '@rbxts/roact'
 import type Bot from '.'
-
-export const flatten = <Type> (arr: Type[][]): Type[] => {
-  const newarr: Type[] = []
-  arr.forEach(actualarr => {
-    actualarr.forEach(ele => {
-      newarr.push(ele)
-    })
-  })
-  return newarr
+export const trim = (str: string) => str.match('^%s*(.-)%s*$')[0] as string
+export const flatten = <Type> (arr: Type[][]): Type[] => arr.reduce((a, b) => [...a, ...b])
+const get_players_no_comma = (selector = 'N/A', player?: Player) => {
+  if (trim(selector) === 'all') return players.GetPlayers()
+  if (player && trim(selector) === 'me') return [player]
+  if (player && trim(selector) === 'friends') return player.GetFriendsOnline().map(friend => friend.VisitorId).mapFiltered(friend_id => players.GetPlayerByUserId(friend_id))
+  if (player && trim(selector) === 'others') return players.GetPlayers().filter(plr => plr !== player)
+  return players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + trim(selector.lower()))[0])
 }
-export const getPlayers = (String = 'N/A', Player?: Player) => {
-  if (StringUtils.trim(String) === 'all') return Players.GetPlayers()
-  if (Player && StringUtils.trim(String) === 'me') return [Player]
-  if (Player && StringUtils.trim(String) === 'others') return Players.GetPlayers().filter(plr => plr !== Player)
-  return Players.GetPlayers().filter(plr => !!plr.Name.lower().match('^' + StringUtils.trim(String.lower()))[0])
-}
+export const get_players = (selector = 'N/A', player?: Player) => flatten(selector.split(',').map(str => get_players_no_comma(str, player)))
 
-export const removeDuplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
-export function plrCommand (command: (plr: Player, bot: Bot, permission: number) => unknown) {
-  return (message: Message, args: string[], bot: Bot) => {
-    if (StringUtils.trim(args.join('')).size()) {
-      getPlayers(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
+export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
+export function player_command (command: (plr: Player, bot: Bot, permission: number) => unknown) {
+  return (message: message, args: string[], bot: Bot) => {
+    if ((trim(args.join('')) as string).size()) {
+      get_players(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
     } else {
       command(message.author, bot, bot.permission(message.author.UserId))
     }
   }
-}
-export const cloneTo = (to: Instance | undefined, ...instances: Instance[]) => {
-  instances.forEach(instance => {
-    instance.Clone().Parent = to
-  })
 }
 
 interface Button {
@@ -51,87 +41,32 @@ interface Dialog {
 export const Error = require(6275591790) as & { new(): Dialog }
 export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
 
-export async function saveMap (bot: Bot) {
-  bot.terrainBackup = Workspace.Terrain.CopyRegion(Workspace.Terrain.MaxExtents)
-  bot.mapBackup = new Instance('Folder')
+export async function save_map (bot: Bot) {
+  bot.terrain_backup = Workspace.Terrain.CopyRegion(Workspace.Terrain.MaxExtents)
+  bot.map_backup = new Instance('Folder')
   for (const instance of Workspace.GetChildren()) {
-    if (!instance.IsA('Terrain') && instance.Archivable && !instance.IsA('Script') && !Players.GetPlayerFromCharacter(instance)) {
-      instance.Clone().Parent = bot.mapBackup
+    if (!instance.IsA('Terrain') && instance.Archivable && !instance.IsA('Script') && !players.GetPlayerFromCharacter(instance)) {
+      instance.Clone().Parent = bot.map_backup
     }
   }
 }
 
-export async function notif ({ plr, text }: { plr: Player; text: string }) {
-  // Gui to Lua
-  // Version. 3.2
-
-  // Instances.
-
-  const ScreenGui = new Instance("ScreenGui")
-  const TextLabel = new Instance("TextLabel")
-  const ImageLabel = new Instance("ImageLabel")
-  const TextLabel_2 = new Instance("TextLabel")
-
-  // Properties.
-
-  ScreenGui.Parent = plr.FindFirstChildWhichIsA('PlayerGui')
-  ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-  TextLabel.Parent = ScreenGui
-  TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  TextLabel.BorderSizePixel = 0
-  TextLabel.Position = new UDim2(1, 0, 1, -100)
-  TextLabel.Rotation = 45.000
-  TextLabel.Size = new UDim2(0, 200, 0, 50)
-  TextLabel.Font = Enum.Font.Roboto
-  TextLabel.Text = ""
-  TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-  TextLabel.TextSize = 15.000
-  TextLabel.TextWrapped = true
-  TextLabel.TextXAlignment = Enum.TextXAlignment.Right
-
-  ImageLabel.Parent = TextLabel
-  ImageLabel.ZIndex = 5
-  ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  ImageLabel.BackgroundTransparency = 1.000
-  ImageLabel.BorderSizePixel = 0
-  ImageLabel.Size = new UDim2(0, 50, 0, 50)
-  ImageLabel.Image = "rbxassetid://6110686361"
-
-  TextLabel_2.Parent = TextLabel
-  TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-  TextLabel_2.BorderSizePixel = 0
-  TextLabel_2.Position = new UDim2(0, 50, 0, 0)
-  TextLabel_2.Size = new UDim2(1, -50, 1, 0)
-  TextLabel_2.Font = Enum.Font.Roboto
-  TextLabel_2.Text = text
-  TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
-  TextLabel_2.TextSize = 15.000
-  TextLabel_2.TextWrapped = true
-  TextLabel_2.TextXAlignment = Enum.TextXAlignment.Right
-
-  // Animation.
-  TweenService.Create(TextLabel, new TweenInfo(1), {
-    Position: new UDim2(1, -250, 1, -100),
-    Rotation: 0
-  }).Play()
-  wait(3)
-  TweenService.Create(TextLabel, new TweenInfo(1), {
-    Position: new UDim2(1, 0, 1, -100),
-    Rotation: -45
-  }).Play()
-  wait(1)
-  ScreenGui.Destroy()
+export async function notif ({ plr, text, show_for = 10, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
+  Roact.mount(Roact.createElement(Notification, {
+    text,
+    showFor: show_for,
+    onClick: on_click
+  }), plr.FindFirstChildWhichIsA('PlayerGui'))
 }
 
-export const AutoResize = {
-  AbsoluteContentSize: (rbx: UIListLayout) => {
-    const frame = rbx.Parent! as ScrollingFrame
-    frame.CanvasSize = new UDim2(
-      0,
-      0,
-      0,
-      rbx.AbsoluteContentSize.Y,
-    )
+
+export const random = <Type> (arr: Type[]): Type => arr[math.random(arr.size()) - 1]
+export const instances_of = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
+  const list: Instances[instance_type][] = []
+  for (const heir of instance.GetDescendants()) {
+    if (heir.IsA(class_name)) {
+      list.push(heir)
+    }
   }
+  return list
 }

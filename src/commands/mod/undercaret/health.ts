@@ -8,18 +8,20 @@ export async function run (message: message, args: string[]) {
   if (players.size() === 0) {
     const hum = message.author.Character?.FindFirstChildWhichIsA('Humanoid')
     if (hum) {
-      hum.WalkSpeed = speed
+      if (hum.MaxHealth < speed) hum.MaxHealth = speed
+      hum.Health = speed
     }
   } else {
     players.forEach(plr => {
       const hum = plr.Character?.FindFirstChildWhichIsA('Humanoid')
       if (hum) {
-        hum.WalkSpeed = speed
+        if (hum.MaxHealth < speed) hum.MaxHealth = speed
+        hum.Health = speed
       }
     })
   }
 
 }
-export const desc = 'gotta go fast'
-export const aliases = ['walkspeed', 'walkSpeed']
+export const desc = 'gotta heal fast'
+export const aliases = ['setHealth', 'sethealth']
 export const permission = 2

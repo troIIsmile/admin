@@ -1,5 +1,5 @@
-import { plrCommand } from 'utils'
-export const run = plrCommand(plr => {
+import { player_command } from 'utils'
+export const run = player_command(plr => {
   const char = plr.Character
   if (!char) return plr.LoadCharacter()
   const part = char.PrimaryPart
