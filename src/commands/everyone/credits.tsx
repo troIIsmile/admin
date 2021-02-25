@@ -66,7 +66,7 @@ export function run ({ author: plr }: message, args: string[], bot: Trollsmile) 
       <textlabel Text={"Special thanks to"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
         <uitextsizeconstraint MaxTextSize={25} />
       </textlabel>
-      <Credit id={1308783007} they="She's LuaQuack" onclick={(rbx) => {
+      <Credit id={1308783007} they="they do be luaquack" onclick={(rbx) => {
         const sound = new Instance('Sound', rbx)
         sound.Volume = 10
         sound.SoundId = 'rbxassetid://6345755361'
