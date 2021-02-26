@@ -51,10 +51,11 @@ export function run ({ author: plr }: message, args: string[], bot: Trollsmile) 
           952774272, // how
           1899417820, // rainbow hell
           2264258418, // rainbow puncher
-          1214497430, // trollar
-          // NERO'S DAY AT DISNEYLAND
-          4185475912,
-          919231299
+          1214497430, // you've been trolled
+          1836553363, // sweet victory
+          5938299491, // bobux
+          869553580, // BFG Division
+          1072940964 // steventhedreamer - Synchobonk
         ])
       })}
       <uilistlayout SortOrder="LayoutOrder" />
