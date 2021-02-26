@@ -1,5 +1,5 @@
 import Roact from '@rbxts/roact'
-import { Debris as debris, TweenService as tween_service } from '@rbxts/services'
+import { Debris as debris, TweenService as tween_service, Players } from '@rbxts/services'
 
 const instances_of = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
   const list: Instances[instance_type][] = []
@@ -61,6 +61,36 @@ export function Popup (
   </screengui>
 }
 
+export function Credit ({ id, they, onclick }: { id: number, they?: string, onclick?: (rbx: ImageButton) => unknown }) {
+  return <frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(1, 0, 0, 50)}>
+    <uilistlayout FillDirection="Horizontal" />
+    {onclick ? <imagebutton
+      BorderSizePixel={0}
+      Image={Players.GetUserThumbnailAsync(id, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420)[0]}
+      Size={new UDim2(0, 50, 0, 50)}
+      AutoButtonColor={false}
+      Event={{
+        MouseButton1Click: onclick
+      }}
+    /> : <imagelabel
+      BorderSizePixel={0}
+      Image={Players.GetUserThumbnailAsync(id, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420)[0]}
+      Size={new UDim2(0, 50, 0, 50)}
+    />}
+    {they ? (<frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(0, 345, 0, 50)}>
+      <uilistlayout FillDirection="Vertical" />
+      <textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)}>
+        <uitextsizeconstraint MaxTextSize={25} />
+      </textlabel>
+      <textlabel Text={they} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(.3, .3, .3)}>
+        <uitextsizeconstraint MaxTextSize={20} />
+      </textlabel>
+    </frame>)
+      : (<textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(0, 345, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)}>
+        <uitextsizeconstraint MaxTextSize={25} />
+      </textlabel>)}
+  </frame>
+}
 
 export class Notification extends Roact.Component<{ text: string; showFor?: number, onClick?: () => {} }> {
   frame: Roact.Ref<TextButton> | undefined

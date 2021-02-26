@@ -1,43 +1,26 @@
-import { Players, HttpService } from '@rbxts/services'
-import { Popup } from 'components'
+import { HttpService } from '@rbxts/services'
+import { Popup, Credit } from 'components'
 import Roact from '@rbxts/roact'
 import Trollsmile from 'index'
 import { message } from 'types'
 import { random } from 'utils'
 
+const songs = [
+  6101736348, // that one luaquack script
+  1571897668, // Conro - On My Way Up
+  952774272, // how
+  1899417820, // rainbow hell
+  2264258418, // rainbow puncher
+  1214497430, // you've been trolled
+  1836553363, // sweet victory
+  5938299491, // bobux
+  869553580, // BFG Division
+  1072940964 // steventhedreamer - Synchobonk
+]
 export const desc = 'trollsmile credits'
 export const permission = 0
 export const aliases = ['about', 'winning', 'trollsmile', 'meta']
-function Credit ({ id, they, onclick }: { id: number, they?: string, onclick?: (rbx: ImageButton) => unknown }) {
-  return <frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(1, 0, 0, 50)}>
-    <uilistlayout FillDirection="Horizontal" />
-    {onclick ? <imagebutton
-      BorderSizePixel={0}
-      Image={Players.GetUserThumbnailAsync(id, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420)[0]}
-      Size={new UDim2(0, 50, 0, 50)}
-      AutoButtonColor={false}
-      Event={{
-        MouseButton1Click: onclick
-      }}
-    /> : <imagelabel
-      BorderSizePixel={0}
-      Image={Players.GetUserThumbnailAsync(id, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420)[0]}
-      Size={new UDim2(0, 50, 0, 50)}
-    />}
-    {they ? (<frame BorderSizePixel={0} BackgroundTransparency={1} Size={new UDim2(0, 345, 0, 50)}>
-      <uilistlayout FillDirection="Vertical" />
-      <textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)}>
-        <uitextsizeconstraint MaxTextSize={25} />
-      </textlabel>
-      <textlabel Text={they} Size={new UDim2(1, 0, .5, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(.3, .3, .3)}>
-        <uitextsizeconstraint MaxTextSize={20} />
-      </textlabel>
-    </frame>)
-      : (<textlabel Text={Players.GetNameFromUserIdAsync(id)} Size={new UDim2(0, 345, 1, 0)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)}>
-        <uitextsizeconstraint MaxTextSize={25} />
-      </textlabel>)}
-  </frame>
-}
+
 export function run ({ author: plr }: message, args: string[], bot: Trollsmile) {
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} v${PKG_VERSION} credits`} Size={new UDim2(0, 400, 0, 500)}>
@@ -45,18 +28,7 @@ export function run ({ author: plr }: message, args: string[], bot: Trollsmile) 
         Playing: true,
         Looped: true,
         Volume: 5,
-        SoundId: 'rbxassetid://' + random([
-          6101736348, // that one luaquack script
-          1571897668, // Conro - On My Way Up
-          952774272, // how
-          1899417820, // rainbow hell
-          2264258418, // rainbow puncher
-          1214497430, // you've been trolled
-          1836553363, // sweet victory
-          5938299491, // bobux
-          869553580, // BFG Division
-          1072940964 // steventhedreamer - Synchobonk
-        ])
+        SoundId: 'rbxassetid://' + random(songs)
       })}
       <uilistlayout SortOrder="LayoutOrder" />
       <textlabel Text={"Developers"} Size={new UDim2(1, 0, 0, 50)} BorderSizePixel={0} BackgroundTransparency={1} Font="Roboto" TextScaled TextColor3={new Color3(1, 1, 1)} TextXAlignment="Center">
