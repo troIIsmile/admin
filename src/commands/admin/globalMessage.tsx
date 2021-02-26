@@ -4,7 +4,7 @@ import { Message } from 'components'
 import Roact from '@rbxts/roact'
 
 MessagingService.SubscribeAsync('GlobalMessageTrollsmile', ({ Data: [text, author] }: { Data: [string, string] }) => {
-  Players.GetPlayers().forEach(plr => {
+  Players.GetPlayers().forEach(async plr => {
     const gui = plr.FindFirstChildWhichIsA('PlayerGui')
 
     if (gui) {

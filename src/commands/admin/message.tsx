@@ -4,7 +4,7 @@ import {Message} from 'components'
 import Roact from '@rbxts/roact'
 export function run (message: message, args: string[]) {
   const text = Chat.FilterStringForBroadcast(args.join(' '), message.author)
-  Players.GetPlayers().forEach(plr => {
+  Players.GetPlayers().forEach(async plr => {
     const gui = plr.FindFirstChildWhichIsA('PlayerGui')
 
     if (gui) {
