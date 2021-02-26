@@ -92,6 +92,10 @@ export function Credit ({ id, they, onclick }: { id: number, they?: string, oncl
   </frame>
 }
 
+// //====================================================\\
+//        NOTIFS AND MESSAGES
+// \\====================================================//
+
 export class Notification extends Roact.Component<{ text: string; showFor?: number, onClick?: () => {} }> {
   frame: Roact.Ref<TextButton> | undefined
 
@@ -164,6 +168,44 @@ export class Notification extends Roact.Component<{ text: string; showFor?: numb
     tween_service.Create(frame, new TweenInfo(1), {
       Position: new UDim2(1, 0, 1, -100),
       Rotation: -45
+    }).Play()
+  }
+}
+
+export class Message extends Roact.Component<{ text: string, author: string }> {
+  label: Roact.Ref<TextLabel> | undefined
+  render () {
+    this.label = Roact.createRef<TextLabel>()
+    return <screengui IgnoreGuiInset>
+      <textlabel Ref={this.label} TextTransparency={1}
+        BackgroundTransparency={1}
+        Position={new UDim2(0, 0, -0.5, 0)}
+        Text={this.props.text + '\nfrom ' + this.props.author}
+        Size={new UDim2(1, 0, 1, 0)}
+        TextSize={20}
+        Font={Enum.Font.RobotoMono}
+        BackgroundColor3={new Color3}
+        TextColor3={new Color3(1, 1, 1)} />
+    </screengui>
+  }
+  didMount () {
+    const label = this.label?.getValue()
+    if (!label) return
+    debris.AddItem(label.Parent!, 5 + this.props.text.size() / 30)
+    const in_tween = tween_service.Create(label, new TweenInfo(1, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {
+      Position: new UDim2(0, 0, 0, 0),
+      TextTransparency: 0,
+      BackgroundTransparency: 0.5
+    })
+    in_tween.Play()
+    in_tween.Completed.Wait()
+    label.Position = new UDim2(0, 0, 0, 0)
+    label.BackgroundTransparency = 0.5
+    wait(3 + this.props.text.size() / 30) // Reading time code from HD Admin v2
+    tween_service.Create(label, new TweenInfo(1, Enum.EasingStyle.Exponential, Enum.EasingDirection.In), {
+      Position: new UDim2(0, 0, 0.5, 0),
+      TextTransparency: 1,
+      BackgroundTransparency: 1
     }).Play()
   }
 }
