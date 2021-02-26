@@ -96,7 +96,7 @@ export function Credit ({ id, they, onclick }: { id: number, they?: string, oncl
 //        NOTIFS AND MESSAGES
 // \\====================================================//
 
-export class Notification extends Roact.Component<{ text: string; showFor?: number, onClick?: () => {} }> {
+export class Notification extends Roact.Component<{ text: string; showFor?: number, onClick?: () => {}, sound?: boolean }> {
   frame: Roact.Ref<TextButton> | undefined
 
   render () {
@@ -151,12 +151,13 @@ export class Notification extends Roact.Component<{ text: string; showFor?: numb
     </screengui>
   }
   didMount () {
+    const should_play_sound = this.props.sound ?? true
     const frame = this.frame?.getValue()
     if (!frame) return
     const sound = new Instance("Sound", frame)
     sound.SoundId = 'rbxassetid://6366788549'
     sound.PlayOnRemove = true
-    sound.Volume = 10
+    sound.Volume = should_play_sound ? 10 : 0
     sound.Destroy()
     // Animation.
     tween_service.Create(frame, new TweenInfo(1), {
