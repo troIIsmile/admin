@@ -142,10 +142,10 @@ class Trollsmile {
       script.event.Clone().Parent = player_gui
       // Welcome player
       if (welcome) {
-        Roact.mount(Roact.createElement(Notification, {
-          text: `${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rank(player.UserId)} and the prefix is ${this.prefix}.`,
-          showFor: 10,
-        }), player_gui)
+        Roact.mount(<Notification
+          text={`${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rank(player.UserId)} and the prefix is ${this.prefix}.`}
+          showFor={10}
+        />, player_gui)
       }
     }
 
