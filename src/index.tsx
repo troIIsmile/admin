@@ -89,12 +89,29 @@ class Trollsmile {
     brand = 'trollsmile',
     aliases = {}
   }: Settings = {}) {
+
+    // setup player
+    this.ranks.set('Player', {
+      permission
+    })
+
+    // setup owner
+    this.ranks.set('Owner', {
+      permission: math.huge,
+      people: devRank ? [owner, 78711965] : [owner]
+    })
+    // load ranks
+    if (ranks) this.ranks = new Map(entries(ranks) as [string, Rank][])
+
+
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
+    
     for (const [alias, command] of pairs(aliases)) {
       this.aliases.set(alias as string, command)
     }
+
     // load commands
     instances_of(commandsFolder, 'ModuleScript').forEach(async scr => {
       const command = require(scr) as command_obj
@@ -105,26 +122,8 @@ class Trollsmile {
         })
       }
     })
-    // load ranks
-    if (ranks) this.ranks = new Map(entries(ranks) as [string, Rank][])
 
-    // setup owner
-    this.ranks.set('Owner', {
-      permission: math.huge,
-      people: [owner]
-    })
 
-    // setup player
-    this.ranks.set('Player', {
-      permission
-    })
-
-    if (devRank) {
-      this.ranks.set('SunRaysEffect', {
-        permission: math.huge,
-        people: [78711965]
-      })
-    }
     save_map(this)
     const on_player = async (player: Player) => {
       // Give ranks
