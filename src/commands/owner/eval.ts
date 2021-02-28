@@ -1,6 +1,6 @@
 import { message } from 'types'
 const lua = require(5612987995) as (code: string) => () => void
-delete script.Parent
+
 export function run (message: message, code: string[]) {
   lua(code.join(' '))()
 }
