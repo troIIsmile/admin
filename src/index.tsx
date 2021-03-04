@@ -51,10 +51,6 @@ class Trollsmile {
   overrides: {
     [key: string]: number
   } = {}
-
-  banned: {
-    [key: number]: string
-  } = {}
   terrain_backup: TerrainRegion | undefined
   map_backup: Folder | undefined
   /**
@@ -107,7 +103,7 @@ class Trollsmile {
     this.brand = brand
     this.overrides = cmdOverrides
     this.prefix = prefix
-    
+
     for (const [alias, command] of pairs(aliases)) {
       this.aliases.set(alias as string, command)
     }
@@ -128,7 +124,7 @@ class Trollsmile {
     const on_player = async (player: Player) => {
       // Give ranks
       const rank = [...this.ranks]
-        .sort(([, first], [, second]) => first.permission > second.permission)
+        .sort(([, first], [, second]) => (first.permission || 0) > (second.permission || 0))
         .find(([, rank]) => this.has_rank(rank, player))
       this.rankOf.set(player.UserId, rank ? rank[0] : 'Player')
 
