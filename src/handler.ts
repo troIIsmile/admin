@@ -1,9 +1,10 @@
 import { message } from 'types'
-import printEv from 'print'
 import StringUtils from '@rbxts/string-utils'
 import { Error, keys } from 'utils'
 import type Bot from 'index'
 import { RunService } from '@rbxts/services'
+import { GetLuaChatService } from '@rbxts/chat-service'
+const ChatService = GetLuaChatService()
 export = async (bot: Bot, author: Player, content: string) => {
   if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
   const message: message = {
@@ -40,10 +41,7 @@ export = async (bot: Bot, author: Player, content: string) => {
 
     if (output) {
       RunService.Heartbeat.Wait()
-      printEv.FireClient(author, {
-        Text: output,
-        Font: Enum.Font.RobotoMono
-      })
+      ChatService.GetSpeaker(author.Name).SendMessage(output, ChatService.GetChannel('All') ? 'All' : ChatService.GetAutoJoinChannelList()[0], 'trollsmile')
     }
   } else {
     const button = new Error()

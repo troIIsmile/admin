@@ -19,9 +19,7 @@ import { command_obj, Rank } from 'types'
 import { get_players, player_command, save_map, notif, instances_of } from 'utils'
 import Settings from './settings'
 declare const script: Script & {
-  topbar: LocalScript
   include: Backpack
-  event: LocalScript
   commands: Configuration & {
     [key: string]: ModuleScript
   }
@@ -132,15 +130,12 @@ class Trollsmile {
       // Chat handler
       player.Chatted.Connect(message => handler(this, player, message))
 
-      // Print listener
-      const player_gui = player.WaitForChild('PlayerGui')
-      script.event.Clone().Parent = player_gui
       // Welcome player
       if (welcome) {
         Roact.mount(<Notification
           text={`${this.brand === 'trollsmile' ? 'trollsmile admin' : this.brand} loaded. Your rank is ${this.rank(player.UserId)} and the prefix is ${this.prefix}.`}
           showFor={10}
-        />, player_gui)
+        />, player.WaitForChild('PlayerGui'))
       }
     }
 
