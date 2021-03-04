@@ -11,4 +11,4 @@ export function run (_message: message, args: string[]) {
   }
 }
 
-export const aliases = ['fe']
+export const aliases = ['fs']
