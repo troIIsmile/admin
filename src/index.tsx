@@ -48,6 +48,7 @@ class Trollsmile {
   ranks = new Map<string, Rank>()
   rankOf = new Map<number, string>()
   prefix: string
+  default_permission: number
   overrides: {
     [key: string]: number
   } = {}
@@ -85,7 +86,7 @@ class Trollsmile {
     brand = 'trollsmile',
     aliases = {}
   }: Settings = {}) {
-
+    this.default_permission = permission
     // setup player
     this.ranks.set('Player', {
       permission
@@ -125,7 +126,7 @@ class Trollsmile {
       // Give ranks
       const rank = [...this.ranks]
         .filter(([, rank]) => this.has_rank(rank, player))
-        .sort(([, first], [, second]) => (first.permission || 0) > (second.permission || 0))[0]
+        .sort(([, first], [, second]) => (first.permission || this.default_permission) > (second.permission || this.default_permission))[0]
       this.rankOf.set(player.UserId, rank ? rank[0] : 'Player')
 
 
@@ -200,7 +201,7 @@ class Trollsmile {
     throw 'Rank not found!'
   }
   permission (user_id: number): number {
-    return this.ranks.get(this.rank(user_id))?.permission || 0
+    return this.ranks.get(this.rank(user_id))?.permission || this.default_permission
   }
   static plrCommand = player_command
   static player_command = player_command

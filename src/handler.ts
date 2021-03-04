@@ -27,7 +27,7 @@ export = async (bot: Bot, author: Player, content: string) => {
   const permission = bot.overrides[name] // overrrides first
     || bot.commands.get(name)?.permission // The command if it found it
     || (bot.commands.get(bot.aliases.get(name) || ''))?.permission // Aliases
-    || 0 // nothing
+    || bot.default_permission // default perms
   if (permissionOfPlayer >= permission) {
     const output = await command(
       message, // the message
