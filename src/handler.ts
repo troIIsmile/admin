@@ -3,7 +3,7 @@ import StringUtils from '@rbxts/string-utils'
 import { Error, keys } from 'utils'
 import type Bot from 'index'
 import { RunService } from '@rbxts/services'
-import { GetLuaChatService } from '@rbxts/chat-service'
+import { ExtraData, GetLuaChatService } from '@rbxts/chat-service'
 const ChatService = GetLuaChatService()
 export = async (bot: Bot, author: Player, content: string) => {
   if (!StringUtils.startsWith(content, bot.prefix) && !StringUtils.startsWith(content, `/e ${bot.prefix}`)) return // don't waste time lol
@@ -41,7 +41,13 @@ export = async (bot: Bot, author: Player, content: string) => {
 
     if (output) {
       RunService.Heartbeat.Wait()
-      ChatService.GetSpeaker(author.Name).SendMessage(output, ChatService.GetChannel('All') ? 'All' : ChatService.GetAutoJoinChannelList()[0], 'trollsmile')
+      const args = [output, ChatService.GetChannel('All') ? 'All' : ChatService.GetAutoJoinChannelList()[0], identity<ExtraData>({
+        Font: Enum.Font.RobotoMono,
+        Tags: [{
+          TagText: 'trollsmile'
+        }]
+      })] as unknown as [string, string]
+      ChatService.GetSpeaker(author.Name).SendSystemMessage(...args)
     }
   } else {
     const button = new Error()
