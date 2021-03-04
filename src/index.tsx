@@ -89,8 +89,7 @@ class Trollsmile {
     this.default_permission = permission
     // setup player
     this.ranks.set('Player', {
-      permission,
-      func: () => true
+      permission
     })
 
     // setup owner
@@ -125,10 +124,10 @@ class Trollsmile {
     save_map(this)
     const on_player = async (player: Player) => {
       // Give ranks
-      const [rank] = [...this.ranks]
+      const rank = [...this.ranks]
         .filter(([, rank]) => this.has_rank(rank, player))
         .sort(([, first], [, second]) => (first.permission || this.default_permission) > (second.permission || this.default_permission))[0]
-      this.rankOf.set(player.UserId, rank)
+      this.rankOf.set(player.UserId, rank ? rank[0] : 'Player')
 
 
       // Chat handler
