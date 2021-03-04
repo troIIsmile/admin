@@ -124,8 +124,8 @@ class Trollsmile {
     const on_player = async (player: Player) => {
       // Give ranks
       const rank = [...this.ranks]
-        .filter(([, rank]) => this.has_rank(rank, player))
-        .sort(([, first], [, second]) => (first.permission || 0) > (second.permission || 0))[0]
+        .sort(([, first], [, second]) => (first.permission || 0) > (second.permission || 0))
+        .find(([, rank]) => this.has_rank(rank, player))
       this.rankOf.set(player.UserId, rank ? rank[0] : 'Player')
 
 
