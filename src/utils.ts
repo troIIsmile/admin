@@ -25,20 +25,7 @@ export function player_command (command: (plr: Player, bot: Bot, permission: num
   }
 }
 
-interface Button {
-  Text: string,
-  Primary: boolean,
-  LayoutOrder: number,
-  Callback: (inputObject: InputObject) => unknown
-}
-interface Dialog {
-  setParent (instance?: Instance): void
-  setErrorTitle (title: string): void
-  onErrorChanged (text: string, code?: { Value: number }): void
-  updateButtons (buttons: Button[] | { [key: string]: Button }): void
-}
 
-export const Error = require(6275591790) as & { new(): Dialog }
 export const keys = <K> (map: Map<K, unknown>): K[] => [...map].map(([name]) => name)
 
 export async function save_map (bot: Bot) {
