@@ -7,7 +7,7 @@
 		"module": "commonjs",
 		"noLib": true,
 		"strict": true,
-		"target": "es2020",
+		"target": "ESNext",
 		"typeRoots": [
 			"node_modules/@rbxts"
 		],

@@ -1,5 +1,10 @@
 {
 	"name": "MainModule",
+	"globIgnorePaths": [
+		"**/package.json",
+		"**/tsconfig.json",
+		"**/LICENSE.txt"
+	],
 	"tree": {
 		"$path": "out",
 		"include": {
