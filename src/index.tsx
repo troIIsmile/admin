@@ -19,7 +19,6 @@ import { command_obj, Rank } from 'types'
 import { get_players, player_command, save_map, notif, instances_of } from 'utils'
 import Settings from './settings'
 declare const script: Script & {
-  include: Backpack
   commands: Configuration & {
     [key: string]: ModuleScript
   }
