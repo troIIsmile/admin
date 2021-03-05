@@ -1,7 +1,7 @@
 {
-	"name": "trollsmile-admin",
+	"name": "@rbxts/trollsmile",
 	"version": "7.0.1",
-	"description": "trollsmile for roblox",
+	"description": "The world's worst roblox-ts package. trollsmile, ported to Roblox with TypeScript.",
 	"scripts": {
 		"build": "rbxtsc && rojo build -o model.rbxmx",
 		"release-major": "npm version major && git push && git push --tags",
