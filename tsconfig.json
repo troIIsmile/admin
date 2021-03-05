@@ -25,9 +25,5 @@
 		"jsx": "react",
 		"jsxFactory": "Roact.createElement",
 		"jsxFragmentFactory": "Roact.Fragment",
-
-		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo",
-		"incremental": true,
-
 	}
 }
