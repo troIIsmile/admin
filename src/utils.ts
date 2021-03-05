@@ -4,7 +4,7 @@ import { message } from 'types'
 import Roact from '@rbxts/roact'
 import type Bot from '.'
 export const trim = (str: string) => str.match('^%s*(.-)%s*$')[0] as string
-export const flatten = <Type> (arr: Type[][]): Type[] => arr.reduce((a, b) => [...a, ...b])
+export const flatten = <Type> (arr: readonly Type[][]): Type[] => arr.reduce((a, b) => [...a, ...b])
 const get_players_no_comma = (selector = 'N/A', player?: Player) => {
   if (trim(selector) === 'all') return players.GetPlayers()
   if (player && trim(selector) === 'me') return [player]
@@ -14,9 +14,9 @@ const get_players_no_comma = (selector = 'N/A', player?: Player) => {
 }
 export const get_players = (selector = 'N/A', player?: Player) => flatten(selector.split(',').map(str => get_players_no_comma(str, player)))
 
-export const remove_duplicates = <Type> (array: Type[]): Type[] => [...new Set(array)]
+export const remove_duplicates = <Type> (array: readonly Type[]): Type[] => [...new Set(array)]
 export function player_command (command: (plr: Player, bot: Bot, permission: number) => unknown) {
-  return (message: message, args: string[], bot: Bot) => {
+  return (message: message, args: readonly string[], bot: Bot) => {
     if ((trim(args.join('')) as string).size()) {
       get_players(args.join(' '), message.author).forEach(plr => command(plr, bot, bot.permission(plr.UserId)))
     } else {
@@ -47,7 +47,7 @@ export async function notif ({ plr, text, show_for = 10, on_click }: { plr: Play
 }
 
 
-export const random = <Type> (arr: Type[]): Type => arr[math.random(arr.size()) - 1]
+export const random = <Type> (arr: readonly Type[]): Type => arr[math.random(arr.size()) - 1]
 export const instances_of = <instance_type extends keyof Instances> (instance: Instance, class_name: instance_type): Instances[instance_type][] => {
   const list: Instances[instance_type][] = []
   for (const heir of instance.GetDescendants()) {
