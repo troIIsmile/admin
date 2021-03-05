@@ -7,7 +7,6 @@ export default interface Settings {
   prefix?: string
   /**
    * Give owner to this person instead of the game owner.
-   * Use this when running trollsmile on a serverside. (Why would you do that?)
    */
   overrideOwner?: string | number
   /**
