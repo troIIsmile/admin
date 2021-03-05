@@ -1,5 +1,3 @@
-# trollsmile admin
+# trollsmile roblox
 
-By far the world's worst Roblox admin.
-
-It doesn't even have a ban or kick command.
+world's worst script
