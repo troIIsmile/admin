@@ -20,9 +20,14 @@
 		"outDir": "out",
 		// optional
 		"baseUrl": "src",
-		"declaration": false,
+		"declaration": true,
 		// optional, non-configurable
 		"jsx": "react",
-		"jsxFactory": "Roact.createElement"
+		"jsxFactory": "Roact.createElement",
+		"jsxFragmentFactory": "Roact.Fragment",
+
+		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo",
+		"incremental": true,
+
 	}
 }

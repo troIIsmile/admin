@@ -1,4 +1,3 @@
 node_modules
-include
-out
+default.project.json
 model.rbxmx
