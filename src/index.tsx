@@ -2,7 +2,7 @@
  * @fileoverview trollsmile admin MainModule
  * @license ISC
  * @author Jack <hello@5079.ml> (https://5079.ml)
- * 
+ * @package @rbxts/trollsmile
  * if you see TS.import in this file this means you aren't looking at the source
  * please go to github.com/troIImile/admin for the source
  */
