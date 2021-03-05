@@ -41,14 +41,14 @@ export = async (bot: Bot, author: Player, content: string) => {
 
     if (output) {
       RunService.PostSimulation.Wait()
-      // Shitty workaround since someone typed SendSystemMessage wrong (it should have a third argument which is the extradata)
+      // Bad workaround since someone typed SendSystemMessage wrong (it should have a third argument which is the extradata)
       const args = [output, ChatService.GetChannel('All') ? 'All' : ChatService.GetAutoJoinChannelList()[0], identity<ExtraData>({
         Font: Enum.Font.RobotoMono
       })] as unknown as [string, string]
       ChatService.GetSpeaker(author.Name).SendSystemMessage(...args)
     }
   } else {
-    // Shitty workaround since someone typed SendSystemMessage wrong (it should have a third argument which is the extradata)
+    // Bad workaround since someone typed SendSystemMessage wrong (it should have a third argument which is the extradata)
     const args = ['You do not have permission to run this command.', ChatService.GetChannel('All') ? 'All' : ChatService.GetAutoJoinChannelList()[0], identity<ExtraData>({
       Font: Enum.Font.RobotoMono,
       ChatColor: new Color3(1,0,0)

@@ -1,7 +1,7 @@
 {
 	"name": "@rbxts/trollsmile",
-	"version": "7.0.1",
-	"description": "please ignore",
+	"version": "7.0.2",
+	"description": "the worst package on this site",
 	"types": "out/index.d.ts",
 	"scripts": {
 		"build": "rbxtsc && rojo build -o model.rbxmx",
