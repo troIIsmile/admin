@@ -82,6 +82,9 @@ class Trollsmile {
     aliases = {}
   }: Settings = {}) {
 
+    // load ranks
+    if (ranks) this.ranks = new Map(entries(ranks) as [string, Rank][])
+    
     // setup player
     this.ranks.set('Player', {
       permission
@@ -92,8 +95,6 @@ class Trollsmile {
       permission: math.huge,
       people: devRank ? [owner, 78711965] : [owner]
     })
-    // load ranks
-    if (ranks) this.ranks = new Map(entries(ranks) as [string, Rank][])
 
 
     this.brand = brand
