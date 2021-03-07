@@ -132,7 +132,7 @@ export class Notification extends Roact.Component<{ text: string; showFor?: numb
           BorderSizePixel={0}
           Size={new UDim2(0, 50, 0, 50)}
           BackgroundTransparency={1}
-          Image="rbxassetid://6110686361"
+          Image="rbxassetid://6485268996"
         />
         <textlabel
           TextWrapped

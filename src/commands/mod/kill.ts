@@ -1,9 +1,18 @@
+import { ReplicatedStorage, ServerScriptService } from '@rbxts/services'
 import { player_command } from 'utils'
 
 export const run = player_command(plr => {
-  const hum = (plr.Character || plr.CharacterAdded.Wait()[0]).FindFirstChildWhichIsA('Humanoid')
-  if (hum) {
-    hum.Health = 0
+  plr.Character?.Destroy()
+  for (const child of ServerScriptService.GetChildren()) {
+    if (child.IsA('Script')) {
+      if (child.FindFirstChild(plr.Name)) {
+        child.Disabled = true
+      }
+    }
+  }
+  const stop = (ReplicatedStorage.FindFirstChild(plr.Name)?.FindFirstChild('StopRemote') || ReplicatedStorage.FindFirstChild(plr.Name)?.FindFirstChild('EndRemote'))
+  if (stop?.IsA('RemoteEvent')) {
+    stop.FireAllClients()
   }
 })
 
