@@ -7,99 +7,111 @@
     <title>trollsmile admin</title>
     <meta name="description" content="the world's worst Roblox admin system">
     <link rel="stylesheet" href="source-sans-3.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <style>
-      @import 'https://rsms.me/inter/inter.css';
-      * {
-        box-sizing: border-box;
+      span.logo {
+        font-family: 'Inter Black', sans-serif;
       }
 
-      .hero {
-        display: block;
-        height: 100%;
-        padding: 0;
-        background: linear-gradient(to top right, yellow, green);
-        color: white;
-        padding-left: 8em;
-        padding-top: 8em;
+      @media (prefers-color-scheme: dark) {
+        html {
+          background: black;
+          filter: invert(1) hue-rotate(180deg);
+        }
+
+        img {
+          filter: invert(1) hue-rotate(180deg);
+        }
       }
 
-      html,
-      body {
-        font-family: 'Inter', sans-serif;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-      }
-
-      h1 {
-        margin-top: 0;
-      }
-
-      .button {
-        background: white;
-        color: black;
-        text-decoration: none;
-        padding: 1em;
-        border-radius: 1em;
-      }
-      section {
-        background: linear-gradient(to top right, red, black);
-        color: white;
-        min-height: 30%;
-        display: block;
-        padding-top: 5em;
-        padding-left: 5em;
-      }
-      label {
-        margin-right: 1em;
-      }
-      #chat {
-        background: rgba(0, 0, 0, 0.6);
-        font-size: 18px;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: rgba(0, 0, 0, 0.75);
-        font-family: 'Source Sans 3';
-        font-weight: bold;
-      }
-      input {
-        -webkit-text-stroke: transparent;
-      }
-      .name {
-        color: rgb(232, 186, 200);
-      }
-      pre {
-        background: black;
-      }
     </style>
   </head>
 
   <body>
-    <header class="hero">
-      <h1>
-        :trollsmile: admin
-      </h1>
-      the world's worst Roblox admin system
-      <br>
-      <br>
-      <a href="https://www.roblox.com/library/6308376202/trollsmile-admin-loader" class="button">GET THE PLUGIN</a>
-    </header>
-    <section>
-      <h1>Config Generator</h1>
-      <div id="chat">
-        Chat '/?' or '/help' for a list of chat commands.<br>
-        <span class="name">
-          [SunRaysEffect]: 
-        </span>
-        so uh here you can configure trollsmile admin
-      </div>
-      <br>
-      <label for="t!">Prefix</label><input type="string" name="prefix" id="prefix" value="t!">
-      <label for="permission">Default permission</label><input type="number" name="permission" id="permission" value="0" min="-1">
-      <pre>require(5685499094).new(game:GetService('HttpService'):JSONDecode[[{
-        
-}]])</pre>
-    </section>
-    <script src="main.js"></script>
+    <div class="space-y-20 sm:space-y-32 md:space-y-40 lg:space-y-44">
+      <header class="relative z-10 max-w-screen-lg xl:max-w-screen-xl mx-auto mt-40">
+        <span class="logo text-3xl"><img src="https://nxtbot.ml/icon.png" width="50" class="inline mr-5"><span
+            class="hidden sm:inline">
+            trollsmile admin
+          </span></span>
+        <h1
+          class="text-4xl sm:text-6xl lg:text-7xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10">
+          The Roblox admin system you hate.</h1>
+        <p class="max-w-screen-lg text-lg sm:text-2xl sm:leading-10 font-medium mb-10 sm:mb-11">Even I hate it, and I
+          made it.</p>
+        <div class="flex flex-wrap space-y-4 sm:space-y-0 sm:space-x-4 text-center"><a
+            class="w-full sm:w-auto flex-none bg-gray-900 hover:bg-gray-700 text-white text-lg leading-6 font-semibold py-3 px-6 border border-transparent rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none transition-colors duration-200"
+            href="https://github.com/troIIsmile/admin">Get started</a><button type="button"
+            onclick="navigator.clipboard.writeText(this.querySelector('.text-gray-900').innerText.substring(2))"
+            class="w-full sm:w-auto flex-none bg-gray-50 text-gray-400 hover:text-gray-900 font-mono leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition-colors duration-200"><span
+              class="text-gray-900"><span class="hidden sm:inline text-gray-500" aria-hidden="true">$
+              </span>npm install @rbxts/trollsmile</span><span class="sr-only">(click to copy to clipboard)</span><svg
+              width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path
+                d="M8 16c0 1.886 0 2.828.586 3.414C9.172 20 10.114 20 12 20h4c1.886 0 2.828 0 3.414-.586C20 18.828 20 17.886 20 16v-4c0-1.886 0-2.828-.586-3.414C18.828 8 17.886 8 16 8m-8 8h4c1.886 0 2.828 0 3.414-.586C16 14.828 16 13.886 16 12V8m-8 8c-1.886 0-2.828 0-3.414-.586C4 14.828 4 13.886 4 12V8c0-1.886 0-2.828.586-3.414C5.172 4 6.114 4 8 4h4c1.886 0 2.828 0 3.414.586C16 5.172 16 6.114 16 8">
+              </path>
+            </svg></button></div>
+      </header>
+      <section class="flex flex-wrap justify-center gap-10">
+        <figure class="bg-gray-100 rounded-xl p-8">
+          <img class="w-32 h-32 rounded-full mx-auto" src="https://t1.rbxcdn.com/9c7d9c7102ac4c9967b1c43cd4ffd8d9" alt="LuaQuack"
+            width="384" height="512">
+          <div class="pt-6 text-center space-y-4">
+            <blockquote>
+              <p class="text-lg font-semibold">
+                “trollsmile winning”
+              </p>
+            </blockquote>
+            <figcaption class="font-medium">
+              <div class="text-cyan-600">
+                LuaQuack
+              </div>
+              <div class="text-gray-500">
+                Creator of Lightning Cannon
+              </div>
+            </figcaption>
+          </div>
+        </figure>
+          <figure class="bg-gray-100 rounded-xl p-8">
+            <img class="w-32 h-32 rounded-full mx-auto"
+              src="https://7960.ml/icon.jpg" alt="Charlie" width="384" height="512">
+            <div class="pt-6 text-center space-y-4">
+              <blockquote>
+                <p class="text-lg font-semibold">
+                  “please fucking stop”
+                </p>
+              </blockquote>
+              <figcaption class="font-medium">
+                <div class="text-cyan-600">
+                  Charlie
+                </div>
+                <div class="text-gray-500">
+                  """""admin dev"""""
+                </div>
+              </figcaption>
+            </div>
+          </figure>
+          <figure class="bg-gray-100 rounded-xl p-8">
+            <img class="w-32 h-32 rounded-full mx-auto" src="https://5079.ml/branding/jack5079/pfp.jpg"
+              alt="Charlie" width="384" height="512">
+            <div class="pt-6 text-center space-y-4">
+              <blockquote>
+                <p class="text-lg font-semibold">
+                  “why did i make this”
+                </p>
+              </blockquote>
+              <figcaption class="font-medium">
+                <div class="text-cyan-600">
+                  Jack
+                </div>
+                <div class="text-gray-500">
+                  Creator of trollsmile
+                </div>
+              </figcaption>
+            </div>
+          </figure>
+      </section>
+    </div>
   </body>
 
 </html>
