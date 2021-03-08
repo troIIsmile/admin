@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/trollsmile",
-	"version": "7.1.0",
+	"version": "7.1.1",
 	"description": "the worst package on this site",
 	"types": "out/index.d.ts",
 	"scripts": {
