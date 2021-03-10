@@ -1,15 +1,11 @@
 /**
  * @fileoverview trollsmile admin MainModule
  * @license ISC
- * @author Jack <hello@5079.ml> (https://5079.ml)
+ * @author Jack W. <hello@5079.ml> (https://5079.ml)
  * @package @rbxts/trollsmile
  * if you see TS.import in this file this means you aren't looking at the source
  * please go to github.com/troIImile/admin for the source
  */
-
-// You may have noticed that I use .forEach with an async function, but I'm not using `await`.
-// Why is that?
-// Well, using async functions in roblox-ts is sort of like coroutine.wrap, and .forEach compiles to a for-loop for some reason.
 
 import Roact from '@rbxts/roact'
 import { GroupService, MarketplaceService, Players } from '@rbxts/services'
@@ -29,11 +25,21 @@ function entries<V> (object: {
   [key: number]: V
 }): (string | number | Exclude<V, undefined>)[][] {
   const array = []
-  for (const [key, value] of pairs(object)) {
-    array.push([key, value])
+  for (const subarray of pairs(object)) {
+    array.push(subarray)
   }
   return array
 }
+
+/**
+ * "trollsmile [not] winning" - LuaQuack, 2021
+ *
+ * The Trollsmile class is an implentation of the trollsmile standard on Roblox.
+ * 
+ * @since e5e89641ad76659349015878d657e40fa8e0d5c4
+ * @license ISC
+ * @author Jack W. <hello@5079.ml> (https://5079.ml)
+ */
 class Trollsmile {
   /** Anywhere where we would put "trollsmile", put `this.brand`. This allows users to rebrand the admin system to whatever they want, like to "moller admin". */
   brand = 'trollsmile'
@@ -84,7 +90,7 @@ class Trollsmile {
 
     // load ranks
     if (ranks) this.ranks = new Map(entries(ranks) as [string, Rank][])
-    
+
     // setup player
     this.ranks.set('Player', {
       permission
@@ -198,7 +204,9 @@ class Trollsmile {
   }
   static plrCommand = player_command
   static player_command = player_command
+  /** @deprecated use the Notification Roact component instead */
   static notif = notif
+  static Notification = Notification
   static getPlayers = get_players
   static get_players = get_players
 }

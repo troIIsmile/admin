@@ -38,6 +38,9 @@ export async function save_map (bot: Bot) {
   }
 }
 
+/**
+ * @deprecated use the Notification Roact component instead
+ */
 export async function notif ({ plr, text, show_for = 10, on_click }: { plr: Player; text: string; show_for?: number, on_click?: () => {} }) {
   Roact.mount(Roact.createElement(Notification, {
     text,
