@@ -17,6 +17,6 @@ export function run (message: message, args: string[]) {
   MessagingService.PublishAsync('GlobalMessageTrollsmile', [Chat.FilterStringForBroadcast(args.join(' '), message.author), message.author.Name])
 }
 
-export const desc = 'Display a message on every server.'
+export const help = 'Display a message on every server.'
 export const permission = 3
 export const aliases = ['ga', 'gm']

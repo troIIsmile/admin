@@ -84,7 +84,7 @@ class Trollsmile {
     welcome = true,
     commandsFolder = script.commands,
     devRank = false,
-    brand = 'trollsmile',
+    brand,
     aliases = {}
   }: Settings = {}) {
 
@@ -103,7 +103,8 @@ class Trollsmile {
     })
 
 
-    this.brand = brand
+    if (brand) this.brand = brand
+    
     this.overrides = cmdOverrides
     this.prefix = prefix
 
@@ -202,6 +203,7 @@ class Trollsmile {
   permission (user_id: number): number {
     return this.ranks.get(this.rank(user_id))?.permission || 0
   }
+  //#region
   static plrCommand = player_command
   static player_command = player_command
   /** @deprecated use the Notification Roact component instead */
@@ -209,5 +211,6 @@ class Trollsmile {
   static Notification = Notification
   static getPlayers = get_players
   static get_players = get_players
+  //#endregion
 }
 export = Trollsmile

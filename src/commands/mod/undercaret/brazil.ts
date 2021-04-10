@@ -30,6 +30,6 @@ export const run = player_command(async plr => {
   Debris.AddItem(smoke, 99)
   Debris.AddItem(vel, 99)
 })
-export const desc = 'you are going to Brazil!'
+export const help = 'you are going to Brazil!'
 export const permission = 2
 export const aliases = []

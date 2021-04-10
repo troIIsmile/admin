@@ -16,6 +16,6 @@ export const run = player_command(plr => {
   }
 })
 
-export const desc = '💥'
+export const help = '💥'
 export const permission = 2
 export const aliases = ['kaboom', 'boom']

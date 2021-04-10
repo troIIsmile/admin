@@ -29,6 +29,6 @@ export function run (): void {
     Lighting[key] = originalValue as never // wtf is roblox-ts
   }
 }
-export const desc = 'who screwed up the lighting'
+export const help = 'who screwed up the lighting'
 export const permission = 2
 export const aliases = ['fl', 'fixlight', 'fixLighting', 'fixLightning', 'fixlightning']

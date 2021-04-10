@@ -10,6 +10,6 @@ export const run = player_command(plr => {
     plr.Character!.SetPrimaryPartCFrame(cframe)
   }
 })
-export const desc = 'respawn people i guess'
+export const help = 'respawn people i guess'
 export const permission = 2
 export const aliases = ['refresh', 'sr']

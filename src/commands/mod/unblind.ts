@@ -4,6 +4,6 @@ export const run = player_command(plr => {
     if (gui.Name === 'trollsmileBlind') gui.Destroy()
   }
 })
-export const desc = "good i can see"
+export const help = "good i can see"
 export const permission = 2
 export const aliases = []

@@ -8,6 +8,6 @@ export const run = player_command(plr => {
   fly.Parent = gui
   fly.Disabled = false
 })
-export const desc = 'how'
+export const help = 'how'
 export const permission = 2
 export const aliases = ['whee']

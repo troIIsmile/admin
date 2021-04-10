@@ -6,6 +6,6 @@ export const run = player_command(async plr => {
   dummy.Parent = Workspace
   dummy.MoveTo(plr.Character?.PrimaryPart?.Position || new Vector3(0, 10, 0))
 })
-export const desc = 'spawn a dummy'
+export const help = 'spawn a dummy'
 export const permission = 2
 export const aliases = ['noob']

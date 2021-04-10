@@ -17,7 +17,7 @@ const songs = [
   869553580, // BFG Division
   1072940964 // steventhedreamer - Synchobonk
 ]
-export const desc = 'trollsmile credits'
+export const help = 'trollsmile credits'
 export const permission = 0
 export const aliases = ['about', 'winning', 'trollsmile', 'meta']
 

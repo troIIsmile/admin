@@ -14,5 +14,5 @@ export const run = player_command(plr => {
     })
   }
 })
-export const desc = 'Give players an invisible force field and infinite health.'
+export const help = 'Give players an invisible force field and infinite health.'
 export const permission = 2

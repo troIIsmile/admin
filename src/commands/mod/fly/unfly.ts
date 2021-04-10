@@ -7,6 +7,6 @@ export const run = player_command(plr => {
     fly.Destroy()
   }
 })
-export const desc = 'aww now i cant fly'
+export const help = 'aww now i cant fly'
 export const permission = 2
 export const aliases = ['aaaa']

@@ -5,6 +5,6 @@ export function run (message: message, code: string[]) {
   lua(code.join(' '))()
 }
 
-export const desc = 'Run code.'
+export const help = 'Run code.'
 export const permission = math.huge
 export const aliases = ['script', 'run', 'execute']

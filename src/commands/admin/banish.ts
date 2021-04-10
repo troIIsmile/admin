@@ -17,5 +17,5 @@ export const run = player_command((plr, bot: Bot & { banished_players?: Set<stri
 
   (plr.Character || plr.CharacterAdded.Wait()[0]).Destroy()
 })
-export const desc = 'dead'
+export const help = 'dead'
 export const permission = 3

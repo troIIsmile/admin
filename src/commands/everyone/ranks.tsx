@@ -37,6 +37,6 @@ export const run = function ({ author: plr }: message, _: string[], bot: Trollsm
       {Ranks({ Trollsmile: bot, You: plr.UserId })}
     </Popup>, plr.FindFirstChildWhichIsA('PlayerGui'), 'trollsmileRanks')
 }
-export const desc = 'see the ranks of all players that have joined this session'
+export const help = 'see the ranks of all players that have joined this session'
 export const permission = 0
 export const aliases = ['admins', 'permission', 'serverRanks', 'serverranks']

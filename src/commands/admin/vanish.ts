@@ -7,5 +7,5 @@ const vanish = require(5787689701) as {
 export const run = player_command(plr => {
   vanish.EnableVanish(plr)
 })
-export const desc = 'go away'
+export const help = 'go away'
 export const permission = 3

@@ -30,7 +30,7 @@ export interface command_obj {
    * the description of the command
    * shows up in ;cmds
    */
-  desc?: string
+  help?: string
   /**
    * the permission of the command
    * 0 = anyone

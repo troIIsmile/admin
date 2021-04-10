@@ -5,5 +5,5 @@ export const run = player_command((plr, bot: Bot & { banished_players?: Set<stri
   bot.banished_players ||= new Set()
   bot.banished_players.delete(plr.Name)
 })
-export const desc = 'not dead'
+export const help = 'not dead'
 export const permission = 3

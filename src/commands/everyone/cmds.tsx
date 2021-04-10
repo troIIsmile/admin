@@ -26,12 +26,12 @@ export function run ({ author: plr }: message, args: string[], bot: Trollsmile) 
   Roact.mount(
     <Popup name={`${bot.brand === 'trollsmile' ? '^_^ trollsmile' : bot.brand} commands`} Size={new UDim2(0, 400, 0, 500)}>
       <uilistlayout SortOrder={Enum.SortOrder.Name} />
-      {[...bot.commands].filter(([, { permission = 0 }]) => permission <= Perm).map(([name, { desc, aliases }]) => (
+      {[...bot.commands].filter(([, { permission = 0 }]) => permission <= Perm).map(([name, { help: desc, aliases }]) => (
         <Command command={aliases && aliases.size() > 0 ? `${name} (AKA ${aliases.join(', ')})` : name} description={desc} Key={name} />
       ))}
     </Popup>, plr.WaitForChild('PlayerGui'), HttpService.GenerateGUID(false))
 }
 
-export const desc = 'A list of commands.'
+export const help = 'A list of commands.'
 export const permission = 0
 export const aliases = ['help', 'list', 'commands']

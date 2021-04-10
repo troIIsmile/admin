@@ -22,7 +22,7 @@
 	},
 	"homepage": "https://github.com/troIIsmile/admin#readme",
 	"dependencies": {
-		"@rbxts/chat-service": "^1.0.2",
+		"@rbxts/chat-service": "^1.1.0",
 		"@rbxts/compiler-types": "^1.0.0-types.0",
 		"@rbxts/roact": "^1.3.0-ts.10",
 		"@rbxts/string-utils": "^1.0.1",

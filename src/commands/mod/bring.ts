@@ -8,6 +8,6 @@ export async function run (message: message, args: string[]) {
     (plr.Character || plr.CharacterAdded.Wait()[0]).MoveTo(pos)
   })
 }
-export const desc = 'teleport people to you'
+export const help = 'teleport people to you'
 export const aliases = ['giveme', 'bringme']
 export const permission = 2

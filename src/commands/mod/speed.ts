@@ -20,6 +20,6 @@ export async function run (message: message, args: string[]) {
   }
 
 }
-export const desc = 'gotta go fast'
+export const help = 'gotta go fast'
 export const aliases = ['walkspeed', 'walkSpeed']
 export const permission = 2

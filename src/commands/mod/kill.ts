@@ -16,6 +16,6 @@ export const run = player_command(plr => {
   }
 })
 
-export const desc = 'kill people idk'
+export const help = 'kill people idk'
 export const permission = 2
 export const aliases = ['die', 'tokill']

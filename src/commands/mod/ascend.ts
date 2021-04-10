@@ -84,6 +84,6 @@ export const run = player_command(async plr => {
   })
 })
 
-export const desc = 'like holy wrench but worse'
+export const help = 'like holy wrench but worse'
 export const permission = 2
 export const aliases = ['holy', 'wrench']

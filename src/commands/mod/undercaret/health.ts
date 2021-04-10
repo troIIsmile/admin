@@ -22,6 +22,6 @@ export async function run (message: message, args: string[]) {
   }
 
 }
-export const desc = 'gotta heal fast'
+export const help = 'gotta heal fast'
 export const aliases = ['setHealth', 'sethealth']
 export const permission = 2

@@ -14,7 +14,7 @@
 			"export const run = player_command(async plr => {",
 			"  $0",
 			"})",
-			"export const desc = '$1'",
+			"export const help = '$1'",
 			"export const permission = ${2:3}",
 			"export const aliases = [$3]"
 		],
