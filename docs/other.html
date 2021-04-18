@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>trollsmile admin - other</title>
+    <meta name="description" content="the world's worst Roblox admin system">
+    <link rel="stylesheet" href="source-sans-3.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      span.logo {
+        font-family: 'Inter Black', sans-serif;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html {
+          background: black;
+          filter: invert(1) hue-rotate(180deg);
+        }
+
+        img,
+        .inv {
+          filter: invert(1) hue-rotate(180deg);
+        }
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="space-y-20 sm:space-y-32 md:space-y-40 lg:space-y-44">
+      <header class="relative z-10 max-w-screen-lg xl:max-w-screen-xl mx-auto mt-40 p-8">
+        <span class="logo text-3xl"><img src="https://nxtbot.ml/icon.png" width="50" class="inline mr-5"><span
+            class="hidden sm:inline">
+            trollsmile admin
+          </span></span>
+        <h1
+          class="text-4xl sm:text-6xl lg:text-7xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10">
+          Getting started with other games</h1>
+        <ol class="list-decimal">
+          <li>
+            require the module
+            <br>
+            <div class="flex flex-wrap space-y-4 sm:space-y-0 sm:space-x-4 text-center"><button type="button"
+                onclick="navigator.clipboard.writeText(this.querySelector('.text-gray-900').innerText)"
+                class="w-full sm:w-auto flex-none bg-gray-50 text-gray-400 hover:text-gray-900 font-mono leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition-colors duration-200"><span
+                  class="text-gray-900"><span class="hidden sm:inline text-gray-500" aria-hidden="true"><svg
+                      xmlns="http://www.w3.org/2000/svg" width="20" class="inline" viewBox="0 0 20 20"
+                      fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </span>local Trollsmile = require(6488124366)</span><span class="sr-only">(click to copy to
+                  clipboard)</span><svg width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z" />
+                  <path
+                    d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z" />
+                </svg></button></div>
+          </li>
+          <li>use it like a class
+            <pre class="rounded-2xl bg-gray-100 p-8 block font-mono">// default settings look a little like this
+const trollsmile = new Trollsmile({
+  devRank: false, // gives SunRaysEffect owner (pls enable lol)
+  permission: 0, // the default permission level
+  ranks: {},
+  prefix: 't!',
+  cmdOverrides: {}, // key is a command name, value is the permission number
+  aliases: {},
+  brand: 'trollsmile', // change this to change what it says in notifs and dialogs instead of trollsmile
+  welcome: true,
+  // overrideOwner: "twitterwebapp" // provide this to change the owner (can be a userid or username)
+})</pre>
+          </li>
+        </ol>
+      </header>
+    </div>
+  </body>
+
+</html>
