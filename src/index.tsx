@@ -1,7 +1,7 @@
 /**
  * @fileoverview trollsmile admin MainModule
  * @license ISC
- * @author Jack W. <hello@5079.ml> (https://5079.ml)
+ * @author Jack W. <hello@5079.ml>
  * @package @rbxts/trollsmile
  * if you see TS.import in this file this means you aren't looking at the source
  * please go to github.com/troIImile/admin for the source
@@ -113,14 +113,16 @@ class Trollsmile {
     }
 
     // load commands
-    instances_of(commandsFolder, 'ModuleScript').forEach(async scr => {
+    instances_of(commandsFolder, 'ModuleScript').forEach(scr => {
+      pcall(async () => {
       const command = require(scr) as command_obj
       this.commands.set(scr.Name, command)
       if (command.aliases) {
         command.aliases.forEach(alias => {
           this.aliases.set(alias, scr.Name)
         })
-      }
+      }  
+      })
     })
 
 
