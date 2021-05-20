@@ -114,15 +114,17 @@ class Trollsmile {
 
     // load commands
     instances_of(commandsFolder, 'ModuleScript').forEach(scr => {
-      pcall(async () => {
-      const command = require(scr) as command_obj
-      this.commands.set(scr.Name, command)
-      if (command.aliases) {
-        command.aliases.forEach(alias => {
-          this.aliases.set(alias, scr.Name)
-        })
-      }  
-      })
+      try {
+        const command = require(scr) as command_obj
+        this.commands.set(scr.Name, command)
+        if (command.aliases) {
+          command.aliases.forEach(alias => {
+            this.aliases.set(alias, scr.Name)
+          })
+        }
+      } catch {
+        
+      }
     })
 
 
